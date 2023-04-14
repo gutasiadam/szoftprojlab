@@ -40,7 +40,7 @@ class Skeleton {
 				System.out.println("Ismeretlen parancs.");
 			}
 			
-			System.out.println("MenuItem is"+this.selectedMenuItem);
+			System.out.println("MenuItem is "+this.selectedMenuItem);
 			if(tests.get(this.selectedMenuItem) !=null) {
 				//Teszt futtatasa
 				System.out.println(tests.get(selectedMenuItem).getSecond());

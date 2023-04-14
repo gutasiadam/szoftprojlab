@@ -1,5 +1,8 @@
 public class WaterSource extends NonPipe {
 
+    /** 
+     * Minden belecsatlakoztatott csovet megtolt vizzel.
+     */
     @Override
     public void step() {
         for(Pipe p : neighbors){
@@ -7,6 +10,12 @@ public class WaterSource extends NonPipe {
         }
     }
 
+    
+    /** 
+     * Ezen keresztul lehet bele csovet kotni.
+     * @param holdingPipe - belekotni kivant cso
+     * @return boolean - sikeres-e a csobekotes
+     */
     @Override
     public boolean placePipe(Pipe holdingPipe){
         NonPipe n = holdingPipe.getNeighbors().get(0);

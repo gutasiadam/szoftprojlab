@@ -1,3 +1,3 @@
 public interface SaboteurPointSource {
-    public int measureAndResetLeakedWaterAmount();
+    public int measureAndResetLeakedWaterAmount(); /** Visszadja a kifolyott viz mennyiseget, majd nullara allitja */
 }

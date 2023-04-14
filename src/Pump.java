@@ -8,6 +8,9 @@ public class Pump extends NonPipe implements SaboteurPointSource {
     private boolean broken;
     private int leakedWaterAmount;
     
+    /** 
+     * Ezen keresztul lehet megjavitani.
+     */
     @Override
     public void repair(){
         boolean userInput = false; //TODO: stdinrol
@@ -16,12 +19,21 @@ public class Pump extends NonPipe implements SaboteurPointSource {
         }
     }
 
+    
+    /** 
+     * Ezen keresztul lehet beallitani a pumpalasi iranyt.
+     * @param src - szivasi irany
+     * @param dest - nyomasi irany
+     */
     @Override
     public void adjust(int src, int dest){
         inputPipe = neighbors.get(src);
         outputPipe = neighbors.get(dest);
     }
 
+    /** 
+     * A vizfolyast szimulalja.
+     */
     @Override
     public void step(){
         //TODO leakedWaterIncrease ha nincs semmibe kötve
@@ -42,9 +54,17 @@ public class Pump extends NonPipe implements SaboteurPointSource {
         }
     }
 
+    /** 
+     * Elrontja a pumpat.
+     */
     public void breakPump(){ //itt muszaj valami mas nevet hasznalni mert a break kulcsszo
         broken = true;
     }
+
+    /** 
+     * Visszadja a kifolyott viz mennyiseget, majd nullara allitja
+     * @return int - a kifolyott viz mennyisege
+     */
     @Override
     public int measureAndResetLeakedWaterAmount(){
         int lkdwtramt = leakedWaterAmount;
