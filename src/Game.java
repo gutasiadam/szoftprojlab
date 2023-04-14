@@ -2,14 +2,23 @@ import java.util.ArrayList;
 
 public class Game {
 
-	//ArrayList<Repairman> repairmanGroup;
-	//ArrayList<Saboteur> saboteurGroup;
+	//A Szerelő játrékosok.
+	ArrayList<Repairman> repairmanGroup;
+	//A Szabotőr játékosok
+	ArrayList<Saboteur> saboteurGroup;
+	//A Szerelők pontja
 	private int repairmanPoints;
+	//A Szabotőrök pontja.
 	private int saboteurPoints;
+	//A játék által tárolt elemek.
 	private ArrayList<Element> gameElements;
+	//A játék által tárolt Ciszternák.
 	private ArrayList<Cistern> cisterns;
+	//A játék által tárolt elemek, melyekből tud elfolyni víz a sivatagba.
 	private ArrayList<SaboteurPointSource> saboteurPointSources;
+	//A hátralévő körök száma
 	private int remainingRounds;
+	//A Pumpákat elrontó DestructionTimer
 	private DestructionTimer timer;
 	
 	/**
@@ -17,13 +26,15 @@ public class Game {
 	 */
 	public Game()
 	{
+		repairmanGroup=new ArrayList<Repairman>();
+		saboteurGroup=new ArrayList<Saboteur>();
 		saboteurPointSources = new ArrayList<SaboteurPointSource>();
 		gameElements=new ArrayList<Element>();
 		cisterns = new ArrayList<Cistern>();
 		timer = new DestructionTimer();
 		repairmanPoints=0;
 		saboteurPoints=0;
-		remainingRounds=1;
+		remainingRounds=1;//Ezt be kell állítani még valahogy!!!
 	}
 	
 	/**
@@ -36,15 +47,24 @@ public class Game {
 	}
 	
 	/**
-	 * Elindítja a játékot.
+	 * Elindítja a játékot, és menedzseli melyik karaknernek van a köre.
 	 */
 	public void playGame()
 	{
 		System.out.println("playGame");
 		while(remainingRounds>0)
 		{
-			//Emberek megkaplyák a körüket.
-			endTurn();
+			for(int i = 0;i<saboteurGroup.size();i++)
+			{
+				saboteurGroup.get(i).step();
+				endTurn();
+			}
+			
+			for(int i = 0;i<repairmanGroup.size();i++)
+			{
+				repairmanGroup.get(i).step();
+				endTurn();
+			}
 			remainingRounds--;
 		}
 		endGame();
@@ -114,7 +134,7 @@ public class Game {
 	 */
 	public void addSaboteur()
 	{
-		//saboteurGroup.add
+		saboteurGroup.add(new Saboteur());
 		System.out.println("addSaboteur");
 	}
 	
@@ -123,7 +143,7 @@ public class Game {
 	 */
 	public void addRepairman()
 	{
-		//repairmanGroup.add
+		repairmanGroup.add(new Repairman());
 		System.out.println("addRepairman");
 	}
 	
@@ -164,6 +184,7 @@ public class Game {
 		System.out.println("addPump");
 		saboteurPointSources.add(p);
 		gameElements.add(p);//Ez kell-e??
+		timer.addPump(p);
 	}
 	
 	/**
