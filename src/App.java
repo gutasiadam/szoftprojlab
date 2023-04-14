@@ -1,5 +1,7 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+    	Skeleton skeleton=new Skeleton();
+    	skeleton.showTestMenu();
+    	System.out.println("Exited from menu");
     }
 }
