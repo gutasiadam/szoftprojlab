@@ -9,6 +9,7 @@ public class Repairman extends Character {
 	Repairman(){
 		holdingPipe=null;
 		holdingPump=null;
+		game=null;
 	}
 	//getterek, setterek
 	//a teszteknel hasznaltunk setPosit, de meg a 4.heten nem volt
@@ -30,10 +31,19 @@ public class Repairman extends Character {
 	}
 	public void setHoldingPipe(Pipe p) {
 		holdingPipe=p;
-	}
+	}	
 //-----------------------------------------	
+/*	Ha kesz a getNeighbors
+ * public void move(int dir) {
+		Element[] neighbors = position.getNeighbors();
+		boolean success = neighbors[dir].accept(this);
+		if(success) position.remove(this);
+	}*/
 	public void RepairElement() {
 		position.repair();
+	}
+	public void adjustPump(int src, int dest) {
+		position.adjust(src, dest);
 	}
 	public void LiftPipe(int dir) {
 		if(holdingPipe==null) holdingPipe=position.lift(dir);
@@ -47,4 +57,5 @@ public class Repairman extends Character {
 	public void PlacePump() {
 		position.placePump(holdingPump);
 	}
+	//step
 }

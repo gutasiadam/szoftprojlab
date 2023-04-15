@@ -42,7 +42,9 @@ public abstract class Element implements RepairmanPlace, SaboteurPlace{
      * Ezen keresztul lehet elrontani. Alapertelmezetten nem csinal semmit.
      */
     @Override
-    public void damage() { }
+    public void damage() {
+    	System.out.println("Ilyen elemet nem lehet kilyukasztani!");
+    }
 
     /** 
      * Ezen keresztul lehet megjavitani. Alapertelmezetten nem csinal semmit.

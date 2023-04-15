@@ -52,4 +52,22 @@ class Skeleton {
 		}
 		userInput.close();
 	}
+	
+	
+	public void SaboteurDealsDamageOnPipeTest(){
+		Saboteur s = new Saboteur();
+		Pipe p = new Pipe();
+		s.setPosition(p);
+		s.dealDamage();
+	}
+	public void SaboteurDealsDamageOnCisternTest() {
+		Saboteur s = new Saboteur();
+		Cistern p = new Cistern();
+		s.setPosition(p);
+		s.dealDamage();
+	}
+	public void CharacterMovesFromPipeToCistern() {}
+	public void CharacterMovesFromCisternToPipe() {}
+	public void DestructionTimeDestructsPumps() {}
+	public void DestructionTimerRecievesNewPump() {}
 }

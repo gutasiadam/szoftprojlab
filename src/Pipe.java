@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Scanner;
 
 public class Pipe extends Element implements SaboteurPointSource{
     private boolean holeOnPipe;
@@ -47,8 +48,20 @@ public class Pipe extends Element implements SaboteurPointSource{
      */
     @Override
     public void damage(){
-        boolean userInput = false; //TODO: stdinrol
-        if(userInput) holeOnPipe = true;
+    	System.out.println("Lyukasztas irja be a 0-as szamot, majd enter!");
+        Scanner userInput = new Scanner(System.in);
+        int input= userInput.nextInt();
+        if(holeOnPipe) {
+        	System.out.println("A cso mar lyukas.");
+        }
+        else {
+            if(input==0) {
+            	holeOnPipe = true;
+            	System.out.println("Kilyukasztottad a csovet.");
+            }
+            else System.out.println("Nem tortent lyukasztas.");
+            userInput.close();
+        }
     }
     
     /** 
