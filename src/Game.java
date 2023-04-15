@@ -102,11 +102,21 @@ public class Game {
 	 */
 	public void SimulateWaterflow()
 	{
-		System.out.println("SimulateWaterFlow");
+		System.out.println("Game.SimulateWaterflow()");
 		for(int i = 0;i<cisterns.size();i++)
 		{
 			cisterns.get(i).step();
 		}
+	}
+	
+	/**
+	 * Hozzáad egy Ciszternát a játékhoz
+	 * @param c Ciszterna
+	 */
+	public void addCistern(Cistern c)
+	{
+		System.out.println("addCistern");
+		cisterns.add(c);
 	}
 	
 	/**
