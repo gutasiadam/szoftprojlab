@@ -1,5 +1,17 @@
 public class WaterSource extends NonPipe {
 
+	
+	/**
+     * @author Szikszai Levente
+     * Forras inicializalasa
+     */
+    WaterSource()
+    {
+        super();
+    }
+
+	
+	
     /** 
      * Minden belecsatlakoztatott csovet megtolt vizzel.
      */

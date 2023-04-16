@@ -9,6 +9,19 @@ public class Pump extends NonPipe implements SaboteurPointSource {
     private boolean broken;
     private int leakedWaterAmount;
     
+    /**
+     * @author Szikszai Levente
+     * Inicializalja a Pumpat
+     */
+    Pump()
+    {
+        super();
+        broken = false;
+        leakedWaterAmount=0;
+    }
+
+    
+    
     /** 
      * Pumpa megjavitása
      */

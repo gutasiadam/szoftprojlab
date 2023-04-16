@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -6,6 +7,19 @@ public class Pipe extends Element implements SaboteurPointSource{
     private int leakedWaterAmount;
     private List<NonPipe> neighbors;
     
+    
+    
+    /**
+     * @author Szikszai Levente
+     * Inicializalja a Pipe-ot
+     */
+    Pipe()
+    {
+        neighbors = new ArrayList<NonPipe>();
+        leakedWaterAmount = 0;
+        holeOnPipe = false;
+    }
+
     
     /** 
      * Ot kell meghivni ha ra szeretnek lepni a csore.

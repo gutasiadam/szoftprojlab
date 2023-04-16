@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Element implements RepairmanPlace, SaboteurPlace{
@@ -5,6 +6,19 @@ public abstract class Element implements RepairmanPlace, SaboteurPlace{
     protected List<Character> standingOn;
     private String Name;
 
+    
+    /** 
+     * @author Szikszai Levente
+     * Inicializalja az Element-et
+     */
+    Element()
+    {
+        containingWater = false;
+        standingOn= new ArrayList<Character>();
+    }
+
+    
+    
     public String getName() {
     	return Name;
     }

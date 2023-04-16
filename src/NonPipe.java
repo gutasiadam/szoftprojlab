@@ -1,8 +1,21 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class NonPipe extends Element {
     protected List<Pipe> neighbors;
 
+    
+    /**
+     * @author Szikszai Levente
+     * Nonpipe inicializalasa
+     */
+    NonPipe()
+    {
+        super();
+        neighbors = new ArrayList<Pipe>();
+    }
+
+    
     
     /** 
      * Ezen keresztul lehet hozza csovet csatlakoztatni.

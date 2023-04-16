@@ -3,6 +3,17 @@ import java.util.List;
 public class Cistern extends NonPipe {
     private int waterFlown;
 
+    
+   /** @author Szikszai Levente
+    * Inicializalja a Ciszternat
+    */
+   Cistern()
+   {
+       super();
+       waterFlown = 0;
+   }
+
+    
     /** 
      * Szimulalja a viz folyasat.
      */
@@ -13,7 +24,8 @@ public class Cistern extends NonPipe {
             if(p.waterExtraction()) waterFlown++;
             List<NonPipe> pipeNeighbors = p.getNeighbors();
             for(NonPipe np : pipeNeighbors){
-                np.step();
+            	if(this!=np)
+            		np.step();
             }
         }
     }

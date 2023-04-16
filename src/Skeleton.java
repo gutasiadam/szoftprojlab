@@ -199,74 +199,87 @@ class Skeleton {
 	
 	
 	/**
-	 * A víz folyik a Forrástól a Ciszternáig a vízhálózaton keresztül.
-	 */
-	public void SimulateWaterflow()
-	{
-		//Setup
-		System.out.println("BEGIN");
-		WaterSource Source1 = new WaterSource();
-		Cistern Cistern1 = new Cistern();
-		Pump Pump1 = new Pump();
-		Pipe Pipe2 = new Pipe();
-		Pipe Pipe1 = new Pipe();
-		Cistern1.addNeighbor(Pipe1);
-		Pipe1.addNeighbor(Cistern1);
-		Pipe1.addNeighbor(Pump1);
-		Pump1.addNeighbor(Pipe1);
-		Pump1.addNeighbor(Pipe2);
-		Pump1.adjust(1, 0);
-		Pipe2.addNeighbor(Source1);
-		Pipe2.addNeighbor(Pump1);
-		Source1.addNeighbor(Pipe2);
-		game = new Game();		//Valahogy resetelni kell a Game-et tesztenként
-		game.addCistern(Cistern1);
-		
-		//Input
-		Scanner sc = new Scanner(System.in);
-		System.out.println("DECISION Pump1 el van romolva? (I/N)");
-		String brokePump1 = sc.next();
-		while(brokePump1.equals("I")||brokePump1.equals("N"))
-		{
-			brokePump1 = sc.next();
-			System.out.println("Ervenytelen valasz! Probalkozzon ujra. (I/N)>");
-		}
-		if(brokePump1.equals("I"))
-		{
-			Pump1.breakPump();
-		}
-		
-		System.out.println("DECISION Pipe1 lyukas? (I/N)>");
-		String damagePipe1 = sc.next();
-		while(damagePipe1.equals("I")||damagePipe1.equals("N"))
-		{
-			damagePipe1 = sc.next();
-			System.out.println("Ervenytelen valasz! Probalkozzon ujra. (I/N)>");
-		}
-		if(damagePipe1.equals("I"))
-		{
-			Pipe1.damage();
-		}
-		
-		System.out.print("DECISION Pipe2 lyukas? (I/N)>");
-		String damagePipe2 = sc.next();
-		while(damagePipe2.equals("I")||damagePipe2.equals("N"))
-		{
-			damagePipe2 = sc.next();
-			System.out.println("Ervenytelen valasz! Probalkozzon ujra. (I/N)>");
-		}
-		if(damagePipe2.equals("I"))
-		{
-			Pipe2.damage();
-		}
-		sc.close();
-		
-		//Teszt
-		
-		System.out.print("Begin->");
-		game.SimulateWaterflow();
-		System.out.println("END<-Game.SimulateWaterflow()");
-	}
+     * @author Szikszai Levente
+     * A víz folyik a Forrástól a Ciszternáig a vízhálózaton keresztül.
+     */
+    public void SimulateWaterflow()
+    {
+        //Setup
+        //System.out.println("BEGIN");
+        WaterSource Source1 = new WaterSource();
+        Cistern Cistern1 = new Cistern();
+        Pump Pump1 = new Pump();
+        Pipe Pipe2 = new Pipe();
+        Pipe Pipe1 = new Pipe();
+        Cistern1.addNeighbor(Pipe1);
+        Pipe1.addNeighbor(Cistern1);
+        Pipe1.addNeighbor(Pump1);
+        Pump1.addNeighbor(Pipe1);
+        Pump1.addNeighbor(Pipe2);
+        Pump1.adjust(1, 0);
+        Pipe2.addNeighbor(Source1);
+        Pipe2.addNeighbor(Pump1);
+        Source1.addNeighbor(Pipe2);
+        game = new Game();      //Valahogy resetelni kell a Game-et tesztenként
+        game.addCistern(Cistern1);
+        
+        //Input
+        Scanner sc = new Scanner(System.in);
+        System.out.println("DECISION Pump1 el van romolva? (I/N)");
+        
+        String brokePump1 = "";
+        if(sc.hasNext())
+            brokePump1 = sc.next();
+        
+        
+        while(!(brokePump1.equals("I")||brokePump1.equals("N")))
+        {
+            brokePump1 = sc.next();
+            System.out.println("Ervenytelen valasz! Probalkozzon ujra. (I/N)>");
+        }
+        if(brokePump1.equals("I"))
+        {
+            Pump1.breakPump();
+        }
+        
+        System.out.println("DECISION Pipe1 lyukas? (I/N)>");
+        String damagePipe1 = "";
+        if(sc.hasNext())
+            damagePipe1 = sc.next();
+        
+        while(!(damagePipe1.equals("I")||damagePipe1.equals("N")))
+        {
+            damagePipe1 = sc.next();
+            System.out.println("Ervenytelen valasz! Probalkozzon ujra. (I/N)>");
+        }
+        if(damagePipe1.equals("I"))
+        {
+            Pipe1.damage();
+        }
+        
+        System.out.print("DECISION Pipe2 lyukas? (I/N)>");
+        String damagePipe2 = "";
+        if(sc.hasNext())
+            damagePipe2 = sc.next();
+        
+        while(!(damagePipe2.equals("I")||damagePipe2.equals("N")))
+        {
+            damagePipe2 = sc.next();
+            System.out.println("Ervenytelen valasz! Probalkozzon ujra. (I/N)>");
+        }
+        if(damagePipe2.equals("I"))
+        {
+            Pipe2.damage();
+        }
+        sc.close();
+        
+        //Teszt
+        
+        System.out.print("Begin->");
+        game.SimulateWaterflow();
+        System.out.println("END<-Game.SimulateWaterflow()");
+    }
+
 	
 	/**
 	 * Az egyik Szerelő megpróbál bekötni egy csövet a Forrásba.
