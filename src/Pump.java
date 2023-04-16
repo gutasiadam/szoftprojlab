@@ -72,29 +72,77 @@ public class Pump extends NonPipe implements SaboteurPointSource {
     @Override
     public void step(){
         //TODO leakedWaterIncrease ha nincs semmibe kötve
+    	Tabulator.increaseTab();
+    	
         if(containingWater && !broken){
-            if(outputPipe.giveWater()){
+        	Tabulator.printTab();
+        	System.out.println("1.5 "+getName()+"->"+outputPipe.getName()+".giveWater()");
+        	boolean give = outputPipe.giveWater();
+        	
+        	
+            if(give){
                 containingWater = false;
             }
+            Tabulator.printTab();
+            System.out.println(getName()+".containingWater="+containingWater);
         }
+        
+        Tabulator.printTab();
+        System.out.println(getName()+".containingWater="+containingWater);
+        Tabulator.printTab();
+        System.out.println("1.6 "+getName()+"->"+inputPipe.getName()+".step()");
+        
         inputPipe.step();
         if(!containingWater && !broken){
-            if(inputPipe.waterExtraction()){
+        	Tabulator.printTab();
+            System.out.println("1.7 "+getName()+"->"+inputPipe.getName()+".waterExtraction()");
+        	boolean extraction = inputPipe.waterExtraction();
+        	Tabulator.printTab();
+            System.out.println("<-"+inputPipe.getName()+".waterExtraction():"+extraction);
+            
+            
+            if(extraction){
                 containingWater = true;
             }
+            Tabulator.printTab();
+            System.out.println(getName()+".containingWater="+containingWater);
         }
+        
         List<NonPipe> inputNeighbors = inputPipe.getNeighbors();
         for(NonPipe np : inputNeighbors){
         	if(this!=np)
+        	{
+                Tabulator.printTab();
+                System.out.println("1.8 "+getName()+"->"+np.getName()+".step()");
         		np.step();
+        	}	
         }
+        Tabulator.decreaseTab();
+        Tabulator.printTab();
+        System.out.println("<-"+getName()+".step():void");
     }
 
     /** 
      * Elrontja a pumpat.
      */
     public void breakPump(){ //itt muszaj valami mas nevet hasznalni mert a break kulcsszo
-        broken = true;
+    	System.out.println("DECISION-A "+getName()+" elrontasahoz irja be a 0-as szamot, majd enter! (csak szamok elfogadhatoak)");
+        Scanner userInput = new Scanner(System.in);
+        int input = 0;
+        input= userInput.nextInt();
+        
+        if(broken) {
+        	System.out.println(getName()+" mar el van romolva.");
+        }
+        else {
+            if(input==0) {
+            	broken = true;
+            	System.out.println("Sikeresen elrontottad "+getName()+"-et");
+            }
+            else System.out.println("Az adott pumpa nem lett elrontva");
+            //userInput.close();
+        }
+        
     }
 
     /** 

@@ -56,6 +56,7 @@ public class Repairman extends Character {
 		System.out.println(this.getName() + "->" + position.getName() + ".repair();"); // TODO: Irja ki a nevet annak az
 																						// objektumnak, aki hiv, es
 																						// annak, akin hivnak
+		System.out.println(this.getName() + "->" + position.getName() + ".repair();");
 		position.repair();
 	}
 
@@ -90,6 +91,22 @@ public class Repairman extends Character {
 		position.placePipe(holdingPipe);
 		System.out.println(String.format("\t%s<-%s.placePipe() : %s", getName(), position.getName(),
 				position.placePipe(holdingPipe)));
+		Tabulator.increaseTab();
+		Tabulator.printTab();
+		System.out.println("1.1 " + getName() + "->" + position.getName() + "placePipe(" + holdingPipe.getName() + ")");
+
+		if (position.placePipe(holdingPipe))
+			holdingPipe = null;
+
+		Tabulator.printTab();
+		if (holdingPipe != null)
+			System.out.println(getName() + ".holdingPipe=" + holdingPipe.getName());
+		else
+			System.out.println(getName() + ".holdingPipe=null");
+
+		Tabulator.decreaseTab();
+		Tabulator.printTab();
+		System.out.println("<-" + getName() + ".PlacePipe():void");
 	}
 
 	public void PlacePump() {

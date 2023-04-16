@@ -1,5 +1,8 @@
 import java.util.ArrayList;
-
+/**
+ * @author Szikszai Levente
+ * A Pumpak veletlenszeru elromlasaert felelos osztaly.
+ */
 public class DestructionTimer {
 
 	//A tárolt pumpák, melyeket el tud rontani.

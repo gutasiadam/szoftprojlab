@@ -1,8 +1,9 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 /**
  * 
  * @author Szikszai Levente
- *
+ *	Az elemek tarolasaert es a jatek mukodeseert felelos osztaly
  */
 public class Game {
 
@@ -38,7 +39,7 @@ public class Game {
 		timer = new DestructionTimer();
 		repairmanPoints=0;
 		saboteurPoints=0;
-		remainingRounds=1;//Ezt be kell állítani még valahogy!!!
+		remainingRounds=1;
 	}
 	
 	/**
@@ -97,8 +98,55 @@ public class Game {
 	 */
 	public void endTurn()
 	{
-		//System.out.println("endTurn");
-		SimulateWaterflow();
+		Scanner sc = new Scanner(System.in);
+		System.out.print("DECISION - Szimuláljuk a vifolyást? (I/N) >"); 
+		String brokePipe1;
+		while(sc.hasNext())
+		{
+			brokePipe1 = sc.next();
+			if(brokePipe1.equals("I"))
+			{
+				SimulateWaterflow();
+				break;
+				
+			}if(brokePipe1.equals("N")) {
+				break;
+			}else {
+				System.out.print("\nErvenytelen valasz! Probalkozzon ujra. (I/N)>");
+			}
+		}
+		
+		int repairmanWater = 0;
+		int saboteurWater = 0;
+		System.out.println("\t\tremainingRounds="+this.remainingRounds);
+		for(int i=0;i<cisterns.size();i++) {
+			int ciWater=cisterns.get(i).measureAndResetWaterFlown();
+			repairmanWater+=ciWater;
+		}
+		
+		for(int i=0;i<saboteurPointSources.size();i++) {
+			System.out.println("\t\t\t->"+saboteurPointSources.get(i).getName()+".measureAndResetWaterFlown()");
+			int sWater=saboteurPointSources.get(i).measureAndResetLeakedWaterAmount();
+			System.out.println("\t\t\t<-"+saboteurPointSources.get(i).getName()+".measureAndResetWaterFlown():"+sWater);
+			saboteurWater+=sWater;
+		}
+		System.out.println("\t\tSaboteur points this round:"+repairmanWater);
+		System.out.println("\t\tRepairmen points this round:"+saboteurWater);
+		this.repairmanPoints+=repairmanWater;
+		this.saboteurPoints+=saboteurWater;
+		System.out.println("\t\tSaboteur points in total:"+this.repairmanPoints);
+		System.out.println("\t\tRepairmen points in total:"+this.saboteurPoints);
+		
+		
+
+		
+		
+		this.remainingRounds--;
+		if(remainingRounds==0) {
+			System.out.println("\t->game.endGame()");
+			endGame();
+			System.out.println("\t<-game.endGame():void");
+		}
 	}
 	
 	/**
@@ -116,7 +164,7 @@ public class Game {
 			
 			
 		}
-		System.out.println("<-Game.SimulateWaterflow()");
+		System.out.println("<-Game.SimulateWaterflow():void");
 	}
 	
 	/**

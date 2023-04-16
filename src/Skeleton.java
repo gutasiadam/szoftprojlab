@@ -311,9 +311,14 @@ class Skeleton {
 	}
 
 	/**
-	 * Az egyik Szerelő megpróbál bekötni egy csövet a Forrásba.
+	 * @author Szikszai Levente
+	 *         Az egyik Szerelő megpróbál bekötni egy csövet a Forrásba.
 	 */
 	public void WaterSourceHandlingAPipe() {
+
+	public void WaterSourceHandlingAPipe()
+	{
+		Tabulator.reset();
 		System.out.println("WaterSourceHandlingAPipe");
 		System.out.println("Begin->Skeleton.WaterSourceHandlingAPipe()");
 
@@ -326,22 +331,55 @@ class Skeleton {
 		Repairman1.setHoldingPipe(holdingPipe);
 
 		// Input
+		Pump1.setName("Pump1");
+		holdingPipe.setName("holdingPipe");
+		position.setName("position");
+		Repairman1.setName("Repairman1");
+		
+		//Input
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Connect Source to holdingPipe? (I/N)");
+		System.out.print("DECISION-Connect Source to holdingPipe? (I/N)>");
 		String isConnectedToSource = sc.next();
 		while (!(isConnectedToSource.equals("I") || isConnectedToSource.equals("N"))) {
 			isConnectedToSource = sc.next();
-			System.out.println("Ervenytelen valasz! Probalkozzon ujra. (I/N)");
+			System.out.print("Ervenytelen valasz! Probalkozzon ujra. (I/N)>");
 		}
 		if (isConnectedToSource.equals("I")) {
+		if(isConnectedToSource.equals("I"))
+		{
+			Tabulator.printTab();
+			System.out.println("Skeleton->"+holdingPipe.getName()+".addNeighbor("+position.getName()+")");
 			holdingPipe.addNeighbor(position);
+			Tabulator.printTab();
+			System.out.println("<-" + holdingPipe.getName() + ".addNeighbor(" + position.getName() + ")");
+
+			Tabulator.printTab();
+			System.out.println("Skeleton->" + position.getName() + ".addNeighbor(" + holdingPipe.getName() + ")");
 			position.addNeighbor(holdingPipe);
 		} else {
+			Tabulator.printTab();
+	        System.out.println("<-"+position.getName()+".addNeighbor("+holdingPipe.getName()+")");
+		}
+		else
+		{
+			Tabulator.printTab();
+			System.out.println("Skeleton->"+holdingPipe.getName()+".addNeighbor("+Pump1.getName()+")");
 			holdingPipe.addNeighbor(Pump1);
+			Tabulator.printTab();
+			System.out.println("<-" + holdingPipe.getName() + ".addNeighbor(" + Pump1.getName() + ")");
+
+			Tabulator.printTab();
+			System.out.println("Skeleton->" + Pump1.getName() + ".addNeighbor(" + holdingPipe.getName() + ")");
 			Pump1.addNeighbor(holdingPipe);
+			Tabulator.printTab();
+			System.out.println("<-" + Pump1.getName() + ".addNeighbor(" + holdingPipe.getName() + ")");
 		}
 
 		// Teszt
+		
+		//Teszt
+		Tabulator.printTab();
+		System.out.println("Skeleton->"+Repairman1.getName()+".PlacePipe()");
 		Repairman1.PlacePipe();
 
 		System.out.println("END<-Skeleton.WaterSourceHandlingAPipe()");
@@ -402,8 +440,39 @@ class Skeleton {
 
 	/**
 	 * Pontok összeszámolása a kör végén
+	 * Csak a pontszámito mukodesenek tesztelesehez valasszuk a N opciot a vizfolyas
+	 * szimulalasanal.
+	 * 
+	 * 1 hátralveő körrel indul, meghivja az endGame-et is.
+	 * 
+	 * @author Gutási Ádám
 	 */
 	public void CalculatePointsTest() {
+	}
+
+	public void CalculatePointsTest() {
+		System.out.println("Calculate Points");
+		/** Inicializálás */
+		this.game = new Game();
+
+		Cistern c1 = new Cistern();
+		Cistern c2 = new Cistern();
+		Pump p1 = new Pump();
+		Pump p2 = new Pump();
+
+		game.addCistern(c1);
+		c1.setName("c1");
+		game.addCistern(c2);
+		c2.setName("c2");
+		game.addPump(p1);
+		p1.setName("p1");
+		game.addPump(p2);
+		p2.setName("p2");
+
+		/** Teszt futtatása */
+		System.out.println("BEGIN->game.endTurn()");
+		game.endTurn();
+		System.out.println("<-game.endTurn()");
 	}
 
 	/**
