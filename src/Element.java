@@ -3,7 +3,16 @@ import java.util.List;
 public abstract class Element implements RepairmanPlace, SaboteurPlace{
     protected boolean containingWater;
     protected List<Character> standingOn;
+    private String Name;
 
+    String getName() {
+    	return Name;
+    }
+    
+    void setName(String name) {
+    	this.Name=name;
+    }
+    
     public abstract void step();
 
     
