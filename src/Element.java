@@ -5,7 +5,7 @@ public abstract class Element implements RepairmanPlace, SaboteurPlace{
     protected List<Character> standingOn;
     private String Name;
 
-    String getName() {
+    public String getName() {
     	return Name;
     }
     
@@ -68,6 +68,7 @@ public abstract class Element implements RepairmanPlace, SaboteurPlace{
      */
     @Override
     public Pump givePump() {
+        System.out.println(String.format("\t\t1.3 %s: Cannot create Pump!", getName()));
         return null;
     }
 
@@ -89,6 +90,7 @@ public abstract class Element implements RepairmanPlace, SaboteurPlace{
      */
     @Override
     public Pipe placePump(Pump p) {
+        System.out.println(String.format("\t\t1.3 %s: Cannot place Pump!", getName()));
         return null;
     }
 }

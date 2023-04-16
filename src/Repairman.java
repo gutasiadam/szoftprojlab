@@ -50,13 +50,27 @@ public class Repairman extends Character {
 		if(holdingPipe==null) holdingPipe=position.lift(dir);
 	}
 	public void LiftPump() {
-		if(holdingPump==null) holdingPump=position.givePump();
+		if(holdingPump==null){
+			System.out.println(String.format("\t1.2 %s->%s.givePump()", getName(), position.getName()));
+			holdingPump=position.givePump();
+			if(holdingPump!=null){
+				System.out.println(String.format("\t%s<-%s.givePump(): %s", getName(), position.getName(), holdingPump.getName()));
+			}else{
+				System.out.println(String.format("\t%s<-%s.givePump(): null", getName(), position.getName()));
+			}
+		}
 	}
 	public void PlacePipe() {
 		position.placePipe(holdingPipe);
 	}
 	public void PlacePump() {
-		position.placePump(holdingPump);
+		System.out.println(String.format("\t1.2 %s->%s.placePump(%s)", getName(), position.getName(), holdingPump.getName()));
+		Pipe createdPipe = position.placePump(holdingPump);
+		if(createdPipe!=null){
+			System.out.println(String.format("\t%s<-%s.placePump(%s): %s", getName(), position.getName(), holdingPump.getName(), createdPipe.getName()));
+		}else{
+			System.out.println(String.format("\t%s<-%s.placePump(%s): null", getName(), position.getName(), holdingPump.getName()));
+		}
 	}
 	//step
 }

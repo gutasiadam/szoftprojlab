@@ -80,18 +80,63 @@ class Skeleton {
 	
 	/**
 	 * A szerelő felvesz egy pumpát esethez tartozó teszt
+	 * @author Andai Roland
 	 */
-	public void RepairmanStandingOnCisternAndLiftsPumpTest() {}
+	public void RepairmanStandingOnCisternAndLiftsPumpTest(){
+		/** Inicializálás */
+		System.out.println("1. Repairman Standing On Cistern And Lifts Pump");
+		Repairman r = new Repairman();
+		r.setName("r");
+		Cistern c = new Cistern();
+		c.setName("c");
+		r.setPosition(c);
+
+		/** Teszt futtatása */
+		System.out.println(String.format("1.1 BEGIN->%s.liftPump()", r.getName()));
+		r.LiftPump();
+		System.out.println(String.format("END<-%s.liftPump()", r.getName()));
+	}
 	
 	/**
 	 * A szerelő nem kap pumpát esethez tartozó teszt
+	 * @author Andai Roland
 	 */
-	public void RepairmanCannotLiftPumpTest() {}
+	public void RepairmanCannotLiftPumpTest() {
+		/** Inicializálás */
+		System.out.println("2. Repairman Cannot Lift Pump");
+		Repairman r = new Repairman();
+		r.setName("r");
+		WaterSource ws = new WaterSource();
+		ws.setName("ws");
+		r.setPosition(ws);
+
+		/** Teszt futtatása */
+		System.out.println(String.format("1.1 BEGIN->%s.liftPump()", r.getName()));
+		r.LiftPump();
+		System.out.println(String.format("END<-%s.liftPump()", r.getName()));
+	}
 	
 	/**
 	 * A szerelő nem tudja elhelyezni a pumpát esethez tartozó teszt.
+	 * @author Andai Roland
 	 */
-	public void RepairmanCannotPlacePumpTest() {}
+	public void RepairmanCannotPlacePumpTest() {
+		/** Inicializálás */
+		System.out.println("3. Repairman Cannot Place Pump");
+		Repairman r = new Repairman();
+		r.setName("r");
+		WaterSource ws = new WaterSource();
+		ws.setName("ws");
+		r.setPosition(ws);
+		Pump holdingPump = new Pump();
+		holdingPump.setName("holdingPump");
+		r.setHoldingPump(holdingPump);
+
+		/** Teszt futtatása */
+		System.out.println(String.format("1.1 BEGIN->%s.placePump()", r.getName()));
+		r.PlacePump();
+		System.out.println(String.format("END<-%s.placePump()", r.getName()));
+	}
 	
 	/**
 	 * A szerelő sikeresen lehelyezi a pumpát esethez tartozü teszt

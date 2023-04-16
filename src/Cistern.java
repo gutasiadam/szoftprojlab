@@ -56,6 +56,9 @@ public class Cistern extends NonPipe {
      */
     @Override
     public Pump givePump(){
-        return new Pump();
+        Pump p = new Pump();
+        p.setName("p");
+        System.out.println(String.format("\t\t1.3 %s: Pump %s created!", getName(), p.getName()));
+        return p;
     }
 }
