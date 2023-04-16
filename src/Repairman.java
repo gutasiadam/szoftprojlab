@@ -68,7 +68,14 @@ public class Repairman extends Character {
 		Tabulator.printTab();
 		System.out.println("1.1 "+getName()+"->"+position.getName()+"placePipe("+holdingPipe.getName()+")");
 		
-		position.placePipe(holdingPipe);
+		if(position.placePipe(holdingPipe))
+			holdingPipe=null;
+		
+		Tabulator.printTab();
+		if(holdingPipe!=null)
+			System.out.println(getName()+".holdingPipe="+holdingPipe.getName());
+		else
+			System.out.println(getName()+".holdingPipe=null");
 		
 		Tabulator.decreaseTab();
 		Tabulator.printTab();
