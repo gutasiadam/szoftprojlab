@@ -109,21 +109,56 @@ public class Pipe extends Element implements SaboteurPointSource{
      */
     @Override
     public Pipe placePump(Pump holdingPump) {
-        NonPipe n = (NonPipe)getNeighbors().get(0);
-        if(n != null){
-            removeNeighbor(n);
-            n.removeNeighbor(this);
-            holdingPump.addNeighbor(this);
-            addNeighbor(holdingPump);
-            Pipe p = new Pipe();
-            p.addNeighbor(n);
-            n.addNeighbor(p);
-            holdingPump.addNeighbor(p);
-            p.addNeighbor(holdingPump);
-            return p;
-        }else{
-            return null;
+        NonPipe n;
+        try{
+            n = (NonPipe)getNeighbors().get(0);
+        }catch(Exception e){
+            n = null;
         }
+        
+        if(n != null){
+            System.out.println(String.format("\t\t1.3 %s: %s = neighbors[0]", getName(), n.getName()));
+            
+            System.out.println(String.format("\t\t1.4 %s->%s.removeNeighbor(%s)", getName(), getName(), n.getName()));
+            removeNeighbor(n);
+            System.out.println(String.format("\t\t%s<-%s.removeNeighbor(%s)", getName(), getName(), n.getName()));
+            
+            System.out.println(String.format("\t\t1.5 %s->%s.removeNeighbor(%s)", getName(), n.getName(), getName()));
+            n.removeNeighbor(this);
+            System.out.println(String.format("\t\t%s<-%s.removeNeighbor(%s)", getName(), n.getName(), getName()));
+
+            System.out.println(String.format("\t\t1.6 %s->%s.addNeighbor(%s)", getName(), holdingPump.getName(), getName()));
+            holdingPump.addNeighbor(this);
+            System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), holdingPump.getName(), getName()));
+
+            System.out.println(String.format("\t\t1.7 %s->%s.addNeighbor(%s)", getName(), getName(), holdingPump.getName()));
+            addNeighbor(holdingPump);
+            System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), getName(), holdingPump.getName()));
+
+            Pipe p = new Pipe();
+            p.setName("p");
+            System.out.println(String.format("\t\t1.8 %s: Pipe %s created!", getName(), p.getName()));
+
+            System.out.println(String.format("\t\t1.9 %s->%s.addNeighbor(%s)", getName(), p.getName(), n.getName()));
+            p.addNeighbor(n);
+            System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), p.getName(), n.getName()));
+
+            System.out.println(String.format("\t\t1.10 %s->%s.addNeighbor(%s)", getName(), n.getName(), p.getName()));
+            n.addNeighbor(p);
+            System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), n.getName(), p.getName()));
+
+            System.out.println(String.format("\t\t1.11 %s->%s.addNeighbor(%s)", getName(), holdingPump.getName(), p.getName()));
+            holdingPump.addNeighbor(p);
+            System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), holdingPump.getName(), p.getName()));
+
+            System.out.println(String.format("\t\t1.12 %s->%s.addNeighbor(%s)", getName(), p.getName(), holdingPump.getName()));
+            p.addNeighbor(holdingPump);
+            System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), p.getName(), holdingPump.getName()));
+
+            return p;
+        }
+        System.out.println(String.format("\t\t1.3 %s: neighbors[0] is null", getName()));
+        return null;
     }
     
     /** 

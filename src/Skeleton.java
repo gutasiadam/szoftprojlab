@@ -138,14 +138,74 @@ class Skeleton {
 	}
 	
 	/**
-	 * A szerelő sikeresen lehelyezi a pumpát esethez tartozü teszt
+	 * A szerelő sikeresen lehelyezi a pumpát esethez tartozo teszt
+	 * @author Andai Roland
 	 */
-	public void RepairmanPlacesPumpTest() {}
+	public void RepairmanPlacesPumpTest() {
+		/** Inicializálás */
+		System.out.println("4. Repairman Places Pump");
+
+		Repairman r = new Repairman();
+		r.setName("r");
+
+		Pipe position = new Pipe();
+		position.setName("position");
+		r.setPosition(position);
+
+		Pump holdingPump = new Pump();
+		holdingPump.setName("holdingPump");
+		r.setHoldingPump(holdingPump);
+
+		Pump n1 = new Pump();
+		n1.setName("n1");
+		Pump n2 = new Pump();
+		n2.setName("n2");
+
+		position.addNeighbor(n1);
+		n1.addNeighbor(position);
+		position.addNeighbor(n2);
+		n2.addNeighbor(position);
+
+		Game game = new Game();
+		r.setGame(game);
+		game.addPump(n1);
+		game.addPipe(position);
+		game.addPump(n2);
+
+		/** Teszt futtatása */
+		System.out.println(String.format("1.1 BEGIN->%s.placePump()", r.getName()));
+		r.PlacePump();
+		System.out.println(String.format("END<-%s.placePump()", r.getName()));
+	}
 	
 	/**
-	 * A szerelő nem tudja lehelyezi a pumpát egy olyan csövön, amely sehová nincs bekötve esethez tartozü teszt
+	 * A szerelő nem tudja lehelyezi a pumpát egy olyan csövön, amely sehová nincs bekötve esethez tartozo teszt
+	 * @author Andai Roland
 	 */
-	public void RepairmanCannotPlacePumpOnZeroEndPipeTest() {}
+	public void RepairmanCannotPlacePumpOnZeroEndPipeTest() {
+		/** Inicializálás */
+		System.out.println("5. Repairman Cannot Place Pump On Zero End Pipe");
+
+		Repairman r = new Repairman();
+		r.setName("r");
+
+		Pipe position = new Pipe();
+		position.setName("position");
+		r.setPosition(position);
+
+		Pump holdingPump = new Pump();
+		holdingPump.setName("holdingPump");
+		r.setHoldingPump(holdingPump);
+
+		Game game = new Game();
+		r.setGame(game);
+		game.addPipe(position);
+
+		/** Teszt futtatása */
+		System.out.println(String.format("1.1 BEGIN->%s.placePump()", r.getName()));
+		r.PlacePump();
+		System.out.println(String.format("END<-%s.placePump()", r.getName()));
+	}
 	
 	/**
 	 * A Controller új csövet hoz létre egy ciszternán

@@ -32,6 +32,9 @@ public class Repairman extends Character {
 	public void setHoldingPipe(Pipe p) {
 		holdingPipe=p;
 	}	
+	public void setGame(Game g) {
+		game = g;
+	}
 //-----------------------------------------	
 /*	Ha kesz a getNeighbors
  * public void move(int dir) {
@@ -68,6 +71,19 @@ public class Repairman extends Character {
 		Pipe createdPipe = position.placePump(holdingPump);
 		if(createdPipe!=null){
 			System.out.println(String.format("\t%s<-%s.placePump(%s): %s", getName(), position.getName(), holdingPump.getName(), createdPipe.getName()));
+			
+			System.out.println(String.format("\t1.13 %s->game.addPump(%s)", getName(), holdingPump.getName()));
+			System.out.println(String.format("\t\t1.14 game->timer.addPump(%s)", holdingPump.getName()));
+			game.addPump(holdingPump);
+			System.out.println(String.format("\t\tgame<-timer.addPump(%s)", holdingPump.getName()));
+			System.out.println(String.format("\t%s<-game.addPump(%s)", getName(), holdingPump.getName()));
+
+			System.out.println(String.format("\t1.15 %s->game.addPipe(%s)", getName(), createdPipe.getName()));
+			game.addPipe(createdPipe);
+			System.out.println(String.format("\t%s<-game.addPipe(%s)", getName(), createdPipe.getName()));
+		
+			System.out.println(String.format("\t1.16 %s holdingPump := null", getName()));
+			holdingPump = null;
 		}else{
 			System.out.println(String.format("\t%s<-%s.placePump(%s): null", getName(), position.getName(), holdingPump.getName()));
 		}
