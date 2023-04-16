@@ -47,10 +47,14 @@ public class WaterSource extends NonPipe {
         	Tabulator.printTab();
         	System.out.println("1.2A "+getName()+"->"+getName()+".addNeighbor("+holdingPipe.getName()+")");
             addNeighbor(holdingPipe);
+            Tabulator.printTab();
+            System.out.println("<-"+getName()+".addNeighbor("+holdingPipe.getName()+")");
             
             Tabulator.printTab();
             System.out.println(getName()+"->"+holdingPipe.getName()+".addNeighbor("+getName()+")");
             holdingPipe.addNeighbor(this);
+            Tabulator.printTab();
+            System.out.println("<-"+holdingPipe.getName()+".addNeighbor("+getName()+")");
             out =  true;
         }else{
         	Tabulator.printTab();

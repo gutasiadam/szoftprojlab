@@ -23,8 +23,6 @@ public abstract class NonPipe extends Element {
      */
     public void addNeighbor(Pipe n) {
         neighbors.add(n);
-        Tabulator.printTab();
-        System.out.println("<-"+getName()+".addNeighbor("+n.getName()+")");
     }
 
     /** 

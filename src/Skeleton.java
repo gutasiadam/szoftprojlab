@@ -350,8 +350,13 @@ class Skeleton {
 			System.out.println("Skeleton->"+holdingPipe.getName()+".addNeighbor("+position.getName()+")");
 			holdingPipe.addNeighbor(position);
 			Tabulator.printTab();
+	        System.out.println("<-"+holdingPipe.getName()+".addNeighbor("+position.getName()+")");
+			
+			Tabulator.printTab();
 			System.out.println("Skeleton->"+position.getName()+".addNeighbor("+holdingPipe.getName()+")");
 			position.addNeighbor(holdingPipe);
+			Tabulator.printTab();
+	        System.out.println("<-"+position.getName()+".addNeighbor("+holdingPipe.getName()+")");
 		}
 		else
 		{
@@ -359,8 +364,13 @@ class Skeleton {
 			System.out.println("Skeleton->"+holdingPipe.getName()+".addNeighbor("+Pump1.getName()+")");
 			holdingPipe.addNeighbor(Pump1);
 			Tabulator.printTab();
+	        System.out.println("<-"+holdingPipe.getName()+".addNeighbor("+Pump1.getName()+")");
+			
+			Tabulator.printTab();
 			System.out.println("Skeleton->"+Pump1.getName()+".addNeighbor("+holdingPipe.getName()+")");
 			Pump1.addNeighbor(holdingPipe);
+			Tabulator.printTab();
+	        System.out.println("<-"+Pump1.getName()+".addNeighbor("+holdingPipe.getName()+")");
 		}
 		
 		//Teszt
