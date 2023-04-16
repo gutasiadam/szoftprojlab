@@ -19,15 +19,30 @@ public class Cistern extends NonPipe {
      */
     @Override
     public void step() {
+    	System.out.println("Game->"+getName()+".step()");
+    	Tabulator.increaseTab();
+		Tabulator.printTab();
         for (Pipe p : neighbors) {
+        	System.out.println(getName()+"->"+p.getName()+".step()");
             p.step();
-            if(p.waterExtraction()) waterFlown++;
+            Tabulator.printTab();
+            System.out.println(getName()+"->"+p.getName()+".waterExtraction()");
+            boolean extraction = p.waterExtraction();
+            if(extraction) waterFlown++;
+            Tabulator.printTab();
+            System.out.println("<-"+p.getName()+".waterExtraction()");
+            Tabulator.printTab();
+            System.out.println("waterFlown="+waterFlown);
+            
             List<NonPipe> pipeNeighbors = p.getNeighbors();
             for(NonPipe np : pipeNeighbors){
             	if(this!=np)
+            	{
             		np.step();
+            	}	
             }
         }
+        System.out.print("<-"+getName()+".step()\n\t");
     }
 
     

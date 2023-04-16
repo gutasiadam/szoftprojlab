@@ -44,6 +44,14 @@ public class Pipe extends Element implements SaboteurPointSource{
             containingWater = false;
             leakedWaterAmount++;
         }
+        Tabulator.increaseTab();
+        Tabulator.printTab();
+        System.out.println("containingWater="+containingWater);
+        Tabulator.printTab();
+        System.out.println("leakedWaterAmount="+leakedWaterAmount);
+        Tabulator.decreaseTab();
+        Tabulator.printTab();
+        System.out.println("<-"+getName()+".step()");
     }
 
     /** 
@@ -98,7 +106,7 @@ public class Pipe extends Element implements SaboteurPointSource{
             	System.out.println("Kilyukasztottad a csovet.");
             }
             else System.out.println("Nem tortent lyukasztas.");
-            userInput.close();
+            //userInput.close();
         }
     }
     
@@ -210,11 +218,23 @@ public class Pipe extends Element implements SaboteurPointSource{
      * @return boolean - volt-e benne viz
      */
     public boolean waterExtraction(){
+    	Tabulator.increaseTab();
+    	Tabulator.printTab();
+    	
+    	
         if(containingWater){
             containingWater = false;
+            System.out.println("containingWater="+containingWater);
+            Tabulator.decreaseTab();
             return true;
         }
-        return false;
+        else
+        {
+        	System.out.println("containingWater="+containingWater);
+        	Tabulator.decreaseTab();
+        	return false;
+        }
+        
     }
 
     /** 
