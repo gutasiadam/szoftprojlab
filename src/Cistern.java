@@ -36,8 +36,10 @@ public class Cistern extends NonPipe {
      * @return int - a befolyt viz mennyisege
      */
     public int measureAndResetWaterFlown(){
+    	System.out.println("\t\t\t->"+this.getName()+".measureAndResetWaterFlown()");
         int wf = waterFlown;
         waterFlown = 0;
+        System.out.println("\t\t\t<-"+this.getName()+".measureAndResetWaterFlown(): "+wf);
         return wf;
     }
 

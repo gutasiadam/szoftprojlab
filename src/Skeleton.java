@@ -350,8 +350,36 @@ class Skeleton {
 	
 	/**
 	 * Pontok összeszámolása a kör végén
+	 * Csak a pontszámito mukodesenek tesztelesehez valasszuk a N opciot a vizfolyas szimulalasanal.
+	 * 
+	 * 1 hátralveő körrel indul, meghivja az endGame-et is.
+	 * @author Gutási Ádám
 	 */
-	public void CalculatePointsTest() {}
+	public void CalculatePointsTest() {
+		System.out.println("Calculate Points");
+		/** Inicializálás */
+		this.game=new Game();
+		
+		Cistern c1= new Cistern();
+		Cistern c2= new Cistern();
+		Pump p1= new Pump();
+		Pump p2= new Pump();
+		
+		game.addCistern(c1);
+		c1.setName("c1");
+		game.addCistern(c2);
+		c2.setName("c2");
+		game.addPump(p1);
+		p1.setName("p1");
+		game.addPump(p2);
+		p2.setName("p2");
+		
+		
+		/** Teszt futtatása */
+		System.out.println("BEGIN->game.endTurn()");
+		game.endTurn();
+		System.out.println("<-game.endTurn()");
+	}
 	
 	/**
 	 * Egy szabotőr kilyukaszt egy Csövet.

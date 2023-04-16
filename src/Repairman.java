@@ -43,7 +43,7 @@ public class Repairman extends Character {
 		if(success) position.remove(this);
 	}*/
 	public void RepairElement() {
-		System.out.println(this.getName()+"->"+position.getName()+".repair();"); //TODO: Irja ki a nevet annak az objektumnak, aki hiv, es annak, akin hivnak
+		System.out.println(this.getName()+"->"+position.getName()+".repair();");
 		position.repair();
 	}
 	public void adjustPump(int src, int dest) {
