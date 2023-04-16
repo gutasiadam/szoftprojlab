@@ -1,6 +1,6 @@
 import java.util.HashMap;
 import java.util.Scanner;
-
+import java.lang.reflect.*;
 
 class Skeleton {
 	/*
@@ -12,14 +12,21 @@ class Skeleton {
 	 * Tesztek tárolására szolgál
 	 *  Itt Object helyett Runnable fog szerepelni, csak a tesztelés erejéig van benne az Object.
 	 */
-	HashMap<Integer, Pair<String, Object>> tests= new HashMap<>(); 
+	HashMap<Integer, Pair<String, Runnable>> tests= new HashMap<>(); 
 	private int selectedMenuItem; //A kiválasztott teszt száma.
 	
 	//Konstruktor
 	Skeleton(){
 		System.out.println("Skeleton created!");
 		game=new Game(); // Game metodus letrehozasa, konsturktorhivas
-		tests.put(1, new Pair<>("Example test", new Object()));
+		tests.put(1, new Pair<>("SaboteurDealsDamageOnPipeTest", () -> SaboteurDealsDamageOnPipeTest()));
+		tests.put(2, new Pair<>("SaboteurDealsDamageOnCisternTest", () -> SaboteurDealsDamageOnCisternTest()));
+		tests.put(3, new Pair<>("CharacterMovesFromPipeToCistern", () -> CharacterMovesFromPipeToCistern()));
+		tests.put(4, new Pair<>("CharacterMovesFromCisternToPipe", () -> CharacterMovesFromCisternToPipe()));
+		tests.put(5, new Pair<>("DestructionTimeDestructsPumps", () -> DestructionTimeDestructsPumps()));
+		tests.put(6, new Pair<>("DestructionTimerRecievesNewPump", () -> DestructionTimerRecievesNewPump()));
+		tests.put(7, new Pair<>("SimulateWaterflow", () -> SimulateWaterflow()));
+		tests.put(8, new Pair<>("WaterSourceHandlingAPipe", () -> WaterSourceHandlingAPipe()));
 	}
 	//A tesztelési főmenü kiirása, tesztek inditasa
 	public void showTestMenu() {
@@ -43,7 +50,8 @@ class Skeleton {
 			System.out.println("MenuItem is "+this.selectedMenuItem);
 			if(tests.get(this.selectedMenuItem) !=null) {
 				//Teszt futtatasa
-				System.out.println(tests.get(selectedMenuItem).getSecond());
+				tests.get(selectedMenuItem).getSecond().run();
+				
 			}
 			else {
 				//Nem letezik a teszt, nem futtatunk
@@ -75,6 +83,7 @@ class Skeleton {
 	public void SimulateWaterflow()
 	{
 		//Setup
+		System.out.println("BEGIN");
 		WaterSource Source1 = new WaterSource();
 		Cistern Cistern1 = new Cistern();
 		Pump Pump1 = new Pump();
