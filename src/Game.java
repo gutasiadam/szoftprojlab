@@ -48,7 +48,7 @@ public class Game {
 	public void initialize()
 	{
 		//Create Map
-		System.out.println("inicialize");
+		//System.out.println("inicialize");
 	}
 	
 	/**
@@ -155,10 +155,16 @@ public class Game {
 	public void SimulateWaterflow()
 	{
 		System.out.println("Game.SimulateWaterflow()");
+		Tabulator.increaseTab();
+		Tabulator.printTab();
 		for(int i = 0;i<cisterns.size();i++)
 		{
+			
 			cisterns.get(i).step();
+			
+			
 		}
+		System.out.println("<-Game.SimulateWaterflow()");
 	}
 	
 	/**

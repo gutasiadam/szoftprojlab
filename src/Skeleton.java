@@ -265,12 +265,18 @@ class Skeleton {
     public void SimulateWaterflow()
     {
         //Setup
+    	System.out.println("SimulateWaterflow");
         System.out.println("BEGIN->Skeleton.SimulateWaterflow()");
         WaterSource Source1 = new WaterSource();
         Cistern Cistern1 = new Cistern();
         Pump Pump1 = new Pump();
         Pipe Pipe2 = new Pipe();
         Pipe Pipe1 = new Pipe();
+        Pump1.setName("Pump1");
+        Pipe1.setName("Pipe1");
+        Pipe2.setName("Pipe2");
+        Cistern1.setName("Cistern1");
+        Source1.setName("Source1");
         Cistern1.addNeighbor(Pipe1);
         Pipe1.addNeighbor(Cistern1);
         Pipe1.addNeighbor(Pump1);
@@ -291,7 +297,7 @@ class Skeleton {
         //Teszt
         System.out.print("Skeleton->");
         game.SimulateWaterflow();
-        System.out.println("END<-Skeleton.SimulateWaterflow()");
+        System.out.print("END<-Skeleton.SimulateWaterflow()");
     }
 
 	
@@ -300,6 +306,9 @@ class Skeleton {
 	 */
 	public void WaterSourceHandlingAPipe()
 	{
+		System.out.println("WaterSourceHandlingAPipe");
+		System.out.println("Begin->Skeleton.WaterSourceHandlingAPipe()");
+		
 		//Setup
 		Repairman Repairman1 = new Repairman();
 		Pipe holdingPipe = new Pipe();
@@ -310,8 +319,9 @@ class Skeleton {
 		
 		//Input
 		Scanner sc = new Scanner(System.in);
+		System.out.println("Connect Source to holdingPipe? (I/N)");
 		String isConnectedToSource = sc.next();
-		while(isConnectedToSource.equals("I")||isConnectedToSource.equals("N"))
+		while(!(isConnectedToSource.equals("I")||isConnectedToSource.equals("N")))
 		{
 			isConnectedToSource = sc.next();
 			System.out.println("Ervenytelen valasz! Probalkozzon ujra. (I/N)");
@@ -328,9 +338,9 @@ class Skeleton {
 		}
 		
 		//Teszt
-		System.out.println("Begin->Repairman1.PlacePipe()");
 		Repairman1.PlacePipe();
-		System.out.println("END<-Repairman1.PlacePipe()");
+		
+		System.out.println("END<-Skeleton.WaterSourceHandlingAPipe()");
 	}
 	
 	/**
