@@ -286,7 +286,18 @@ class Skeleton {
         Pipe2.addNeighbor(Source1);
         Pipe2.addNeighbor(Pump1);
         Source1.addNeighbor(Pipe2);
-        game = new Game();      //Valahogy resetelni kell a Game-et tesztenként
+        
+        //Csovek feltoltese vizzel
+        Tabulator.printTab();
+        System.out.println("Skeleton->Pipe1.giveWater()");
+        Pipe1.giveWater();
+        Tabulator.printTab();
+        System.out.println("Skeleton->Pipe2.giveWater()");
+        Pipe2.giveWater();
+        Pump1.containingWater=true;
+        
+        //Valahogy resetelni kell a Game-et tesztenként
+        game = new Game(); 
         game.addCistern(Cistern1);
         
         //Input

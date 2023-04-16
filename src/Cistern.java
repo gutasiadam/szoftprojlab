@@ -19,30 +19,34 @@ public class Cistern extends NonPipe {
      */
     @Override
     public void step() {
-    	System.out.println("Game->"+getName()+".step()");
+    	System.out.println("1.1 Game->"+getName()+".step()");
     	Tabulator.increaseTab();
 		Tabulator.printTab();
         for (Pipe p : neighbors) {
-        	System.out.println(getName()+"->"+p.getName()+".step()");
+        	System.out.println("1.2 "+getName()+"->"+p.getName()+".step()");
             p.step();
             Tabulator.printTab();
-            System.out.println(getName()+"->"+p.getName()+".waterExtraction()");
+            System.out.println("1.3 "+getName()+"->"+p.getName()+".waterExtraction()");
             boolean extraction = p.waterExtraction();
             if(extraction) waterFlown++;
             Tabulator.printTab();
-            System.out.println("<-"+p.getName()+".waterExtraction()");
+            System.out.println("<-"+p.getName()+".waterExtraction():"+extraction);
             Tabulator.printTab();
-            System.out.println("waterFlown="+waterFlown);
+            System.out.println(getName()+".waterFlown="+waterFlown);
             
             List<NonPipe> pipeNeighbors = p.getNeighbors();
             for(NonPipe np : pipeNeighbors){
             	if(this!=np)
             	{
+            		Tabulator.printTab();
+            		System.out.println("1.4 "+getName()+"->"+np.getName()+".step()");
             		np.step();
             	}	
             }
         }
-        System.out.print("<-"+getName()+".step()\n\t");
+        Tabulator.decreaseTab();
+        Tabulator.printTab();
+        System.out.println("<-"+getName()+".step():void");
     }
 
     

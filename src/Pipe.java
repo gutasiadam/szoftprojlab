@@ -91,19 +91,19 @@ public class Pipe extends Element implements SaboteurPointSource{
      */
     @Override
     public void damage(){
-    	System.out.println("Lyukasztas irja be a 0-as szamot, majd enter!");
+    	System.out.println("DECISION-A "+getName()+" kilyukasztasahoz irja be a 0-as szamot, majd enter! (csak szamok elfogadhatoak)");
         Scanner userInput = new Scanner(System.in);
         int input = 0;
         //if(userInput.hasNextInt())
         input= userInput.nextInt();
         
         if(holeOnPipe) {
-        	System.out.println("A cso mar lyukas.");
+        	System.out.println(getName()+" mar lyukas.");
         }
         else {
             if(input==0) {
             	holeOnPipe = true;
-            	System.out.println("Kilyukasztottad a csovet.");
+            	System.out.println("Kilyukasztottad "+getName()+"-et");
             }
             else System.out.println("Nem tortent lyukasztas.");
             //userInput.close();
@@ -224,13 +224,13 @@ public class Pipe extends Element implements SaboteurPointSource{
     	
         if(containingWater){
             containingWater = false;
-            System.out.println("containingWater="+containingWater);
+            System.out.println(getName()+".containingWater="+containingWater);
             Tabulator.decreaseTab();
             return true;
         }
         else
         {
-        	System.out.println("containingWater="+containingWater);
+        	System.out.println(getName()+".containingWater="+containingWater);
         	Tabulator.decreaseTab();
         	return false;
         }
@@ -242,9 +242,24 @@ public class Pipe extends Element implements SaboteurPointSource{
      * @return boolean - sikerult-e bele vizet tenni
      */
     public boolean giveWater(){
-        if(containingWater) return false;
-        containingWater = true;
-        return true;
+    	Tabulator.increaseTab();
+    	boolean out = false;
+        if(containingWater)
+        {
+        	out = false;
+        }
+        else
+        {
+        	 containingWater = true;
+        	out = true;
+        }
+        Tabulator.printTab();
+    	System.out.println(getName()+".containingWater="+containingWater);
+    	Tabulator.decreaseTab();
+    	Tabulator.printTab();
+    	System.out.println("<-"+getName()+".giveWater():"+out);
+        return out;
+       
     }
 
     /** 

@@ -164,7 +164,7 @@ public class Game {
 			
 			
 		}
-		System.out.println("<-Game.SimulateWaterflow()");
+		System.out.println("<-Game.SimulateWaterflow():void");
 	}
 	
 	/**

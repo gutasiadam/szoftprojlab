@@ -18,8 +18,12 @@ public class WaterSource extends NonPipe {
     @Override
     public void step() {
         for(Pipe p : neighbors){
+        	Tabulator.printTab();
+        	System.out.println("1.9 "+getName()+"->"+p.getName()+".giveWater()");
             p.giveWater();
         }
+        Tabulator.printTab();
+        System.out.println("<-"+getName()+".step():void");
     }
 
     
