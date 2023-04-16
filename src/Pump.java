@@ -19,8 +19,12 @@ public class Pump extends NonPipe implements SaboteurPointSource {
         broken = false;
         leakedWaterAmount=0;
     }
-
-    
+    /** @author Bodnar Mark
+     * Visszaadja a szomszedait.
+     */
+    public List<Pipe> getNeighbors(){
+        return neighbors;
+    }
     
     /** 
      * Pumpa megjavitása
@@ -125,24 +129,14 @@ public class Pump extends NonPipe implements SaboteurPointSource {
     /** 
      * Elrontja a pumpat.
      */
-    public void breakPump(){ //itt muszaj valami mas nevet hasznalni mert a break kulcsszo
-    	System.out.println("DECISION-A "+getName()+" elrontasahoz irja be a 0-as szamot, majd enter! (csak szamok elfogadhatoak)");
-        Scanner userInput = new Scanner(System.in);
-        int input = 0;
-        input= userInput.nextInt();
-        
-        if(broken) {
-        	System.out.println(getName()+" mar el van romolva.");
-        }
-        else {
-            if(input==0) {
-            	broken = true;
-            	System.out.println("Sikeresen elrontottad "+getName()+"-et");
-            }
-            else System.out.println("Az adott pumpa nem lett elrontva");
-            //userInput.close();
-        }
-        
+    public void breakPump(){ 
+    	 if(broken) {
+    		System.out.println(String.format("A %spumpa mar el van romolva.",getName()));
+         }
+         else {
+             	broken = true;
+             	System.out.println(String.format("A %s pumpa elromlott", getName()));
+             }
     }
 
     /** 

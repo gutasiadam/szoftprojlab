@@ -1,20 +1,19 @@
-
+import java.util.List;
+/** @authorBodnar Mark*/
 public class Repairman extends Character {
 	private RepairmanPlace position;
 	private Pipe holdingPipe;
 	private Pump holdingPump;
 	private Game game;
 
-	// mindig null kell legyen amikor nincs nala
+    /**  Ha nincs nala pumpa vagy cso akkor annak nullnak kell lennie.*/
 	Repairman() {
 		holdingPipe = null;
 		holdingPump = null;
 		game = null;
 	}
 
-	// getterek, setterek
-	// a teszteknel hasznaltunk setPosit, de meg a 4.heten nem volt
-	// ----------------------------------------------------------------
+    /** Aktualis pozicio.*/
 	public void setPosition(RepairmanPlace pos) {
 		position = pos;
 	}
@@ -22,7 +21,7 @@ public class Repairman extends Character {
 	public Place getPosition() {
 		return position;
 	}
-
+	/** Nala levo pumpa.*/
 	public Pump getHoldingPump() {
 		return holdingPump;
 	}
@@ -30,7 +29,7 @@ public class Repairman extends Character {
 	public void setHoldingPump(Pump p) {
 		holdingPump = p;
 	}
-
+	/** Nala levo cso.*/
 	public Pipe getHoldingPipe() {
 		return holdingPipe;
 	}
@@ -44,23 +43,55 @@ public class Repairman extends Character {
 	}
 
 	// -----------------------------------------
-	/*
-	 * Ha kesz a getNeighbors
-	 * public void move(int dir) {
-	 * Element[] neighbors = position.getNeighbors();
-	 * boolean success = neighbors[dir].accept(this);
-	 * if(success) position.remove(this);
-	 * }
+	
+	/**
+	 * bovulni fog meg listazassal, de most meg megkapja az iranyt
+	 * egy szamot es azon elerheto szomszedjara lepteti tovabb a karaktert
+	 * @param dir szam amely megadja az iranyt
+	 */
+	public void move(int dir) {
+		System.out.println(String.format("Aktualis pozicio:"+position.getName()));
+		List<? extends Element> neighbors = position.getNeighbors();
+		boolean success=false;
+		System.out.println(String.format("\t1.1 %s->%s.remove(%s)",this.getName(), position.getName(),this.getName()));
+		position.remove(this);
+		if(neighbors!=null) {
+			for (int i = 0; i < neighbors.size(); i++) {
+				if(dir==i) {
+					success=neighbors.get(i).accept(this);
+					position=neighbors.get(i);
+					System.out.println(String.format("\t\t1.2 %s->%s.accept(%s)",this.getName(), position.getName(),this.getName()));
+					System.out.println(String.format("\t\t1.2 Sikeres lepes, uj pozicio:"+position.getName()));
+					System.out.println(String.format("\t%s<-%s.accept(%s):%s",this.getName(), position.getName(),this.getName(),success));
+				}
+			}
+		} 	
+		if(!success) {
+			System.out.println(String.format("\t1.1 %s->%s.accept(%s): Nem tortent lepes.",this.getName(), position.getName(),this.getName()));
+        	position.accept(this);
+        }
+	}
+	/**
+	 * Az elem javitasa amin all a szerelo.
 	 */
 	public void RepairElement() {
 		System.out.println("1.2 "+this.getName() + "->" + position.getName() + ".repair();"); 
 		position.repair();
 	}
-
+    /** 
+     * Ezen keresztul lehet beallitani a pumpalasi iranyt.
+     * @param src - input irany
+     * @param dest - output irany
+     */
 	public void adjustPump(int src, int dest) {
 		position.adjust(src, dest);
 	}
-
+	/** 
+     * Megadott dir szerinti cso felemelese.
+     * Egyszerre csak egy csot emelhet fel, ezert is kell
+     * tesztelni nullra.
+     * @param dir - input irany
+     */
 	public void LiftPipe(int dir) {
 		if (holdingPipe == null) {
 			System.out.println(String.format("\t1.2 %s->%s.lift(dir)", getName(), position.getName()));
@@ -70,6 +101,10 @@ public class Repairman extends Character {
 		}
 	}
 
+	/** 
+     * Pumpa felvevese. 
+     * Csak ciszternanal teheto meg.
+     */
 	public void LiftPump() {
 		if (holdingPump == null) {
 			System.out.println(String.format("\t1.2 %s->%s.givePump()", getName(), position.getName()));
@@ -82,7 +117,9 @@ public class Repairman extends Character {
 			}
 		}
 	}
-
+    /** 
+     * Cso elhelyezese.
+     */
 	public void PlacePipe() {
 		System.out.println(String.format("\t1.2 %s->%s.placePipe()", getName(), position.getName()));
 		position.placePipe(holdingPipe);
@@ -105,7 +142,9 @@ public class Repairman extends Character {
 		Tabulator.printTab();
 		System.out.println("<-" + getName() + ".PlacePipe():void");
 	}
-
+    /** 
+     * Pumpa elhelyezese.
+     */
 	public void PlacePump() {
 		System.out.println(
 				String.format("\t1.2 %s->%s.placePump(%s)", getName(), position.getName(), holdingPump.getName()));
@@ -131,5 +170,5 @@ public class Repairman extends Character {
 					holdingPump.getName()));
 		}
 	}
-	// step
+	public void step() {}
 }

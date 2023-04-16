@@ -12,6 +12,12 @@ public class Cistern extends NonPipe {
        super();
        waterFlown = 0;
    }
+   /** @author Bodnar Mark
+    * Visszaadja a szomszedait.
+    */
+   public List<Pipe> getNeighbors(){
+       return neighbors;
+   }
 
     
     /** 

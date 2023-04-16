@@ -96,6 +96,9 @@ public class Game {
 	/**
 	 * Adott kör véget ér, elindul a Víz Szimuláció
 	 */
+	public void setTimer(DestructionTimer dt) {
+		timer=dt;
+	}
 	public void endTurn()
 	{
 		Scanner sc = new Scanner(System.in);
@@ -252,6 +255,7 @@ public class Game {
 		//System.out.println("addPump");
 		saboteurPointSources.add(p);
 		gameElements.add(p);//Ez kell-e??
+		System.out.println(String.format("\t1.2 g->%s.addPump(%s)", timer.getName(),p.getName()));
 		timer.addPump(p);
 	}
 	

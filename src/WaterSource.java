@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class WaterSource extends NonPipe {
 
 	
@@ -8,6 +10,12 @@ public class WaterSource extends NonPipe {
     WaterSource()
     {
         super();
+    }
+    /** @author Bodnar Mark
+     * Visszaadja a szomszedait.
+     */
+    public List<Pipe> getNeighbors(){
+        return neighbors;
     }
 
 	
