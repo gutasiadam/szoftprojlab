@@ -85,7 +85,10 @@ public class Pipe extends Element implements SaboteurPointSource{
     public void damage(){
     	System.out.println("Lyukasztas irja be a 0-as szamot, majd enter!");
         Scanner userInput = new Scanner(System.in);
-        int input= userInput.nextInt();
+        int input = 0;
+        //if(userInput.hasNextInt())
+        input= userInput.nextInt();
+        
         if(holeOnPipe) {
         	System.out.println("A cso mar lyukas.");
         }

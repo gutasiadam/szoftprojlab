@@ -85,7 +85,8 @@ public class Pump extends NonPipe implements SaboteurPointSource {
         }
         List<NonPipe> inputNeighbors = inputPipe.getNeighbors();
         for(NonPipe np : inputNeighbors){
-            np.step();
+        	if(this!=np)
+        		np.step();
         }
     }
 

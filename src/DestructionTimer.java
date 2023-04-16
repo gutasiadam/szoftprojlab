@@ -19,7 +19,7 @@ public class DestructionTimer {
 	 */
 	public void tick()
 	{
-		System.out.println("tick");
+		//System.out.println("tick");
 		
 		for(int i = 0; i<pumps.size();i++)
 		{
@@ -38,7 +38,7 @@ public class DestructionTimer {
 	 */
 	public void addPump(Pump p)
 	{
-		System.out.println("addPump");
+		//System.out.println("addPump");
 		pumps.add(p);
 	}
 }

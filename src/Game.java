@@ -1,5 +1,9 @@
 import java.util.ArrayList;
-
+/**
+ * 
+ * @author Szikszai Levente
+ *
+ */
 public class Game {
 
 	//A Szerelő játrékosok.
@@ -51,7 +55,7 @@ public class Game {
 	 */
 	public void playGame()
 	{
-		System.out.println("playGame");
+		//System.out.println("playGame");
 		while(remainingRounds>0)
 		{
 			for(int i = 0;i<saboteurGroup.size();i++)
@@ -74,7 +78,7 @@ public class Game {
 	 */
 	public void endGame()
 	{
-		System.out.println("endGame");
+		//System.out.println("endGame");
 		if(saboteurPoints>repairmanPoints)
 		{
 			System.out.println("Saboteur Team Won!");
@@ -93,7 +97,7 @@ public class Game {
 	 */
 	public void endTurn()
 	{
-		System.out.println("endTurn");
+		//System.out.println("endTurn");
 		SimulateWaterflow();
 	}
 	
@@ -115,7 +119,7 @@ public class Game {
 	 */
 	public void addCistern(Cistern c)
 	{
-		System.out.println("addCistern");
+		//System.out.println("addCistern");
 		cisterns.add(c);
 	}
 	
@@ -125,7 +129,7 @@ public class Game {
 	 */
 	public void addElement(Element e)
 	{
-		System.out.println("addEmelent");
+		//System.out.println("addEmelent");
 		gameElements.add(e);
 	}
 	
@@ -135,7 +139,7 @@ public class Game {
 	 */
 	public ArrayList<Element> getGameElements()//Jó lesz-e ArrayList??
 	{
-		System.out.println("getGameElements");
+		//System.out.println("getGameElements");
 		return gameElements;
 	}
 	
@@ -145,7 +149,7 @@ public class Game {
 	public void addSaboteur()
 	{
 		saboteurGroup.add(new Saboteur());
-		System.out.println("addSaboteur");
+		//System.out.println("addSaboteur");
 	}
 	
 	/**
@@ -154,7 +158,7 @@ public class Game {
 	public void addRepairman()
 	{
 		repairmanGroup.add(new Repairman());
-		System.out.println("addRepairman");
+		//System.out.println("addRepairman");
 	}
 	
 	/**
@@ -163,7 +167,7 @@ public class Game {
 	 */
 	public void addPipe(Pipe p)
 	{
-		System.out.println("addPipe");
+		//System.out.println("addPipe");
 		saboteurPointSources.add(p);
 		gameElements.add(p);//Ez kell-e??
 	}
@@ -173,7 +177,7 @@ public class Game {
 	 */
 	public void calculatePoints()
 	{
-		System.out.println("calculatePoints");
+		//System.out.println("calculatePoints");
 		for(int i = 0;i<cisterns.size();i++)
 		{
 			repairmanPoints+= cisterns.get(i).measureAndResetWaterFlown();
@@ -191,7 +195,7 @@ public class Game {
 	 */
 	public void addPump(Pump p)
 	{
-		System.out.println("addPump");
+		//System.out.println("addPump");
 		saboteurPointSources.add(p);
 		gameElements.add(p);//Ez kell-e??
 		timer.addPump(p);
@@ -203,7 +207,7 @@ public class Game {
 	 */
 	public void newPipe()
 	{
-		System.out.println("newPipe");
+		//System.out.println("newPipe");
 		for(int i =0;i<cisterns.size();i++)
 		{
 			Pipe p = cisterns.get(i).newPipe();

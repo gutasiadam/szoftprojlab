@@ -205,7 +205,7 @@ class Skeleton {
     public void SimulateWaterflow()
     {
         //Setup
-        //System.out.println("BEGIN");
+        System.out.println("BEGIN->Skeleton.SimulateWaterflow()");
         WaterSource Source1 = new WaterSource();
         Cistern Cistern1 = new Cistern();
         Pump Pump1 = new Pump();
@@ -224,60 +224,14 @@ class Skeleton {
         game.addCistern(Cistern1);
         
         //Input
-        Scanner sc = new Scanner(System.in);
-        System.out.println("DECISION Pump1 el van romolva? (I/N)");
-        
-        String brokePump1 = "";
-        if(sc.hasNext())
-            brokePump1 = sc.next();
-        
-        
-        while(!(brokePump1.equals("I")||brokePump1.equals("N")))
-        {
-            brokePump1 = sc.next();
-            System.out.println("Ervenytelen valasz! Probalkozzon ujra. (I/N)>");
-        }
-        if(brokePump1.equals("I"))
-        {
-            Pump1.breakPump();
-        }
-        
-        System.out.println("DECISION Pipe1 lyukas? (I/N)>");
-        String damagePipe1 = "";
-        if(sc.hasNext())
-            damagePipe1 = sc.next();
-        
-        while(!(damagePipe1.equals("I")||damagePipe1.equals("N")))
-        {
-            damagePipe1 = sc.next();
-            System.out.println("Ervenytelen valasz! Probalkozzon ujra. (I/N)>");
-        }
-        if(damagePipe1.equals("I"))
-        {
-            Pipe1.damage();
-        }
-        
-        System.out.print("DECISION Pipe2 lyukas? (I/N)>");
-        String damagePipe2 = "";
-        if(sc.hasNext())
-            damagePipe2 = sc.next();
-        
-        while(!(damagePipe2.equals("I")||damagePipe2.equals("N")))
-        {
-            damagePipe2 = sc.next();
-            System.out.println("Ervenytelen valasz! Probalkozzon ujra. (I/N)>");
-        }
-        if(damagePipe2.equals("I"))
-        {
-            Pipe2.damage();
-        }
-        sc.close();
+        Pump1.breakPump();
+        Pipe1.damage();
+        Pipe2.damage();
         
         //Teszt
-        
-        System.out.print("Begin->");
+        System.out.print("Skeleton->");
         game.SimulateWaterflow();
-        System.out.println("END<-Game.SimulateWaterflow()");
+        System.out.println("END<-Skeleton.SimulateWaterflow()");
     }
 
 	
