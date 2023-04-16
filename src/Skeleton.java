@@ -27,18 +27,17 @@ class Skeleton {
 		tests.put(6, new Pair<>("PlaceNewPipeTest", () -> PlaceNewPipeTest()));
 		tests.put(7, new Pair<>("RepairPumpTest", () -> RepairPumpTest()));
 		tests.put(8, new Pair<>("RepairPipeTest", () -> RepairPipeTest()));
-		tests.put(9, new Pair<>("GameTurnsTest", () -> GameTurnsTest()));
-		tests.put(10, new Pair<>("SimulateWaterflow", () -> SimulateWaterflow()));
-		tests.put(11, new Pair<>("WaterSourceHandlingAPipe", () -> WaterSourceHandlingAPipe()));
-		tests.put(12, new Pair<>("RepairmanLiftsPipeTest", () -> RepairmanLiftsPipeTest()));
-		tests.put(13, new Pair<>("RepairmanPlacingPipeTest", () -> RepairmanPlacingPipeTest()));
-		tests.put(14, new Pair<>("PumpOrCisternHandlingAPipeTest", () -> PumpOrCisternHandlingAPipeTest()));
-		tests.put(15, new Pair<>("CalculatePointsTest", () -> CalculatePointsTest()));
-		tests.put(16, new Pair<>("SaboteurDealsDamageOnPipeTest", () -> SaboteurDealsDamageOnPipeTest()));
-		tests.put(17, new Pair<>("SaboteurDealsDamageOnCisternTest", () -> SaboteurDealsDamageOnCisternTest()));
-		tests.put(18, new Pair<>("CharacterMovesTest", () -> CharacterMovesTest()));
-		tests.put(19, new Pair<>("DestructionTimeDestructsPumps", () -> DestructionTimeDestructsPumps()));
-		tests.put(20, new Pair<>("DestructionTimerRecievesNewPump", () -> DestructionTimerRecievesNewPump()));
+		tests.put(9, new Pair<>("SimulateWaterflow", () -> SimulateWaterflow()));
+		tests.put(10, new Pair<>("WaterSourceHandlingAPipe", () -> WaterSourceHandlingAPipe()));
+		tests.put(11, new Pair<>("RepairmanLiftsPipeTest", () -> RepairmanLiftsPipeTest()));
+		tests.put(12, new Pair<>("RepairmanPlacingPipeTest", () -> RepairmanPlacingPipeTest()));
+		tests.put(13, new Pair<>("PumpOrCisternHandlingAPipeTest", () -> PumpOrCisternHandlingAPipeTest()));
+		tests.put(14, new Pair<>("CalculatePointsTest", () -> CalculatePointsTest()));
+		tests.put(15, new Pair<>("SaboteurDealsDamageOnPipeTest", () -> SaboteurDealsDamageOnPipeTest()));
+		tests.put(16, new Pair<>("SaboteurDealsDamageOnCisternTest", () -> SaboteurDealsDamageOnCisternTest()));
+		tests.put(17, new Pair<>("CharacterMovesTest", () -> CharacterMovesTest()));
+		tests.put(18, new Pair<>("DestructionTimeDestructsPumps", () -> DestructionTimeDestructsPumps()));
+		tests.put(19, new Pair<>("DestructionTimerRecievesNewPump", () -> DestructionTimerRecievesNewPump()));
 	}
 	//A tesztelési főmenü kiirása, tesztek inditasa
 	public void showTestMenu() {
@@ -163,24 +162,41 @@ class Skeleton {
 		System.out.println("Repair Pump");
 	
 		Repairman r1 = new Repairman();
+		r1.setName("r1");
 		Pump p1 = new Pump();
+		p1.setName("p1");
+		
 		r1.setPosition(p1);
-		//Teszt
-		System.out.print("1.1 BEGIN->r1.repairElement()\n\t");
+		
+		/** Teszt futtatása */
+		System.out.print("1.1 BEGIN->"+p1.getName()+".repairElement()\n\t");
 		r1.RepairElement();
-		System.out.print("END<-r1.repairElement()");
+		System.out.print("END<-"+p1.getName()+".repairElement()");
 		
 	}
 	
 	/**
-	 * A szerelő karakter megpróbál megszerelni egy csövet.
+	 * 8. Teszt
+	 * "A szerelő karakter megpróbál megszerelni egy csövet" esethez tartozó teszt
+	 * @author Gutási Ádám
 	 */
-	public void RepairPipeTest() {}
+	public void RepairPipeTest() {
+		//Inicializálás
+		System.out.println("Repair Pipe");
 	
-	/**
-	 * A játék elindulását, destructionTimer működését, karakterek lépésének sorrendjét és a játék befejeződését ellenőrző teszt.
-	 */
-	public void GameTurnsTest() {}
+		Repairman r1 = new Repairman();
+		r1.setName("r1");
+		Pipe p1 = new Pipe();
+		p1.setName("p1");
+		
+		r1.setPosition(p1);
+		
+		/** Teszt futtatása */
+		System.out.print("1.1 BEGIN->"+p1.getName()+".repairElement()\n\t");
+		r1.RepairElement();
+		System.out.print("END<-"+p1.getName()+".repairElement()");
+	}
+	
 	
 	/**
 	 * A víz folyik a Forrástól a Ciszternáig a vízhálózaton keresztül.

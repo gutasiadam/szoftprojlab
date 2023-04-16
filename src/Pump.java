@@ -10,11 +10,11 @@ public class Pump extends NonPipe implements SaboteurPointSource {
     private int leakedWaterAmount;
     
     /** 
-     * Ezen keresztul lehet megjavitani.
+     * Pumpa megjavitása
      */
     @Override
     public void repair(){
-		System.out.println("DECISION - A pumpa el van romolva? (I/N) >");
+		System.out.print("DECISION - A pumpa el van romolva? (I/N) >");
 		
 		Scanner sc = new Scanner(System.in);
 		String brokePump1;
@@ -23,22 +23,22 @@ public class Pump extends NonPipe implements SaboteurPointSource {
 			brokePump1 = sc.next();
 			if(brokePump1.equals("I"))
 			{
-				System.out.println("broken=true");
+				System.out.println("\t\t"+this.getName()+".broken=true");
 				this.broken=true;
-				System.out.println("broken=false");
+				System.out.println("\t\t"+this.getName()+".broken=false");
 				this.broken=false;
 				break;
 				
 			}if(brokePump1.equals("N")) {
-				System.out.println("broken=false");
+				System.out.println("\t\t"+this.getName()+".broken=false");
 				break;
 			}else {
-				System.out.println("Ervenytelen valasz! Probalkozzon ujra. (I/N)>");
+				System.out.print("\nErvenytelen valasz! Probalkozzon ujra. (I/N)>");
 			}
 		}
 		
 
-		System.out.println("<-.repair():void;"); //TODO: valahogy printelődjön ki, hogy ki hivta meg, es az objektum neve is latszodjon
+		System.out.println("\t<-"+this.getName()+".repair():void;");
     }
 
     

@@ -37,10 +37,31 @@ public class Pipe extends Element implements SaboteurPointSource{
      */
     @Override
     public void repair(){
-        boolean userInput = false; //TODO: stdinrol
-        if(userInput){
-            holeOnPipe = false;
-        }
+		System.out.print("DECISION - A cső ki van lyukadva? (I/N) >");
+		
+		Scanner sc = new Scanner(System.in);
+		String brokePipe1;
+		while(sc.hasNext())
+		{
+			brokePipe1 = sc.next();
+			if(brokePipe1.equals("I"))
+			{
+				System.out.println("\t\t"+this.getName()+".broken=true");
+				this.holeOnPipe=true;
+				System.out.println("\t\t"+this.getName()+".broken=false");
+				this.holeOnPipe=false;
+				break;
+				
+			}if(brokePipe1.equals("N")) {
+				System.out.println("\t\t"+this.getName()+".broken=false");
+				break;
+			}else {
+				System.out.print("\nErvenytelen valasz! Probalkozzon ujra. (I/N)>");
+			}
+		}
+		
+
+		System.out.println("\t<-"+this.getName()+".repair():void;");
     }
 
     /** 
