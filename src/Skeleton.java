@@ -265,6 +265,7 @@ class Skeleton {
     public void SimulateWaterflow()
     {
         //Setup
+    	Tabulator.reset();
     	System.out.println("SimulateWaterflow");
         System.out.println("BEGIN->Skeleton.SimulateWaterflow()");
         WaterSource Source1 = new WaterSource();
@@ -313,10 +314,12 @@ class Skeleton {
 
 	
 	/**
+	 * @author Szikszai Levente
 	 * Az egyik Szerelő megpróbál bekötni egy csövet a Forrásba.
 	 */
 	public void WaterSourceHandlingAPipe()
 	{
+		Tabulator.reset();
 		System.out.println("WaterSourceHandlingAPipe");
 		System.out.println("Begin->Skeleton.WaterSourceHandlingAPipe()");
 		
@@ -327,28 +330,42 @@ class Skeleton {
 		Pump Pump1 = new Pump();
 		Repairman1.setPosition(position);
 		Repairman1.setHoldingPipe(holdingPipe);
+		Pump1.setName("Pump1");
+		holdingPipe.setName("holdingPipe");
+		position.setName("position");
+		Repairman1.setName("Repairman1");
 		
 		//Input
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Connect Source to holdingPipe? (I/N)");
+		System.out.print("DECISION-Connect Source to holdingPipe? (I/N)>");
 		String isConnectedToSource = sc.next();
 		while(!(isConnectedToSource.equals("I")||isConnectedToSource.equals("N")))
 		{
 			isConnectedToSource = sc.next();
-			System.out.println("Ervenytelen valasz! Probalkozzon ujra. (I/N)");
+			System.out.print("Ervenytelen valasz! Probalkozzon ujra. (I/N)>");
 		}
 		if(isConnectedToSource.equals("I"))
 		{
+			Tabulator.printTab();
+			System.out.println("Skeleton->"+holdingPipe.getName()+".addNeighbor("+position.getName()+")");
 			holdingPipe.addNeighbor(position);
+			Tabulator.printTab();
+			System.out.println("Skeleton->"+position.getName()+".addNeighbor("+holdingPipe.getName()+")");
 			position.addNeighbor(holdingPipe);
 		}
 		else
 		{
+			Tabulator.printTab();
+			System.out.println("Skeleton->"+holdingPipe.getName()+".addNeighbor("+Pump1.getName()+")");
 			holdingPipe.addNeighbor(Pump1);
+			Tabulator.printTab();
+			System.out.println("Skeleton->"+Pump1.getName()+".addNeighbor("+holdingPipe.getName()+")");
 			Pump1.addNeighbor(holdingPipe);
 		}
 		
 		//Teszt
+		Tabulator.printTab();
+		System.out.println("Skeleton->"+Repairman1.getName()+".PlacePipe()");
 		Repairman1.PlacePipe();
 		
 		System.out.println("END<-Skeleton.WaterSourceHandlingAPipe()");

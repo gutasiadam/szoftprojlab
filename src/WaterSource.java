@@ -34,13 +34,32 @@ public class WaterSource extends NonPipe {
      */
     @Override
     public boolean placePipe(Pipe holdingPipe){
+    	boolean out;
+    	Tabulator.increaseTab();
+    	Tabulator.printTab();
+    	System.out.println(getName()+"->"+holdingPipe.getName()+".getNeighbors().get(0)");
+    	
         NonPipe n = holdingPipe.getNeighbors().get(0);
+        
+        Tabulator.printTab();
+        System.out.println("<-"+holdingPipe.getName()+".getNeighbors().get(0):"+n.getName());
         if(n != this){
+        	Tabulator.printTab();
+        	System.out.println("1.2A "+getName()+"->"+getName()+".addNeighbor("+holdingPipe.getName()+")");
             addNeighbor(holdingPipe);
+            
+            Tabulator.printTab();
+            System.out.println(getName()+"->"+holdingPipe.getName()+".addNeighbor("+getName()+")");
             holdingPipe.addNeighbor(this);
-            return true;
+            out =  true;
         }else{
-            return false;
+        	Tabulator.printTab();
+        	System.out.println("1.2B");
+            out =  false;
         }
+        Tabulator.decreaseTab();
+        Tabulator.printTab();
+        System.out.println("<-"+getName()+".placePipe():"+out);
+        return out;
     }
 }

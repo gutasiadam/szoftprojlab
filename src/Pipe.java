@@ -192,6 +192,9 @@ public class Pipe extends Element implements SaboteurPointSource{
         if(neighbors.size()<2){
             neighbors.add(n);
         }
+        Tabulator.printTab();
+        System.out.println("<-"+getName()+".addNeighbor("+n.getName()+")");
+        
     }
 
     /** 

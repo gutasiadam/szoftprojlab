@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  * 
  * @author Szikszai Levente
- *
+ *	Az elemek tarolasaert es a jatek mukodeseert felelos osztaly
  */
 public class Game {
 
