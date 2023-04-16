@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Scanner;
 
 public class Pump extends NonPipe implements SaboteurPointSource {
     private Pipe inputPipe;
@@ -13,10 +14,31 @@ public class Pump extends NonPipe implements SaboteurPointSource {
      */
     @Override
     public void repair(){
-        boolean userInput = false; //TODO: stdinrol
-        if(userInput){
-            broken = false;
-        }
+		System.out.println("DECISION - A pumpa el van romolva? (I/N) >");
+		
+		Scanner sc = new Scanner(System.in);
+		String brokePump1;
+		while(sc.hasNext())
+		{
+			brokePump1 = sc.next();
+			if(brokePump1.equals("I"))
+			{
+				System.out.println("broken=true");
+				this.broken=true;
+				System.out.println("broken=false");
+				this.broken=false;
+				break;
+				
+			}if(brokePump1.equals("N")) {
+				System.out.println("broken=false");
+				break;
+			}else {
+				System.out.println("Ervenytelen valasz! Probalkozzon ujra. (I/N)>");
+			}
+		}
+		
+
+		System.out.println("<-.repair():void;"); //TODO: valahogy printelődjön ki, hogy ki hivta meg, es az objektum neve is latszodjon
     }
 
     

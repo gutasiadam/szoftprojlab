@@ -49,10 +49,10 @@ class Skeleton {
 		System.out.println("----------------");
 		Scanner userInput = new Scanner(System.in);
 		System.out.print("Ird be a futtatandó teszt számát (q: kilépés)\n>");
-        while (userInput.hasNextLine()) {
+        while (userInput.hasNext()) {
         	
             
-            String input = userInput.nextLine();
+            String input = userInput.next();
 			
 			try {
 				this.selectedMenuItem = Integer.parseInt(input);
@@ -64,6 +64,7 @@ class Skeleton {
 			if(tests.get(this.selectedMenuItem) !=null) {
 				//Teszt futtatasa
 				tests.get(selectedMenuItem).getSecond().run();
+				System.out.println("\n----------------\nIrd be a futtatandó teszt számát (q: kilépés)\\n>");
 				
 			}
 			else {
@@ -108,9 +109,23 @@ class Skeleton {
 	public void PlaceNewPipeTest() {}
 	
 	/**
-	 * A szerelő karakter megpróbál megszerelni egy pumpát.
+	 * 7. Teszt
+	 * A szerelő karakter megpróbál megszerelni egy pumpát esethez tartozó teszt
+	 * @author Gutási Ádám
 	 */
-	public void RepairPumpTest() {}
+	public void RepairPumpTest() {
+		//Inicializálás
+		System.out.println("Repair Pump");
+	
+		Repairman r1 = new Repairman();
+		Pump p1 = new Pump();
+		r1.setPosition(p1);
+		//Teszt
+		System.out.print("1.1 BEGIN->r1.repairElement()\n\t");
+		r1.RepairElement();
+		System.out.print("END<-r1.repairElement()");
+		
+	}
 	
 	/**
 	 * A szerelő karakter megpróbál megszerelni egy csövet.
