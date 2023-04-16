@@ -69,15 +69,23 @@ public class Cistern extends NonPipe {
      */
     public Pipe newPipe(){
         boolean letezik = false;
+        /** Ha létezik ilyen félig szabad cső, nem hoz létre újat. */
         for(Pipe p : neighbors){
             if(p.getNeighbors().get(1) == null){
                 letezik = true;
             }
         }
+        /** Ha nem létezik a cső, létrehoz egyet */
         if(!letezik){
+        	
             Pipe createdPipe = new Pipe();
+            createdPipe.setName("createdPipe1");
+            System.out.println("1.3.1\t\t"+this.getName()+"-> <<create>>: "+createdPipe.getName());
+            System.out.println("\t\t"+this.getName()+"->"+createdPipe.getName()+".addNeighbor("+this.getName()+")");
             createdPipe.addNeighbor(this);
-            return createdPipe; //TODO: kell returnolni?
+            System.out.println("1.4.1\t\t"+this.getName()+"<-"+createdPipe.getName()+".addNeighbor("+this.getName()+"): void");
+            
+            return createdPipe;
         }
         return null;
     }

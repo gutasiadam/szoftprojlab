@@ -261,12 +261,16 @@ public class Game {
 	 */
 	public void newPipe()
 	{
-		//System.out.println("newPipe");
+		
 		for(int i =0;i<cisterns.size();i++)
 		{
+			System.out.println("1.2\tgame->"+cisterns.get(i).getName()+".newPipe()");
 			Pipe p = cisterns.get(i).newPipe();
+			p.setName("createdPipe"+(i+1));
+			System.out.println("\tgame<-"+cisterns.get(i).getName()+".newPipe():"+p.getName());
 			if(p!=null)
 			{
+				System.out.println("1.4.2\tgame.addPipe("+p.getName()+")");
 				addPipe(p);
 			}
 		}

@@ -36,14 +36,14 @@ public class Pump extends NonPipe implements SaboteurPointSource {
 			brokePump1 = sc.next();
 			if(brokePump1.equals("I"))
 			{
-				System.out.println("\t\t"+this.getName()+".broken=true");
+				System.out.println("1.3.A\t\t"+this.getName()+".broken=true");
 				this.broken=true;
 				System.out.println("\t\t"+this.getName()+".broken=false");
 				this.broken=false;
 				break;
 				
 			}if(brokePump1.equals("N")) {
-				System.out.println("\t\t"+this.getName()+".broken=false");
+				System.out.println("1.3.B\t\t"+this.getName()+".broken=false");
 				break;
 			}else {
 				System.out.print("\nErvenytelen valasz! Probalkozzon ujra. (I/N)>");

@@ -53,10 +53,7 @@ public class Repairman extends Character {
 	 * }
 	 */
 	public void RepairElement() {
-		System.out.println(this.getName() + "->" + position.getName() + ".repair();"); // TODO: Irja ki a nevet annak az
-																						// objektumnak, aki hiv, es
-																						// annak, akin hivnak
-		System.out.println(this.getName() + "->" + position.getName() + ".repair();");
+		System.out.println("1.2 "+this.getName() + "->" + position.getName() + ".repair();"); 
 		position.repair();
 	}
 

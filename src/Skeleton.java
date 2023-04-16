@@ -9,12 +9,12 @@ class Skeleton {
 	Game game;
 
 	/*
-	 * Tesztek tárolására szolgál
+	 * A tesztek tárolására és futtatására szolgál.
 	 * Itt Object helyett Runnable fog szerepelni, csak a tesztelés erejéig van
 	 * benne az Object.
 	 */
-	HashMap<Integer, Pair<String, Runnable>> tests = new HashMap<>();
-	private int selectedMenuItem; // A kiválasztott teszt száma.
+	HashMap<Integer, Pair<String, Runnable>> tests = new HashMap<>(); /** A tesztek tárolása. A szám egyértelműen azonosit egy teszt nevet, és a hozzátartozó metódust. */
+	private int selectedMenuItem; /** A kiválasztott teszt száma. */
 
 	// Konstruktor
 	Skeleton() {
@@ -46,12 +46,13 @@ class Skeleton {
 	// A tesztelési főmenü kiirása, tesztek inditasa
 	public void showTestMenu() {
 		System.out.println("--- Tesztek ----");
+		 /** A tesztek felsorolása*/
 		for (int n = 1; n < this.tests.size() + 1; n++) {
 			System.out.println(n + " - " + tests.get(n).getFirst());
 		}
 		System.out.println("----------------");
 		Scanner userInput = new Scanner(System.in);
-		System.out.print("Ird be a futtatandó teszt számát (q: kilépés)\n>");
+		System.out.print("Ird be a futtatandó teszt számát (q: kilépés) >");
 		while (userInput.hasNext()) {
 
 			String input = userInput.next();
@@ -59,18 +60,19 @@ class Skeleton {
 			try {
 				this.selectedMenuItem = Integer.parseInt(input);
 			} catch (NumberFormatException e) {
+				/** Kilépés */
 				if (input.equals("q"))
 					break;
 				System.out.println("Ismeretlen parancs.");
 			}
 
 			if (tests.get(this.selectedMenuItem) != null) {
-				// Teszt futtatasa
+				/** Kiválasztott teszt futtatása */
 				tests.get(selectedMenuItem).getSecond().run();
 				System.out.println("\n----------------\nIrd be a futtatandó teszt számát (q: kilépés)\\n>");
 
 			} else {
-				// Nem letezik a teszt, nem futtatunk
+				/** Nem letezik a teszt, nem futtatunk */
 				System.out.println("Nem talalhato a megadott szamu teszt.");
 
 			}
@@ -217,9 +219,20 @@ class Skeleton {
 	}
 
 	/**
+	 * 6. Teszt
 	 * A Controller új csövet hoz létre egy ciszternán
 	 */
 	public void PlaceNewPipeTest() {
+		/** Inicializálás */
+		System.out.println("6. Place new Pipe");
+		this.game=new Game();
+		Cistern cistern1 = new Cistern();
+		cistern1.setName("cistern1");
+		this.game.addCistern(cistern1);
+		/** Teszt futtatása */
+		System.out.println(String.format("1.1 BEGIN->game.newPipe()"));
+		game.newPipe();
+		System.out.println(String.format("END<-game.newPipe()"));
 	}
 
 	/**
@@ -229,7 +242,7 @@ class Skeleton {
 	 * @author Gutási Ádám
 	 */
 	public void RepairPumpTest() {
-		// Inicializálás
+		/** Inicializálás */
 		System.out.println("Repair Pump");
 
 		Repairman r1 = new Repairman();
@@ -240,7 +253,7 @@ class Skeleton {
 		r1.setPosition(p1);
 
 		/** Teszt futtatása */
-		System.out.print("1.1 BEGIN->" + p1.getName() + ".repairElement()\n\t");
+		System.out.println("1.1 BEGIN->" + r1.getName() + ".repairElement()");
 		r1.RepairElement();
 		System.out.print("END<-" + p1.getName() + ".repairElement()");
 
@@ -253,7 +266,7 @@ class Skeleton {
 	 * @author Gutási Ádám
 	 */
 	public void RepairPipeTest() {
-		// Inicializálás
+		/** Inicializálás */
 		System.out.println("Repair Pipe");
 
 		Repairman r1 = new Repairman();
@@ -264,7 +277,7 @@ class Skeleton {
 		r1.setPosition(p1);
 
 		/** Teszt futtatása */
-		System.out.print("1.1 BEGIN->" + p1.getName() + ".repairElement()\n\t");
+		System.out.println("1.1 BEGIN->" + p1.getName() + ".repairElement()\n\t");
 		r1.RepairElement();
 		System.out.print("END<-" + p1.getName() + ".repairElement()");
 	}
@@ -314,9 +327,7 @@ class Skeleton {
 	 * @author Szikszai Levente
 	 *         Az egyik Szerelő megpróbál bekötni egy csövet a Forrásba.
 	 */
-	public void WaterSourceHandlingAPipe() {
-
-	public void WaterSourceHandlingAPipe()
+	public void WaterSourceHandlingAPipe() 
 	{
 		Tabulator.reset();
 		System.out.println("WaterSourceHandlingAPipe");
@@ -345,10 +356,8 @@ class Skeleton {
 			System.out.print("Ervenytelen valasz! Probalkozzon ujra. (I/N)>");
 		}
 		if (isConnectedToSource.equals("I")) {
-		if(isConnectedToSource.equals("I"))
-		{
 			Tabulator.printTab();
-			System.out.println("Skeleton->"+holdingPipe.getName()+".addNeighbor("+position.getName()+")");
+			System.out.println("Skeleton->" + holdingPipe.getName() + ".addNeighbor(" + position.getName() + ")");
 			holdingPipe.addNeighbor(position);
 			Tabulator.printTab();
 			System.out.println("<-" + holdingPipe.getName() + ".addNeighbor(" + position.getName() + ")");
@@ -356,14 +365,11 @@ class Skeleton {
 			Tabulator.printTab();
 			System.out.println("Skeleton->" + position.getName() + ".addNeighbor(" + holdingPipe.getName() + ")");
 			position.addNeighbor(holdingPipe);
+			Tabulator.printTab();
+			System.out.println("<-" + position.getName() + ".addNeighbor(" + holdingPipe.getName() + ")");
 		} else {
 			Tabulator.printTab();
-	        System.out.println("<-"+position.getName()+".addNeighbor("+holdingPipe.getName()+")");
-		}
-		else
-		{
-			Tabulator.printTab();
-			System.out.println("Skeleton->"+holdingPipe.getName()+".addNeighbor("+Pump1.getName()+")");
+			System.out.println("Skeleton->" + holdingPipe.getName() + ".addNeighbor(" + Pump1.getName() + ")");
 			holdingPipe.addNeighbor(Pump1);
 			Tabulator.printTab();
 			System.out.println("<-" + holdingPipe.getName() + ".addNeighbor(" + Pump1.getName() + ")");
@@ -447,9 +453,6 @@ class Skeleton {
 	 * 
 	 * @author Gutási Ádám
 	 */
-	public void CalculatePointsTest() {
-	}
-
 	public void CalculatePointsTest() {
 		System.out.println("Calculate Points");
 		/** Inicializálás */

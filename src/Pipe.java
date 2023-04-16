@@ -68,14 +68,14 @@ public class Pipe extends Element implements SaboteurPointSource{
 			brokePipe1 = sc.next();
 			if(brokePipe1.equals("I"))
 			{
-				System.out.println("\t\t"+this.getName()+".broken=true");
+				System.out.println("1.3.A\t\t"+this.getName()+".broken=true");
 				this.holeOnPipe=true;
 				System.out.println("\t\t"+this.getName()+".broken=false");
 				this.holeOnPipe=false;
 				break;
 				
 			}if(brokePipe1.equals("N")) {
-				System.out.println("\t\t"+this.getName()+".broken=false");
+				System.out.println("1.3.B\t\t"+this.getName()+".broken=false");
 				break;
 			}else {
 				System.out.print("\nErvenytelen valasz! Probalkozzon ujra. (I/N)>");
@@ -185,12 +185,14 @@ public class Pipe extends Element implements SaboteurPointSource{
     }
 
     /** 
-     * Ezen keresztul lehet hozza szomszedot csatlakoztatni.
+     * Uj szomszed hozzacsatlakoztatasa a csohoz.
      * @param n - a csatlakoztatni kivant szomszed
      */
     public void addNeighbor(NonPipe n){
         if(neighbors.size()<2){
+        	System.out.println("1.3.2\t\t\t"+this.getName()+"->"+"neighbors.add("+n.getName()+")");
             neighbors.add(n);
+            System.out.println("\t\t\t+"+this.getName()+".neighbors.get(2)=="+n.getName()+" ?" +(this.neighbors.get(0)==n));
         }
     }
 
