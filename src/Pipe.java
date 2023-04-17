@@ -190,9 +190,9 @@ public class Pipe extends Element implements SaboteurPointSource{
      */
     public void addNeighbor(NonPipe n){
         if(neighbors.size()<2){
-        	System.out.println("1.3.2\t\t\t"+this.getName()+"->"+"neighbors.add("+n.getName()+")");
+        	//System.out.println("\t\t\t"+this.getName()+"->"+"neighbors.add("+n.getName()+")");
             neighbors.add(n);
-            System.out.println("\t\t\t+"+this.getName()+".neighbors.get(2)=="+n.getName()+" ?" +(this.neighbors.get(0)==n));
+            //System.out.println("\t\t\t+"+this.getName()+".neighbors.get(2)=="+n.getName()+" ?" +(this.neighbors.get(0)==n));
         }
     }
 

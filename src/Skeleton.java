@@ -4,17 +4,15 @@ import java.lang.reflect.*;
 
 class Skeleton {
 	/*
-	 * JĂˇtĂ©k objektum (singleton class)
+	 * Játék objektum (singleton class)
 	 */
 	Game game;
 
 	/*
-	 * A tesztek tĂˇrolĂˇsĂˇra Ă©s futtatĂˇsĂˇra szolgĂˇl.
-	 * Itt Object helyett Runnable fog szerepelni, csak a tesztelĂ©s erejĂ©ig van
-	 * benne az Object.
+	 * A tesztek tárolására és futtatására szolgál
 	 */
-	HashMap<Integer, Pair<String, Runnable>> tests = new HashMap<>(); /** A tesztek tĂˇrolĂˇsa. A szĂˇm egyĂ©rtelmĹ±en azonosit egy teszt nevet, Ă©s a hozzĂˇtartozĂł metĂłdust. */
-	private int selectedMenuItem; /** A kivĂˇlasztott teszt szĂˇma. */
+	HashMap<Integer, Pair<String, Runnable>> tests = new HashMap<>(); /** A tesztek tárolása. A sám egyértelműen azonosit egy teszt nevet, és a hozzá tartozó metódust */
+	private int selectedMenuItem; /** A kivalasztott teszt szama */
 
 	// Konstruktor
 	Skeleton() {
@@ -34,26 +32,26 @@ class Skeleton {
 		tests.put(10, new Pair<>("WaterSourceHandlingAPipe", () -> WaterSourceHandlingAPipe()));
 		tests.put(11, new Pair<>("RepairmanLiftsPipeTest", () -> RepairmanLiftsPipeTest()));
 		tests.put(12, new Pair<>("RepairmanPlacingPipeTest", () -> RepairmanPlacingPipeTest()));
-		tests.put(13, new Pair<>("PumpOrCisternHandlingAPipeTest", () -> PumpOrCisternHandlingAPipeTest()));
-		tests.put(14, new Pair<>("CalculatePointsTest", () -> CalculatePointsTest()));
-		tests.put(15, new Pair<>("SaboteurDealsDamageOnPipeTest", () -> SaboteurDealsDamageOnPipeTest()));
-		tests.put(16, new Pair<>("SaboteurDealsDamageOnCisternTest", () -> SaboteurDealsDamageOnCisternTest()));
-		tests.put(17, new Pair<>("CharacterMovesFromPipeToCistern", () -> CharacterMovesFromPipeToCistern()));
-		tests.put(18, new Pair<>("CharacterMovesFromCisternToPipe", () -> CharacterMovesFromCisternToPipe()));
-		tests.put(19, new Pair<>("DestructionTimeDestructsPumps", () -> DestructionTimeDestructsPumps()));
-		tests.put(20, new Pair<>("DestructionTimerRecievesNewPump", () -> DestructionTimerRecievesNewPump()));
+		//tests.put(13, new Pair<>("PumpOrCisternHandlingAPipeTest", () -> PumpOrCisternHandlingAPipeTest()));
+		tests.put(13, new Pair<>("CalculatePointsTest", () -> CalculatePointsTest()));
+		tests.put(14, new Pair<>("SaboteurDealsDamageOnPipeTest", () -> SaboteurDealsDamageOnPipeTest()));
+		tests.put(15, new Pair<>("SaboteurDealsDamageOnCisternTest", () -> SaboteurDealsDamageOnCisternTest()));
+		tests.put(16, new Pair<>("CharacterMovesFromPipeToCistern", () -> CharacterMovesFromPipeToCistern()));
+		tests.put(17, new Pair<>("CharacterMovesFromCisternToPipe", () -> CharacterMovesFromCisternToPipe()));
+		tests.put(18, new Pair<>("DestructionTimerDestructsPumps", () -> DestructionTimerDestructsPumps()));
+		tests.put(19, new Pair<>("DestructionTimerRecievesNewPump", () -> DestructionTimerRecievesNewPump()));
 	}
 
-	// A tesztelĂ©si fĹ‘menĂĽ kiirĂˇsa, tesztek inditasa
+	//A tesztelesi menu kiirasa
 	public void showTestMenu() {
 		System.out.println("--- Tesztek ----");
-		 /** A tesztek felsorolĂˇsa*/
+		 /** A tesztek felsorola*/
 		for (int n = 1; n < this.tests.size() + 1; n++) {
 			System.out.println(n + " - " + tests.get(n).getFirst());
 		}
 		System.out.println("----------------");
 		Scanner userInput = new Scanner(System.in);
-		System.out.print("Ird be a futtatandĂł teszt szĂˇmĂˇt (q: kilĂ©pĂ©s) >");
+		System.out.print("Ird be a futtatando teszt szamat (q: kilepes) >");
 		while (userInput.hasNext()) {
 
 			String input = userInput.next();
@@ -61,16 +59,16 @@ class Skeleton {
 			try {
 				this.selectedMenuItem = Integer.parseInt(input);
 			} catch (NumberFormatException e) {
-				/** KilĂ©pĂ©s */
+				/** Kilepes */
 				if (input.equals("q"))
 					break;
 				System.out.println("Ismeretlen parancs.");
 			}
 
 			if (tests.get(this.selectedMenuItem) != null) {
-				/** KivĂˇlasztott teszt futtatĂˇsa */
+				/** Kivalasztott teszt futtatasa */
 				tests.get(selectedMenuItem).getSecond().run();
-				System.out.println("\n----------------\nIrd be a futtatandĂł teszt szĂˇmĂˇt (q: kilĂ©pĂ©s)\\n>");
+				System.out.println("\n----------------\nIrd be a futtatando teszt szamat (q: kilepes) >");
 
 			} else {
 				/** Nem letezik a teszt, nem futtatunk */
@@ -84,12 +82,13 @@ class Skeleton {
 	}
 
 	/**
-	 * A szerelĹ‘ felvesz egy pumpĂˇt esethez tartozĂł teszt
+	 * 1. Teszt
+	 * A szerelo felvesz egy pumpot esethez tartozo teszt
 	 * 
 	 * @author Andai Roland
 	 */
 	public void RepairmanStandingOnCisternAndLiftsPumpTest() {
-		/** InicializĂˇlĂˇs */
+		/** Inicializalas */
 		System.out.println("1. Repairman Standing On Cistern And Lifts Pump");
 		Repairman r = new Repairman();
 		r.setName("r");
@@ -97,19 +96,20 @@ class Skeleton {
 		c.setName("c");
 		r.setPosition(c);
 
-		/** Teszt futtatĂˇsa */
+		/** Teszt futtatasa */
 		System.out.println(String.format("1.1 BEGIN->%s.liftPump()", r.getName()));
 		r.LiftPump();
 		System.out.println(String.format("END<-%s.liftPump()", r.getName()));
 	}
 
 	/**
-	 * A szerelĹ‘ nem kap pumpĂˇt esethez tartozĂł teszt
+	 * 2.
+	 * A szerelo nem kap pumpat esethez tartozo teszt
 	 * 
 	 * @author Andai Roland
 	 */
 	public void RepairmanCannotLiftPumpTest() {
-		/** InicializĂˇlĂˇs */
+		/** Inicializalas */
 		System.out.println("2. Repairman Cannot Lift Pump");
 		Repairman r = new Repairman();
 		r.setName("r");
@@ -117,19 +117,20 @@ class Skeleton {
 		ws.setName("ws");
 		r.setPosition(ws);
 
-		/** Teszt futtatĂˇsa */
+		/** Teszt futtataa */
 		System.out.println(String.format("1.1 BEGIN->%s.liftPump()", r.getName()));
 		r.LiftPump();
 		System.out.println(String.format("END<-%s.liftPump()", r.getName()));
 	}
 
 	/**
-	 * A szerelĹ‘ nem tudja elhelyezni a pumpĂˇt esethez tartozĂł teszt.
+	 * 3. Teszt
+	 * A szerelo nem tudja elhelyezni a pumpat esethez tartozo teszt.
 	 * 
 	 * @author Andai Roland
 	 */
 	public void RepairmanCannotPlacePumpTest() {
-		/** InicializĂˇlĂˇs */
+		/** Inicializalas */
 		System.out.println("3. Repairman Cannot Place Pump");
 		Repairman r = new Repairman();
 		r.setName("r");
@@ -140,19 +141,20 @@ class Skeleton {
 		holdingPump.setName("holdingPump");
 		r.setHoldingPump(holdingPump);
 
-		/** Teszt futtatĂˇsa */
+		/** Teszt futtatasa */
 		System.out.println(String.format("1.1 BEGIN->%s.placePump()", r.getName()));
 		r.PlacePump();
 		System.out.println(String.format("END<-%s.placePump()", r.getName()));
 	}
 
 	/**
-	 * A szerelĹ‘ sikeresen lehelyezi a pumpĂˇt esethez tartozo teszt
+	 * 4. Teszt
+	 * A szerelo sikeresen lehelyezi a pumpat esethez tartozo teszt
 	 * 
 	 * @author Andai Roland
 	 */
 	public void RepairmanPlacesPumpTest() {
-		/** InicializĂˇlĂˇs */
+		/** Inicializalas */
 		System.out.println("4. Repairman Places Pump");
 
 		Repairman r = new Repairman();
@@ -182,20 +184,21 @@ class Skeleton {
 		game.addPipe(position);
 		game.addPump(n2);
 
-		/** Teszt futtatĂˇsa */
+		/** Teszt futtatasa */
 		System.out.println(String.format("1.1 BEGIN->%s.placePump()", r.getName()));
 		r.PlacePump();
 		System.out.println(String.format("END<-%s.placePump()", r.getName()));
 	}
 
 	/**
-	 * A szerelĹ‘ nem tudja lehelyezi a pumpĂˇt egy olyan csĂ¶vĂ¶n, amely sehovĂˇ nincs
-	 * bekĂ¶tve esethez tartozo teszt
+	 * 5. Teszt
+	 * A szerelo nem tudja lehelyezi a pumpat egy olyan csovon, amely sehova nincs
+	 * bekotve esethez tartozo teszt
 	 * 
 	 * @author Andai Roland
 	 */
 	public void RepairmanCannotPlacePumpOnZeroEndPipeTest() {
-		/** InicializĂˇlĂˇs */
+		/** Inicializalas */
 		System.out.println("5. Repairman Cannot Place Pump On Zero End Pipe");
 
 		Repairman r = new Repairman();
@@ -213,7 +216,7 @@ class Skeleton {
 		r.setGame(game);
 		game.addPipe(position);
 
-		/** Teszt futtatĂˇsa */
+		/** Teszt futtatasa */
 		System.out.println(String.format("1.1 BEGIN->%s.placePump()", r.getName()));
 		r.PlacePump();
 		System.out.println(String.format("END<-%s.placePump()", r.getName()));
@@ -221,16 +224,16 @@ class Skeleton {
 
 	/**
 	 * 6. Teszt
-	 * A Controller Ăşj csĂ¶vet hoz lĂ©tre egy ciszternĂˇn
+	 * A Controller egy csovet hoz letre a ciszternan
 	 */
 	public void PlaceNewPipeTest() {
-		/** InicializĂˇlĂˇs */
+		/** Inicializalas */
 		System.out.println("6. Place new Pipe");
 		this.game=new Game();
 		Cistern cistern1 = new Cistern();
 		cistern1.setName("cistern1");
 		this.game.addCistern(cistern1);
-		/** Teszt futtatĂˇsa */
+		/** Teszt futtatasa */
 		System.out.println(String.format("1.1 BEGIN->game.newPipe()"));
 		game.newPipe();
 		System.out.println(String.format("END<-game.newPipe()"));
@@ -238,13 +241,13 @@ class Skeleton {
 
 	/**
 	 * 7. Teszt
-	 * A szerelĹ‘ karakter megprĂłbĂˇl megszerelni egy pumpĂˇt esethez tartozĂł teszt
+	 * A szerelo karakter megprobal megszerelni egy pumpat esethez tartozo teszt
 	 * 
-	 * @author GutĂˇsi Ă�dĂˇm
+	 * @author Gutasi Adam
 	 */
 	public void RepairPumpTest() {
-		/** InicializĂˇlĂˇs */
-		System.out.println("Repair Pump");
+		/** Inicializalas */
+		System.out.println("7. Repair Pump");
 
 		Repairman r1 = new Repairman();
 		r1.setName("r1");
@@ -253,7 +256,7 @@ class Skeleton {
 
 		r1.setPosition(p1);
 
-		/** Teszt futtatĂˇsa */
+		/** Teszt futtatasa */
 		System.out.println("1.1 BEGIN->" + r1.getName() + ".repairElement()");
 		r1.RepairElement();
 		System.out.print("END<-" + p1.getName() + ".repairElement()");
@@ -262,13 +265,13 @@ class Skeleton {
 
 	/**
 	 * 8. Teszt
-	 * "A szerelĹ‘ karakter megprĂłbĂˇl megszerelni egy csĂ¶vet" esethez tartozĂł teszt
+	 * A szerelo karakter megprobal megszerelni egy csovet esethez tartozo teszt
 	 * 
-	 * @author GutĂˇsi Ă�dĂˇm
+	 * @author Gutasi Adam
 	 */
 	public void RepairPipeTest() {
-		/** InicializĂˇlĂˇs */
-		System.out.println("Repair Pipe");
+		/** Inicializalas */
+		System.out.println("8. Repair Pipe");
 
 		Repairman r1 = new Repairman();
 		r1.setName("r1");
@@ -277,19 +280,20 @@ class Skeleton {
 
 		r1.setPosition(p1);
 
-		/** Teszt futtatĂˇsa */
+		/** Teszt futtatasa */
 		System.out.println("1.1 BEGIN->" + p1.getName() + ".repairElement()\n\t");
 		r1.RepairElement();
 		System.out.print("END<-" + p1.getName() + ".repairElement()");
 	}
 
 	/**
+	 * 9. Teszt
+	 * A viz folyik a Forrastoll a Ciszternaiig a vizhalozaton keresztul.
 	 * @author Szikszai Levente
-	 *         A vĂ­z folyik a ForrĂˇstĂłl a CiszternĂˇig a vĂ­zhĂˇlĂłzaton keresztĂĽl.
 	 */
 	public void SimulateWaterflow() {
 		// Setup
-		System.out.println("SimulateWaterflow");
+		System.out.println("9. SimulateWaterflow");
 		System.out.println("BEGIN->Skeleton.SimulateWaterflow()");
 		WaterSource Source1 = new WaterSource();
 		Cistern Cistern1 = new Cistern();
@@ -310,7 +314,7 @@ class Skeleton {
 		Pipe2.addNeighbor(Source1);
 		Pipe2.addNeighbor(Pump1);
 		Source1.addNeighbor(Pipe2);
-		game = new Game(); // Valahogy resetelni kell a Game-et tesztenkĂ©nt
+		game = new Game(); // Valahogy resetelni kell a Game-et tesztenkent
 		game.addCistern(Cistern1);
 
 		// Input
@@ -325,13 +329,14 @@ class Skeleton {
 	}
 
 	/**
+	 * 10. Teszt
+	 * Az egyik Szerelo megprobal bekotni egy csovet a forrasba
 	 * @author Szikszai Levente
-	 *         Az egyik SzerelĹ‘ megprĂłbĂˇl bekĂ¶tni egy csĂ¶vet a ForrĂˇsba.
 	 */
 	public void WaterSourceHandlingAPipe() 
 	{
 		Tabulator.reset();
-		System.out.println("WaterSourceHandlingAPipe");
+		System.out.println("10 WaterSourceHandlingAPipe");
 		System.out.println("Begin->Skeleton.WaterSourceHandlingAPipe()");
 
 		// Setup
@@ -383,8 +388,7 @@ class Skeleton {
 		}
 
 		// Teszt
-		
-		//Teszt
+
 		Tabulator.printTab();
 		System.out.println("Skeleton->"+Repairman1.getName()+".PlacePipe()");
 		Repairman1.PlacePipe();
@@ -393,12 +397,14 @@ class Skeleton {
 	}
 
 	/**
-	 * @author Vajda AndrĂˇs
-	 *         A szerelĹ‘ megprĂłbĂˇlja felemeli az egyik csĹ‘ vĂ©gĂ©t
+	 * 11. Teszt
+	 * A szerelo megprobalja felemelni az egyik cso veget.
+	 * @author Vajda Andras
+	 *         
 	 */
 	public void RepairmanLiftsPipeTest() {
-		// InicializĂˇlĂˇs
-		System.out.println("RepairmanLiftsPipe");
+		/** Inicializalas */
+		System.out.println("11. RepairmanLiftsPipe");
 		Pump position = new Pump();
 		position.setName("position");
 		Pipe n = new Pipe();
@@ -408,19 +414,20 @@ class Skeleton {
 		Repairman r = new Repairman();
 		r.setPosition(position);
 		r.setName("r");
-		// Teszt futĂˇsa
+		/** Teszt futtatasa */
 		System.out.println(String.format("1.1 BEGIN->%s.liftpipe()", r.getName()));
 		r.LiftPipe(0);
 		System.out.println(String.format("END<-%s.liftpipe()", r.getName()));
 	}
 
 	/**
-	 * @author Vajda AndrĂˇs
-	 *         SzerelĹ‘ lehelyezi a nĂˇla lĂ©vĹ‘ csĂ¶vet
+	 * 12. Teszt
+	 * Szerelo lehelyezi a nala levo csovet
+	 * @author Vajda Andras
 	 */
 	public void RepairmanPlacingPipeTest() {
-		// InicializĂˇlĂˇs
-		System.out.println("RepairmanPlacingPipe");
+		/** Inicializalas */
+		System.out.println("12. RepairmanPlacingPipe");
 		Pump position = new Pump();
 		position.setName("position");
 		Pipe n = new Pipe();
@@ -437,26 +444,20 @@ class Skeleton {
 		System.out.println(String.format("END<-%s.placepipe()", r.getName()));
 	}
 
-	/**
-	 * @Author Vajda AndrĂˇs
-	 *         SzerelĹ‘ lehelyez egy nĂˇla lĂ©vĹ‘ csĂ¶ve egy pumpĂˇra vagy cisternĂˇra
-	 */
-	public void PumpOrCisternHandlingAPipeTest() {
-
-	}
 
 	/**
-	 * Pontok Ă¶sszeszĂˇmolĂˇsa a kĂ¶r vĂ©gĂ©n
-	 * Csak a pontszĂˇmito mukodesenek tesztelesehez valasszuk a N opciot a vizfolyas
+	 * 13. teszt
+	 * Pontok osszeszamolasa a kor vegen
+	 * Csak a pontszamito mukodesenek tesztelesehez valasszuk a N opciot a vizfolyas
 	 * szimulalasanal.
 	 * 
-	 * 1 hĂˇtralveĹ‘ kĂ¶rrel indul, meghivja az endGame-et is.
+	 * 1 hatralevo korrel indul, meghivja az endGame-et is.
 	 * 
-	 * @author GutĂˇsi Ă�dĂˇm
+	 * @author Gutasi Adam
 	 */
 	public void CalculatePointsTest() {
-		System.out.println("Calculate Points");
-		/** InicializĂˇlĂˇs */
+		System.out.println("13. Calculate Points");
+		/** Inicializalas */
 		this.game = new Game();
 
 		Cistern c1 = new Cistern();
@@ -473,19 +474,20 @@ class Skeleton {
 		game.addPump(p2);
 		p2.setName("p2");
 
-		/** Teszt futtatĂˇsa */
+		/** Teszt futtatasa */
 		System.out.println("BEGIN->game.endTurn()");
 		game.endTurn();
 		System.out.println("<-game.endTurn()");
 	}
 
 	/**
+	 * 14. Teszt
 	 * Egy szabotor kilyukaszt egy csovet.
 	 * @author Bodnar Mark
 	 */
 	public void SaboteurDealsDamageOnPipeTest(){
 		/** Inicializalas */
-		System.out.println("Saboteur Deals Damage On Pipe");
+		System.out.println("14. Saboteur Deals Damage On Pipe");
 		Saboteur s = new Saboteur();
 		s.setName("s");
 		Pipe p = new Pipe();
@@ -500,12 +502,13 @@ class Skeleton {
 	}
 	
 	/**
+	 * 15. Teszt
 	 * Egy szabotor kilyukaszt egy Cisternat.
 	 * @author Bodnar Mark
 	 */
 	public void SaboteurDealsDamageOnCisternTest() {
 		/** Inicializalas */
-		System.out.println("Saboteur Deals Damage On Cistern");
+		System.out.println("15. Saboteur Deals Damage On Cistern");
 		Saboteur s = new Saboteur();
 		s.setName("s");
 		Cistern c = new Cistern();
@@ -518,13 +521,14 @@ class Skeleton {
 		System.out.println(String.format("END<-dealDemage()"));
 	}
 	/**
+	 * 16. Teszt
 	 * Egy karakter a csorendszeren valo mozgatasahoz tartozo teszt.
 	 * Pumparol Ciszternara.
 	 * @author Bodnar Mark
 	 */
 	public void CharacterMovesFromPipeToCistern() {
 		/** Inicializalas */
-		System.out.println("Character Moves From Pipe To Cistern");
+		System.out.println("16. Character Moves From Pipe To Cistern");
 		Repairman rp = new Repairman();
 		rp.setName("rp");
 		Pipe position = new Pipe();
@@ -542,13 +546,14 @@ class Skeleton {
 		System.out.println(String.format("END<-%s.move(%s)", rp.getName(),dir));
 	}
 	/**
+	 * 17. Teszt
 	 * Egy karakter a csorendszeren valo mozgatasahoz tartozo teszt.
 	 * Ciszternarol Pumpara.
 	 * @author Bodnar Mark
 	 */
 	public void CharacterMovesFromCisternToPipe() {
 		/** Inicializalas */
-		System.out.println("Character Moves From Cistern To Pipe ");
+		System.out.println("17. Character Moves From Cistern To Pipe ");
 		Repairman rp = new Repairman();
 		rp.setName("rp");
 		Cistern position = new Cistern();
@@ -567,12 +572,16 @@ class Skeleton {
 	}
 
 	/**
+	 * 18. Teszt
 	 * Pumpak veletlenszeru elromlasa.
-	 * @author Bodnar Mark
+	 * 
 	 * itt most 80%-os elromlasi aranyra lett allitva
 	 * igy jobban lathato, kesobb ez kisebb lesz
+	 * 
+	 * @author Bodnar Mark
 	 */
-	public void DestructionTimeDestructsPumps() {
+	public void DestructionTimerDestructsPumps() {
+		System.out.println("18. DesturctionTimer Destructs Pumps");
 		/** Inicializalas */
 		Repairman rp = new Repairman();
 		rp.setName("rp");
@@ -582,7 +591,7 @@ class Skeleton {
 		t.addPump(p);
 		t.setName("dt");
 		
-		
+		/** Teszt futtatasa */
 		System.out.println(String.format("1.1 BEGIN->%s.tick()", t.getName()));
 		t.tick();
 		System.out.println(String.format("END<-%s.move()", t.getName()));
@@ -593,6 +602,7 @@ class Skeleton {
 	 * @author Bodnar Mark
 	 */
 	public void DestructionTimerRecievesNewPump() {
+		System.out.println("18. DesturctionTimerRecieves new pump");
 		/** Inicializalas */
 		Game g = new Game ();
 		DestructionTimer t = new DestructionTimer();

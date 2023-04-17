@@ -88,7 +88,9 @@ public class Cistern extends NonPipe {
             createdPipe.setName("createdPipe1");
             System.out.println("1.3.1\t\t"+this.getName()+"-> <<create>>: "+createdPipe.getName());
             System.out.println("\t\t"+this.getName()+"->"+createdPipe.getName()+".addNeighbor("+this.getName()+")");
+            System.out.println("1.3.2\t\t\t"+this.getName()+"->"+createdPipe.getName()+"neighbors.add("+this.getName()+")");
             createdPipe.addNeighbor(this);
+            System.out.println("\t\t\t"+this.getName()+"<-"+createdPipe.getName()+"neighbors.add("+this.getName()+")");
             System.out.println("1.4.1\t\t"+this.getName()+"<-"+createdPipe.getName()+".addNeighbor("+this.getName()+"): void");
             
             return createdPipe;

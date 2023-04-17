@@ -1,4 +1,4 @@
-/** @authorBodnar Mark*/
+/** @author Bodnar Mark*/
 public abstract class Character {
     private String Name;
 
