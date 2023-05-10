@@ -43,6 +43,37 @@ public class Game {
 	}
 	
 	/**
+	 * Beállítja a Game megfelelő változóit.
+	 * @param elements A csőhálózatot alkotó objektumok.
+	 * @param repairmans A Szerelő játékosok
+	 * @param saboteurs A Szabotőr játékosok
+	 */
+	public void load(ArrayList<Element> elements, ArrayList<Repairman> repairmans,ArrayList<Saboteur> saboteurs)
+	{
+		repairmanGroup=repairmans;
+		saboteurGroup=saboteurs;
+		gameElements=elements;
+	}
+
+	/**
+	 * Visszaadja a Szerelő járékosokat
+	 * @return repairmanGroup: A szerelő játékosokat tartalmazó ArrayList
+	 */
+	public ArrayList<Repairman> getRepairmanGroup()
+	{
+		return repairmanGroup;
+	}
+
+	/**
+	 * Visszaadja a Szabotőr járékosokat
+	 * @return saboteurGroup: A szabotőr játékosokat tartalmazó ArrayList
+	 */
+	public ArrayList<Saboteur> getSaboteurGroup()
+	{
+		return saboteurGroup;
+	}
+
+	/**
 	 * Létrehozza a pályát.
 	 */
 	public void initialize()
