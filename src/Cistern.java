@@ -12,6 +12,17 @@ public class Cistern extends NonPipe {
        super();
        waterFlown = 0;
    }
+
+   /**
+    * Betöltésnél beállítja waterFlown-értékét.
+    * @param wf waterFlown új értéke
+    */
+   Cistern(int wf)
+   {
+       super();
+       waterFlown = wf;
+   }
+   
    /** @author Bodnar Mark
     * Visszaadja a szomszedait.
     */

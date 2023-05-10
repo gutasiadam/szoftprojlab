@@ -25,30 +25,63 @@ public class Prototype {
             while(sc.hasNext())
             {
                 String next = sc.next();
-                if(readPhase==0)//Declaration
-                {
-                    switch(next)
-                    {
-                        case "C": 
-                            gameElements.add(new Cistern());
-                            break;
-                        case "Pu": 
-                            break;
-                        case "Pi": 
-                            break;
-                        case "W": 
-                            break;
-                        default: ;
-                    }
-                }
-                else if(readPhase == 1)//Players
-                {
 
-                }
-                else if(readPhase == 2)//Neighbors
+                try
                 {
-                    
+                    if(readPhase==0)//Declaration
+                    {
+                        switch(next)
+                        {
+                            case "C": 
+                            String name = sc.next();
+                            next = sc.next();
+                            Cistern C = new Cistern(Integer.parseInt(next));
+                            C.setName(name);
+                            gameElements.add(C);
+                            break;
+
+                            case "Pu": 
+                            next = sc.next();
+                            Pump pu = new Pump();
+                            pu.setName(next);
+                            // next = sc.next();
+                            
+                            //next = sc.next();
+                            //next = sc.next();
+                            gameElements.add(pu);
+                            break;
+
+                            case "Pi": 
+                            next = sc.next();
+                            Pipe pi = new Pipe();
+                            pi.setName(next);
+                            gameElements.add(pi);
+                            break;
+
+                            case "W": 
+                            next = sc.next();
+                            WaterSource ws = new WaterSource();
+                            ws.setName(next);
+                            gameElements.add(ws);
+                            break;
+                            default: ;
+                        }
+                    }
+                    else if(readPhase == 1)//Players
+                    {
+
+                    }
+                    else if(readPhase == 2)//Neighbors
+                    {
+                        
+                    }
+                        System.err.println("Load successful");
                 }
+                catch(Exception e)
+                {
+                    System.err.println("Load failed");
+                }
+                
             }
 
 

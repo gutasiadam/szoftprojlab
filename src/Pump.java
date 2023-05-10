@@ -19,6 +19,7 @@ public class Pump extends NonPipe implements SaboteurPointSource {
         broken = false;
         leakedWaterAmount=0;
     }
+
     /** @author Bodnar Mark
      * Visszaadja a szomszedait.
      */
