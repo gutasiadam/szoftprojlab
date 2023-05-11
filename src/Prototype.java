@@ -79,7 +79,7 @@ public class Prototype {
         {
             int readPhase = 0;
             Scanner sc = new Scanner(f);
-            
+            sc.nextLine(); //kidobjuk az első sort
             while(sc.hasNext())
             {
                 String next = sc.next();
@@ -144,7 +144,10 @@ public class Prototype {
                             gameElements.add(ws);
                             gameNonPipes.add(ws);
                             break;
-                            default: sc.nextLine();
+
+                            case "###Players###": readPhase++; break;
+
+                            default:  sc.nextLine();
                         }
                     }
                     else if(readPhase == 1)//Players
@@ -197,7 +200,9 @@ public class Prototype {
                             }
                             break;
 
-                            default: sc.nextLine();
+                            case "###Neighbors###": readPhase++; break;
+
+                            default:  sc.nextLine();
                         }
                     }
                     else if(readPhase == 2)//Neighbors
@@ -228,7 +233,19 @@ public class Prototype {
                             }
                         }
                     }
-                    else if(readPhase==3)//GameState
+                        System.out.println(file+".txt Load successful");
+                }
+                catch(Exception e)
+                {
+                    System.out.println(file+".txt Load failed");
+                    System.err.println("Hiba: "+next);
+
+                }
+            }
+            sc.close();
+            readPhase=3;
+
+            if(readPhase==3)//GameState
                     {
                         int round = 0;
                         int sabPoints = 0;
@@ -241,8 +258,8 @@ public class Prototype {
                             Scanner scPoints = new Scanner(fPoints);
 
                             round = sc.nextInt();
-                            sabPoints = sc.nextInt();
                             repPoints = sc.nextInt();
+                            sabPoints = sc.nextInt();
                         }
                         catch(Exception e)
                         {
@@ -251,23 +268,11 @@ public class Prototype {
                             repPoints = 0;
                         }
                         game.load(gameElements, sabPointSource, cistenrs, repairmanGroup, saboteurGroup, repPoints, sabPoints, round);
+                        System.out.println(file+"Points.txt Load Successful");
                     }
-                        System.out.println("Load successful");
-                }
-                catch(Exception e)
-                {
-                    System.out.println("Load failed");
-                    System.err.println("Hiba: "+next);
-
-                }
-                
-            }
-
-
-            sc.close();
         }
         catch (Exception e) {
-            System.out.println("Load Failed");
+            System.out.println(file+"Points.txt Load Failed");
         }
     }
 

@@ -324,4 +324,11 @@ public class Game {
 			}
 		}
 	}
+
+	//Slimey és Sticky még kell!!!!!!!!!!!
+	@Override
+	public String toString()
+	{
+		return remainingRounds+" "+repairmanPoints+" "+saboteurPoints;
+	}
 }
