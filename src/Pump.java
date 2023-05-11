@@ -139,6 +139,8 @@ public class Pump extends NonPipe implements SaboteurPointSource {
              	System.out.println(String.format("A %s pumpa elromlott", getName()));
              }
     }
+    public void stick() {};/** Ragadossa teszi az adott poziciot. */
+    public void slime(){};/** Csuszossa tesz egy csovet. */
 
     /** 
      * Visszadja a kifolyott viz mennyiseget, majd nullara allitja

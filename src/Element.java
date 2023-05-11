@@ -57,8 +57,8 @@ public abstract class Element implements RepairmanPlace, SaboteurPlace{
      * @param c - a karakterunk
      */
     @Override
-    public void remove(Character c) {
-        standingOn.remove(c);
+    public boolean remove(Character c) {
+        return standingOn.remove(c);
     }
 
     /** 

@@ -5,12 +5,14 @@ public class Repairman extends Character {
 	private Pipe holdingPipe;
 	private Pump holdingPump;
 	private Game game;
+	private boolean myTurn;
 
     /**  Ha nincs nala pumpa vagy cso akkor annak nullnak kell lennie.*/
 	Repairman() {
 		holdingPipe = null;
 		holdingPump = null;
 		game = null;
+		myTurn=false;
 	}
 
     /** Aktualis pozicio.*/
@@ -50,26 +52,22 @@ public class Repairman extends Character {
 	 * @param dir szam amely megadja az iranyt
 	 */
 	public void move(int dir) {
-		System.out.println(String.format("Aktualis pozicio:"+position.getName()));
+		//System.out.println(String.format("Aktualis pozicio:"+position.getName()));
 		List<? extends Element> neighbors = position.getNeighbors();
-		boolean success=false;
-		System.out.println(String.format("\t1.1 %s->%s.remove(%s)",this.getName(), position.getName(),this.getName()));
-		position.remove(this);
-		if(neighbors!=null) {
-			for (int i = 0; i < neighbors.size(); i++) {
-				if(dir==i) {
-					success=neighbors.get(i).accept(this);
-					position=neighbors.get(i);
-					System.out.println(String.format("\t\t1.2 %s->%s.accept(%s)",this.getName(), position.getName(),this.getName()));
-					System.out.println(String.format("\t\t1.2 Sikeres lepes, uj pozicio:"+position.getName()));
-					System.out.println(String.format("\t%s<-%s.accept(%s):%s",this.getName(), position.getName(),this.getName(),success));
-				}
-			}
-		} 	
-		if(!success) {
-			System.out.println(String.format("\t1.1 %s->%s.accept(%s): Nem tortent lepes.",this.getName(), position.getName(),this.getName()));
-        	position.accept(this);
-        }
+		RepairmanPlace lastPosition=position;
+		//System.out.println(String.format("\t1.1 %s->%s.remove(%s)",this.getName(), position.getName(),this.getName()));
+		boolean removeSuccess=position.remove(this);
+		//System.out.println(String.format("\t1.1 %s->%s.accept(%s): Nem tortent lepes.",this.getName(), position.getName(),this.getName()));
+		
+		if(removeSuccess) {
+			//a szomszedok kozul a kivalsztott, dir poziciora probaljuk athelyezni a karaktert
+			//fontos majd, hogy a valasztott irany es a szomszedok lista konzisztens legyen
+			//System.out.println(String.format("\t\t1.2 %s->%s.accept(%s)",this.getName(), position.getName(),this.getName()));
+			boolean acceptSuccess=neighbors.get(dir).accept(this);
+			if(!acceptSuccess) lastPosition.accept(this);
+				//System.out.println(String.format("\t\t1.2 Sikeres lepes, uj pozicio:"+position.getName()));
+		}
+		//System.out.println(String.format("\t%s<-%s.accept(%s):%s",this.getName(), position.getName(),this.getName(),success));	
 	}
 	/**
 	 * Az elem javitasa amin all a szerelo.
@@ -170,5 +168,17 @@ public class Repairman extends Character {
 					holdingPump.getName()));
 		}
 	}
-	public void step() {}
+	public void makeSticky(){position.stick();}
+	void dealDamage() {
+		position.damage();
+	}
+	public void step() {
+		myTurn=true;
+		while(myTurn) {
+			//ezt meg meg kell beszelni
+			//lastInput=input
+			//lastInputSuccess=input()
+			//if(lastInputSuccess && lastInput!=move) myTurn=false;
+		}
+	}
 }

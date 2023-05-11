@@ -4,4 +4,5 @@ public interface RepairmanPlace extends Place {
     public Pipe lift(int dir); /** Adott azonositoju cso lecsatlakoztatasa, es felemelese. */
     public Pump givePump(); /** Letrehoz egy uj pumpat, es odaadja a jatekosnak. */
     public boolean placePipe(Pipe p); /** Bekoti a paramterul kapott csovet az interfeszt megvalosito elembe. */
+    public void damage(); /** Megrongalja az ot megvalosito elemet. */
 }

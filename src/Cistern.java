@@ -108,6 +108,8 @@ public class Cistern extends NonPipe {
         }
         return null;
     }
+    public void stick() {};/** Ragadossa teszi az adott poziciot. */
+    public void slime(){};/** Csuszossa tesz egy csovet. */
 
     
     /** 

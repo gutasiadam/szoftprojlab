@@ -33,6 +33,8 @@ public class WaterSource extends NonPipe {
         Tabulator.printTab();
         System.out.println("<-"+getName()+".step():void");
     }
+    public void stick() {};/** Ragadossa teszi az adott poziciot. */
+    public void slime(){};/** Csuszossa tesz egy csovet. */
 
     
     /** 

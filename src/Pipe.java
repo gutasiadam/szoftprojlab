@@ -263,6 +263,8 @@ public class Pipe extends Element implements SaboteurPointSource{
         return out;
        
     }
+    public void stick() {};/** Ragadossa teszi az adott poziciot. */
+    public void slime(){};/** Csuszossa tesz egy csovet. */
 
     /** 
      * Visszaadja a szomszedait
