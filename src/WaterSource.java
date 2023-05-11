@@ -76,4 +76,10 @@ public class WaterSource extends NonPipe {
         System.out.println("<-"+getName()+".placePipe():"+out);
         return out;
     }
+
+    @Override
+    public String toString()
+    {
+        return "W "+this.getName();
+    }
 }

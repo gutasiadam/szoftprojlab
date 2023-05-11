@@ -233,6 +233,8 @@ public class Prototype {
                         int round = 0;
                         int sabPoints = 0;
                         int repPoints = 0;
+                        int _slimey = 0;
+                        int _sticky = 0;
                         //sticky és slimey max még kell!!!!!!!!!!!!!!!!!
                         try{
                             File fPoints = new File(file+"Points.txt"); 

@@ -68,4 +68,10 @@ public class Saboteur extends Character {
 			//if(lastInputSuccess && lastInput!=move) myTurn=false;
 		}
 	}
+
+	@Override
+	public String toString()
+	{
+		return "S "+this.getName()+" "+position.getName();
+	}
 }

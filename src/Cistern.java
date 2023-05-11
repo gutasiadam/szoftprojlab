@@ -123,4 +123,10 @@ public class Cistern extends NonPipe {
         System.out.println(String.format("\t\t1.3 %s: Pump %s created!", getName(), p.getName()));
         return p;
     }
+
+    @Override
+    public String toString()
+    {
+        return "C "+this.getName()+" "+waterFlown;
+    }
 }

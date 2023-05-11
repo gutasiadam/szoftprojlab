@@ -193,4 +193,10 @@ public class Repairman extends Character {
 			//if(lastInputSuccess && lastInput!=move) myTurn=false;
 		}
 	}
+
+	@Override
+	public String toString()
+	{
+		return "R "+this.getName()+" "+position.getName()+" "+((holdingPipe!=null)?(holdingPipe.getName()):("null"))+" "+((holdingPump!=null)?(holdingPump.getName()):("null"));
+	}
 }

@@ -290,4 +290,11 @@ public class Pipe extends Element implements SaboteurPointSource{
     public List<NonPipe> getNeighbors(){
         return neighbors;
     }
+
+
+    @Override 
+    public String toString()
+    {
+        return "Pi "+this.getName()+" "+holeOnPipe+" "+leakedWaterAmount+" "+slimey+" "+sticky;
+    }
 }

@@ -166,4 +166,10 @@ public class Pump extends NonPipe implements SaboteurPointSource {
         leakedWaterAmount = 0;
         return lkdwtramt;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Pu "+this.getName()+" "+broken+" "+containingWater+" "+leakedWaterAmount;
+    }
 }
