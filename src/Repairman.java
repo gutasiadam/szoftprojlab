@@ -15,6 +15,18 @@ public class Repairman extends Character {
 		myTurn=false;
 	}
 
+	/**
+	 * Betöltésnél létrehozza a megfelelő állapotú Szerelő játékost
+	 * @param pos position
+	 * @param hPipe holdingPipe
+	 * @param hPump holdingPump
+	 */
+	public Repairman(RepairmanPlace pos,Pipe hPipe, Pump hPump) {
+		position = pos;
+		holdingPipe = hPipe;
+		holdingPump = hPump;
+	}
+
     /** Aktualis pozicio.*/
 	public void setPosition(RepairmanPlace pos) {
 		position = pos;

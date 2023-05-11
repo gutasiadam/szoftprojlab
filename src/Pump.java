@@ -20,6 +20,20 @@ public class Pump extends NonPipe implements SaboteurPointSource {
         leakedWaterAmount=0;
     }
 
+    /**
+     * Betöltésnél beállítja a Pumpa állapoát
+     * @param isBroken broken
+     * @param isContainingWater containingWater
+     * @param leakedWater leakedWaterAmount
+     */
+    Pump(boolean isBroken, boolean isContainingWater, int leakedWater)
+    {
+        super();
+        containingWater=isContainingWater;
+        broken = isBroken;
+        leakedWaterAmount = leakedWater;
+    }
+
     /** @author Bodnar Mark
      * Visszaadja a szomszedait.
      */

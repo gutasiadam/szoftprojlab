@@ -8,6 +8,15 @@ public class Saboteur extends Character {
 	Saboteur(){
 		myTurn=false;
 	}
+
+/**
+ * Betültéskor létrehoz egy megfelelő állapotú Szabotőrt
+ * @param pos position
+ */
+	Saboteur(SaboteurPlace pos)
+	{
+		position = pos;
+	}
 	
     /** Aktualis pozicio.*/
 	public void setPosition(SaboteurPlace pos) {

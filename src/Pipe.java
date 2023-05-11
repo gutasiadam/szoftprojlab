@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class Pipe extends Element implements SaboteurPointSource{
     private boolean holeOnPipe;
     private int leakedWaterAmount;
+    private int sticky;
+    private int slimey;
     private List<NonPipe> neighbors;
     
     
@@ -20,6 +22,21 @@ public class Pipe extends Element implements SaboteurPointSource{
         holeOnPipe = false;
     }
 
+    /**
+     * Beállítja a betöltés során a Pipe változóit.
+     * @param hole holeOnPipe
+     * @param leakedWater leakedWaterAmount
+     * @param _slimey _slimey
+     * @param _sticky sticky
+     */
+    Pipe(boolean hole,int leakedWater,int _slimey,int _sticky)
+    {
+        neighbors = new ArrayList<NonPipe>();
+        leakedWaterAmount = leakedWater;
+        holeOnPipe = hole;
+        slimey = _slimey;
+        sticky = _sticky;
+    }
     
     /** 
      * Ot kell meghivni ha ra szeretnek lepni a csore.

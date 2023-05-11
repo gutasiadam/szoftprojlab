@@ -44,15 +44,27 @@ public class Game {
 	
 	/**
 	 * Beállítja a Game megfelelő változóit.
-	 * @param elements A csőhálózatot alkotó objektumok.
-	 * @param repairmans A Szerelő játékosok
-	 * @param saboteurs A Szabotőr játékosok
+	 * @param gameE A csőhálózatot alkotó objektumok.
+	 * @param SabPointSources
+	 * @param cis
+	 * @param repairmanG A Szerelő játékosok
+	 * @param saboteurG A Szabotőr játékosok
+	 * @param repPoints
+	 * @param sabPoints
+	 * @param rounds
 	 */
-	public void load(ArrayList<Element> elements, ArrayList<Repairman> repairmans,ArrayList<Saboteur> saboteurs)
+	
+	public void load(ArrayList<Element> gameE,ArrayList<SaboteurPointSource> SabPointSources,ArrayList<Cistern> cis,
+	ArrayList<Repairman> repairmanG,ArrayList<Saboteur> saboteurG, int repPoints, int sabPoints, int rounds)
 	{
-		repairmanGroup=repairmans;
-		saboteurGroup=saboteurs;
-		gameElements=elements;
+		repairmanGroup=repairmanG;
+		saboteurGroup=saboteurG;
+		saboteurPointSources = SabPointSources;
+		gameElements= gameE;
+		cisterns = cis;
+		repairmanPoints=repPoints;
+		saboteurPoints=sabPoints;
+		remainingRounds=rounds;
 	}
 
 	/**
@@ -233,19 +245,21 @@ public class Game {
 	
 	/**
 	 * Hozzáad egy Saboteur-t a játékhoz.
+	 * @param sab A hozzáadandó Saboteur
 	 */
-	public void addSaboteur()
+	public void addSaboteur(Saboteur sab)
 	{
-		saboteurGroup.add(new Saboteur());
+		saboteurGroup.add(sab);
 		//System.out.println("addSaboteur");
 	}
 	
 	/**
 	 * Hozzáad egy Repairman-t a játékhoz.
+	 * @param rep A hozzáadandó Repairman
 	 */
-	public void addRepairman()
+	public void addRepairman(Repairman rep)
 	{
-		repairmanGroup.add(new Repairman());
+		repairmanGroup.add(rep);
 		//System.out.println("addRepairman");
 	}
 	
