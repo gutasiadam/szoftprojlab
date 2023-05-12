@@ -1,0 +1,11 @@
+###Declaration###
+Pu p1 false false
+C c
+Pi pi1 true true 0 5
+Pi pi2 false true 0 0
+###Players###
+R repairman c null null
+###Neighbors###
+c pi1
+pi1 c p1
+p1 pi1 pi2

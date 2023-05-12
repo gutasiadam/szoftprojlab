@@ -3,9 +3,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Scanner;
-
-import javax.lang.model.util.ElementScanner6;
 
 public class Prototype {
     Game game;
@@ -15,7 +15,13 @@ public class Prototype {
     ArrayList<Pipe> gamePipes;
     ArrayList<NonPipe> gameNonPipes;
     ArrayList<SaboteurPointSource> sabPointSource;
-    ArrayList<Cistern> cistenrs;
+    ArrayList<Cistern> cisterns;
+    ArrayList<Character> characters;
+    Character currentCharacter;
+    int currentCharacterInt = 0;
+
+	private String selectedMenuItem; /** A kivalasztott parancs */
+
     Prototype()
     {
         game = new Game();
@@ -24,6 +30,9 @@ public class Prototype {
         gameElements = new ArrayList<Element>();
         gamePipes = new ArrayList<Pipe>();
         gameNonPipes = new ArrayList<NonPipe>();
+        sabPointSource = new ArrayList<SaboteurPointSource>();
+        cisterns = new ArrayList<Cistern>();
+        characters = new ArrayList<Character>();
     }
 
     /**
@@ -73,8 +82,8 @@ public class Prototype {
         gameNonPipes.clear();
         gamePipes.clear();
         sabPointSource.clear();
-        cistenrs.clear();
-        File f = new File(file+".txt");
+        cisterns.clear();
+        File f = new File("mapdeclarations/"+file+".txt");
         try 
         {
             int readPhase = 0;
@@ -103,7 +112,7 @@ public class Prototype {
                             C.setName(name);
                             gameElements.add(C);
                             gameNonPipes.add(C);
-                            cistenrs.add(C);
+                            cisterns.add(C);
                             break;
 
                             case "Pu": 
@@ -172,11 +181,12 @@ public class Prototype {
                             elementName = sc.next();
                             element = getElementByName(elementName);
                             hPump = element;
-                            if(element!=null)
+                            if(element!=null) // miert csak ekkor?
                             {
                                 Repairman r = new Repairman((RepairmanPlace)position,(Pipe)hPipe,(Pump)hPump);
                                 r.setName(name);
                                 r.setGame(game);
+                                characters.add(r);
                             }
                             else
                             {
@@ -193,6 +203,7 @@ public class Prototype {
                             {
                                 Saboteur r = new Saboteur((SaboteurPlace)position);
                                 r.setName(name);
+                                characters.add(r);
                             }
                             else
                             {
@@ -267,7 +278,7 @@ public class Prototype {
                             sabPoints = 0;
                             repPoints = 0;
                         }
-                        game.load(gameElements, sabPointSource, cistenrs, repairmanGroup, saboteurGroup, repPoints, sabPoints, round);
+                        game.load(gameElements, sabPointSource, cisterns, repairmanGroup, saboteurGroup, repPoints, sabPoints, round);
                         System.out.println(file+"Points.txt Load Successful");
                     }
         }
@@ -320,4 +331,51 @@ public class Prototype {
             System.out.println("Save Failed");
         }
     }
+
+    public void showMenu() {
+        System.out.println("Kilepes: q");
+		Scanner userInput = new Scanner(System.in);
+        System.out.print("parancs > ");
+		while (userInput.hasNextLine()) {
+            try{
+                String input = userInput.nextLine();
+                String[] args = input.split(" ");
+                selectedMenuItem = args[0].toLowerCase();
+                args = Arrays.copyOfRange(args, 1, args.length);
+                switch(selectedMenuItem){
+                    case "adjust": currentCharacter.adjustPump(Integer.parseInt(args[0]), Integer.parseInt(args[1])); break;
+                    case "move": currentCharacter.move(Integer.parseInt(args[0])); break;
+                    case "stab": currentCharacter.dealDamage(); break;
+                    case "repair": ((Repairman)currentCharacter).RepairElement(); break;
+                    case "pickuppump": ((Repairman)currentCharacter).LiftPump(); break;
+                    case "pickuppipe": ((Repairman)currentCharacter).LiftPipe(Integer.parseInt(args[0])); break;
+                    case "placepump": ((Repairman)currentCharacter).PlacePump(); break;
+                    case "placepipe": ((Repairman)currentCharacter).PlacePipe(); break;
+                    case "stick": currentCharacter.makeSticky(); break;
+                    case "slime": ((Saboteur)currentCharacter).putSlime(); break;
+                    case "endturn": game.endTurn(); if(++currentCharacterInt>=characters.size()){ currentCharacterInt = 0;}currentCharacter = characters.get(currentCharacterInt);  break;
+                    case "save": save(args[0]); break;
+                    case "load": load(args[0]); currentCharacter = characters.get(currentCharacterInt); break;
+                    case "help": System.out.println("adjust int int\nmove int\nstab\nrepair\npickuppump\npickuppipe int\nplacepump\nplacepipe\nstick\nslime\nendturn\nsave int\nload int\nhelp\nq"); break;
+                    case "info": for(int i = 0; i < gameElements.size(); i++){ if(gameElements.get(i).getName().equals(args[0])) System.out.println(gameElements.get(i).toString()); } break;
+                    case "q - kilepes": break;
+                    default: System.out.println("Nem letezik a megadott parancs");
+                }
+                if(selectedMenuItem.equals("q")) break;
+            }catch(ClassCastException e){
+                System.out.println("Ilyen muveletre nem kepes a jatekos");
+            }catch(ArrayIndexOutOfBoundsException e){
+                System.out.println("Tul keves az argumentum");
+            }catch(NullPointerException e){
+                System.out.println("Nincs jatekos hozzaadva");
+            }catch(NumberFormatException e){
+                System.out.println("Ervenytelen argumentum");
+            }catch(Exception e){
+                System.out.println(e.getClass());
+            }finally{
+                if(!selectedMenuItem.equals("q")) System.out.print("parancs > ");
+            }
+		}
+		userInput.close();
+	}
 }
