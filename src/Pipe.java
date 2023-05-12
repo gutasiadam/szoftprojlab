@@ -29,11 +29,12 @@ public class Pipe extends Element implements SaboteurPointSource{
      * @param _slimey _slimey
      * @param _sticky sticky
      */
-    Pipe(boolean hole,int leakedWater,int _slimey,int _sticky)
+    Pipe(boolean hole,boolean hasWater,int leakedWater,int _slimey,int _sticky)
     {
         neighbors = new ArrayList<NonPipe>();
         leakedWaterAmount = leakedWater;
         holeOnPipe = hole;
+        containingWater=hasWater;
         slimey = _slimey;
         sticky = _sticky;
     }
@@ -295,6 +296,6 @@ public class Pipe extends Element implements SaboteurPointSource{
     @Override 
     public String toString()
     {
-        return "Pi "+this.getName()+" "+holeOnPipe+" "+leakedWaterAmount+" "+slimey+" "+sticky;
+        return "Pi "+this.getName()+" "+holeOnPipe+" "+containingWater+" "+leakedWaterAmount+" "+slimey+" "+sticky;
     }
 }

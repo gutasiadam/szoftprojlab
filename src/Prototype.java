@@ -134,12 +134,14 @@ public class Prototype {
                             next = sc.next();
                             hasHole = Boolean.parseBoolean(next);
                             next = sc.next();
+                            containingWater = Boolean.parseBoolean(next);
+                            next = sc.next();
                             leakedWaterAmount = Integer.parseInt(next);
                             next = sc.next();
                             slimey = Integer.parseInt(next);
                             next = sc.next();
                             sticky = Integer.parseInt(next);
-                            Pipe pi = new Pipe(hasHole,leakedWaterAmount,slimey,sticky);
+                            Pipe pi = new Pipe(hasHole,containingWater,leakedWaterAmount,slimey,sticky);
                             pi.setName(next);
                             gameElements.add(pi);
                             gamePipes.add(pi);
