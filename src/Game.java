@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
- * 
+ * Az elemek tarolasaert es a jatek mukodeseert felelos osztaly
+ * Last modified: Gutasi Adam
  * @author Szikszai Levente
- *	Az elemek tarolasaert es a jatek mukodeseert felelos osztaly
  */
 public class Game {
 
-	//A Szerelő játrékosok.
+	//A Szerelő játékosok.
 	ArrayList<Repairman> repairmanGroup;
 	//A Szabotőr játékosok
 	ArrayList<Saboteur> saboteurGroup;
@@ -65,6 +65,7 @@ public class Game {
 		repairmanPoints=repPoints;
 		saboteurPoints=sabPoints;
 		remainingRounds=rounds;
+		this.initialize();
 	}
 
 	/**
@@ -144,44 +145,21 @@ public class Game {
 	}
 	public void endTurn()
 	{
-		Scanner sc = new Scanner(System.in);
-		System.out.print("DECISION - Szimuláljuk a vifolyást? (I/N) >"); 
-		String brokePipe1;
-		while(sc.hasNext())
-		{
-			brokePipe1 = sc.next();
-			if(brokePipe1.equals("I"))
-			{
-				SimulateWaterflow();
-				break;
-				
-			}if(brokePipe1.equals("N")) {
-				break;
-			}else {
-				System.out.print("\nErvenytelen valasz! Probalkozzon ujra. (I/N)>");
-			}
-		}
+		this.SimulateWaterflow();
 		
 		int repairmanWater = 0;
 		int saboteurWater = 0;
-		System.out.println("\t\tremainingRounds="+this.remainingRounds);
 		for(int i=0;i<cisterns.size();i++) {
 			int ciWater=cisterns.get(i).measureAndResetWaterFlown();
 			repairmanWater+=ciWater;
 		}
 		
 		for(int i=0;i<saboteurPointSources.size();i++) {
-			System.out.println("\t\t\t->"+saboteurPointSources.get(i).getName()+".measureAndResetWaterFlown()");
 			int sWater=saboteurPointSources.get(i).measureAndResetLeakedWaterAmount();
-			System.out.println("\t\t\t<-"+saboteurPointSources.get(i).getName()+".measureAndResetWaterFlown():"+sWater);
 			saboteurWater+=sWater;
 		}
-		System.out.println("\t\tSaboteur points this round:"+repairmanWater);
-		System.out.println("\t\tRepairmen points this round:"+saboteurWater);
 		this.repairmanPoints+=repairmanWater;
 		this.saboteurPoints+=saboteurWater;
-		System.out.println("\t\tSaboteur points in total:"+this.repairmanPoints);
-		System.out.println("\t\tRepairmen points in total:"+this.saboteurPoints);
 		
 		
 
@@ -189,9 +167,7 @@ public class Game {
 		
 		this.remainingRounds--;
 		if(remainingRounds==0) {
-			System.out.println("\t->game.endGame()");
 			endGame();
-			System.out.println("\t<-game.endGame():void");
 		}
 	}
 	
@@ -200,7 +176,6 @@ public class Game {
 	 */
 	public void SimulateWaterflow()
 	{
-		System.out.println("Game.SimulateWaterflow()");
 		Tabulator.increaseTab();
 		Tabulator.printTab();
 		for(int i = 0;i<cisterns.size();i++)
@@ -210,7 +185,6 @@ public class Game {
 			
 			
 		}
-		System.out.println("<-Game.SimulateWaterflow():void");
 	}
 	
 	/**
@@ -300,7 +274,6 @@ public class Game {
 		//System.out.println("addPump");
 		saboteurPointSources.add(p);
 		gameElements.add(p);//Ez kell-e??
-		System.out.println(String.format("\t1.2 g->%s.addPump(%s)", timer.getName(),p.getName()));
 		timer.addPump(p);
 	}
 	
@@ -313,19 +286,16 @@ public class Game {
 		
 		for(int i =0;i<cisterns.size();i++)
 		{
-			System.out.println("1.2\tgame->"+cisterns.get(i).getName()+".newPipe()");
 			Pipe p = cisterns.get(i).newPipe();
 			p.setName("createdPipe"+(i+1));
-			System.out.println("\tgame<-"+cisterns.get(i).getName()+".newPipe():"+p.getName());
 			if(p!=null)
 			{
-				System.out.println("1.4.2\tgame.addPipe("+p.getName()+")");
 				addPipe(p);
 			}
 		}
 	}
 
-	//Slimey és Sticky még kell!!!!!!!!!!!
+	//Slimey és Sticky még kell!!!!!!!!!!!????????
 	@Override
 	public String toString()
 	{

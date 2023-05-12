@@ -1,5 +1,12 @@
 import java.util.List;
 
+/**
+ * A viz szimulacioja innen indul. A belefolyt viz mennyiseget tarolja.
+ * A jatekosok veges szamban ra tudnak lepni. Uj csovek jonnek letre rajta, melzek egzik vege bele, masik vege
+ * a sivatagba vezet. A Szerelo jatekosok felvehetnek innen uj pumpat.
+ * Last modified: @author Gutasi Adam
+ *
+ */
 public class Cistern extends NonPipe {
     private int waterFlown;
 
@@ -36,34 +43,19 @@ public class Cistern extends NonPipe {
      */
     @Override
     public void step() {
-    	System.out.println("1.1 Game->"+getName()+".step()");
-    	Tabulator.increaseTab();
-		Tabulator.printTab();
         for (Pipe p : neighbors) {
-        	System.out.println("1.2 "+getName()+"->"+p.getName()+".step()");
             p.step();
-            Tabulator.printTab();
-            System.out.println("1.3 "+getName()+"->"+p.getName()+".waterExtraction()");
             boolean extraction = p.waterExtraction();
             if(extraction) waterFlown++;
-            Tabulator.printTab();
-            System.out.println("<-"+p.getName()+".waterExtraction():"+extraction);
-            Tabulator.printTab();
-            System.out.println(getName()+".waterFlown="+waterFlown);
             
             List<NonPipe> pipeNeighbors = p.getNeighbors();
             for(NonPipe np : pipeNeighbors){
             	if(this!=np)
             	{
-            		Tabulator.printTab();
-            		System.out.println("1.4 "+getName()+"->"+np.getName()+".step()");
             		np.step();
             	}	
             }
         }
-        Tabulator.decreaseTab();
-        Tabulator.printTab();
-        System.out.println("<-"+getName()+".step():void");
     }
 
     
@@ -72,10 +64,8 @@ public class Cistern extends NonPipe {
      * @return int - a befolyt viz mennyisege
      */
     public int measureAndResetWaterFlown(){
-    	System.out.println("\t\t\t->"+this.getName()+".measureAndResetWaterFlown()");
         int wf = waterFlown;
         waterFlown = 0;
-        System.out.println("\t\t\t<-"+this.getName()+".measureAndResetWaterFlown(): "+wf);
         return wf;
     }
 
@@ -97,20 +87,12 @@ public class Cistern extends NonPipe {
         	
             Pipe createdPipe = new Pipe();
             createdPipe.setName("createdPipe1");
-            System.out.println("1.3.1\t\t"+this.getName()+"-> <<create>>: "+createdPipe.getName());
-            System.out.println("\t\t"+this.getName()+"->"+createdPipe.getName()+".addNeighbor("+this.getName()+")");
-            System.out.println("1.3.2\t\t\t"+this.getName()+"->"+createdPipe.getName()+"neighbors.add("+this.getName()+")");
             createdPipe.addNeighbor(this);
-            System.out.println("\t\t\t"+this.getName()+"<-"+createdPipe.getName()+"neighbors.add("+this.getName()+")");
-            System.out.println("1.4.1\t\t"+this.getName()+"<-"+createdPipe.getName()+".addNeighbor("+this.getName()+"): void");
             
             return createdPipe;
         }
         return null;
     }
-    public void stick() {};/** Ragadossa teszi az adott poziciot. */
-    public void slime(){};/** Csuszossa tesz egy csovet. */
-
     
     /** 
      * Letrehoz egy pumpat, es visszadja azt.
@@ -120,7 +102,7 @@ public class Cistern extends NonPipe {
     public Pump givePump(){
         Pump p = new Pump();
         p.setName("p");
-        System.out.println(String.format("\t\t1.3 %s: Pump %s created!", getName(), p.getName()));
+        System.out.println("Successfullly picked up "+p.getName());
         return p;
     }
 

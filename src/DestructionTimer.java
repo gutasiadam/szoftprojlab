@@ -1,14 +1,15 @@
 import java.util.ArrayList;
 /**
  * 
- * A Pumpak veletlenszeru elromlasaert felelos osztaly.
+ * Idozito, mely minden jatekos lepese elott, veletlen esellyel elrontja az egyes pumpakat.
+ * Last modified: @author Gutasi Adam
  * @author Szikszai Levente
  */
 public class DestructionTimer {
 
-	//A tárolt pumpák, melyeket el tud rontani.
+	/**A tarolt pumpak, melyeket elronthat az idozito.*/
 	private ArrayList<Pump> pumps;
-	private String Name;
+	private String Name; /** Az idozito objektum neve a jatek soran. pl.: Timer1 */
 	
 	
 	/**
@@ -24,6 +25,11 @@ public class DestructionTimer {
     String getName() {
     	return Name;
     }
+    
+    /**
+     * Pumpa nevenek beallitasa.. String tipusu paramterkent varja a pumpa nevet.
+     * @param name
+     */
     void setName(String name) {
     	this.Name=name;
     }
@@ -35,9 +41,8 @@ public class DestructionTimer {
 		for(int i = 0; i<pumps.size();i++)
 		{
 			double ran = Math.random();
-			if(ran<0.8)//80% hogy elrontja, a latavanyossag kedveert kesobb majd le kell venni
+			if(ran<0.1)/**10% hogy elrontja*/
 			{
-				System.out.println(String.format("\t1.2 %s->%s-pumps.get(%s).breakPump()", this.getName(),this.getName(),i));
 				pumps.get(i).breakPump();
 			}
 			
@@ -50,7 +55,6 @@ public class DestructionTimer {
 	 */
 	public void addPump(Pump p)
 	{
-		System.out.println(String.format("\t\t1.3 %s->pumps.add(%s)", this.getName(),p.getName()));
 		pumps.add(p);
 	}
 }
