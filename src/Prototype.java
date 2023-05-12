@@ -224,7 +224,7 @@ public class Prototype {
                     }
                     else if(readPhase == 2)//Neighbors
                     {
-                        name = next;    //Nem tudom itt miért nem sc.next()-kell de megesik
+                        name = next;
                         Element element = getElementByName(name);
                         String row = sc.nextLine();
                         String [] neighborNames = row.split(" ");
