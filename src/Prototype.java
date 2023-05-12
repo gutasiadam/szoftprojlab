@@ -124,13 +124,14 @@ public class Prototype {
                             next = sc.next();
                             leakedWaterAmount = Integer.parseInt(next);
                             Pump pu = new Pump(isBroken,containingWater,leakedWaterAmount);
-                            pu.setName(next);
+                            pu.setName(name);
                             gameElements.add(pu);
                             gameNonPipes.add(pu);
                             sabPointSource.add(pu);
                             break;
 
                             case "Pi": 
+                            name = sc.next();
                             next = sc.next();
                             hasHole = Boolean.parseBoolean(next);
                             next = sc.next();
@@ -142,16 +143,17 @@ public class Prototype {
                             next = sc.next();
                             sticky = Integer.parseInt(next);
                             Pipe pi = new Pipe(hasHole,containingWater,leakedWaterAmount,slimey,sticky);
-                            pi.setName(next);
+                            pi.setName(name);
                             gameElements.add(pi);
                             gamePipes.add(pi);
                             sabPointSource.add(pi);
                             break;
 
                             case "W": 
+                            name = sc.next();
                             next = sc.next();
                             WaterSource ws = new WaterSource();
-                            ws.setName(next);
+                            ws.setName(name);
                             gameElements.add(ws);
                             gameNonPipes.add(ws);
                             break;
@@ -183,16 +185,17 @@ public class Prototype {
                             elementName = sc.next();
                             element = getElementByName(elementName);
                             hPump = element;
-                            if(element!=null) // miert csak ekkor?
+                            if(position!=null) // miert csak ekkor?
                             {
                                 Repairman r = new Repairman((RepairmanPlace)position,(Pipe)hPipe,(Pump)hPump);
                                 r.setName(name);
                                 r.setGame(game);
+                                repairmanGroup.add(r);
                                 characters.add(r);
                             }
                             else
                             {
-                                System.err.println(name+" Could not be Created because Element not foud: "+elementName);
+                                System.err.println(name+" Could not be Created because Position not foud");
                             }
                             break;
 
@@ -203,13 +206,14 @@ public class Prototype {
                             position = element;
                             if(element!=null)
                             {
-                                Saboteur r = new Saboteur((SaboteurPlace)position);
-                                r.setName(name);
-                                characters.add(r);
+                                Saboteur s = new Saboteur((SaboteurPlace)position);
+                                s.setName(name);
+                                saboteurGroup.add(s);
+                                characters.add(s);
                             }
                             else
                             {
-                                System.err.println(name+" Could not be Created because Element not foud: "+elementName);
+                                System.err.println(name+" Could not be Created because Position not foud: ");
                             }
                             break;
 
@@ -220,13 +224,13 @@ public class Prototype {
                     }
                     else if(readPhase == 2)//Neighbors
                     {
-                        name = sc.next();
+                        name = next;    //Nem tudom itt miért nem sc.next()-kell de megesik
                         Element element = getElementByName(name);
                         String row = sc.nextLine();
                         String [] neighborNames = row.split(" ");
+
                         for(String neighborName : neighborNames)
                         {
-                            //Element neighbor = getElementByName(neighborName);
                             Pipe pipeN = getPipesByName(neighborName);
                             NonPipe nonpipeN = getNonPipestByName(neighborName);
 
@@ -240,21 +244,16 @@ public class Prototype {
                                 Pipe pipe = (Pipe) element;
                                 pipe.addNeighbor(nonpipeN);
                             }
-                            else
-                            {
-                                System.err.println(name+"'sneighbor could not be added because Neighbor not foud");
-                            }
                         }
                     }
-                        System.out.println(file+".txt Load successful");
+                        
                 }
                 catch(Exception e)
                 {
                     System.out.println(file+".txt Load failed");
-                    System.err.println("Hiba: "+next);
-
                 }
             }
+            System.out.println(file+".txt Load successful");
             sc.close();
             readPhase=3;
 
