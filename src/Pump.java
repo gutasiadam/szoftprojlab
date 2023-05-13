@@ -46,31 +46,12 @@ public class Pump extends NonPipe implements SaboteurPointSource {
      */
     @Override
     public void repair(){
-		System.out.print("DECISION - A pumpa el van romolva? (I/N) >");
-		
-		Scanner sc = new Scanner(System.in);
-		String brokePump1;
-		while(sc.hasNext())
-		{
-			brokePump1 = sc.next();
-			if(brokePump1.equals("I"))
-			{
-				//System.out.println("1.3.A\t\t"+this.getName()+".broken=true");
-				this.broken=true;
-				//System.out.println("\t\t"+this.getName()+".broken=false");
-				this.broken=false;
-				break;
-				
-			}if(brokePump1.equals("N")) {
-				//System.out.println("1.3.B\t\t"+this.getName()+".broken=false");
-				break;
-			}else {
-				System.out.print("\nErvenytelen valasz! Probalkozzon ujra. (I/N)>");
-			}
-		}
-		
-
-		//System.out.println("\t<-"+this.getName()+".repair():void;");
+        if(this.broken){
+            this.broken=false;
+            System.out.println( "Successfully repaired " +this.getName());
+        }else{
+            System.out.println(this.getName()+" not broken");
+        }
     }
 
     
@@ -81,8 +62,13 @@ public class Pump extends NonPipe implements SaboteurPointSource {
      */
     @Override
     public void adjust(int src, int dest){
-        inputPipe = neighbors.get(src);
-        outputPipe = neighbors.get(dest);
+        if(src<neighbors.size() && dest<neighbors.size()){
+            inputPipe = neighbors.get(src);
+            outputPipe = neighbors.get(dest);
+            System.out.println("Input set "+neighbors.get(src).getName()+" Output set "+ neighbors.get(dest).getName());
+        }else{
+            System.out.println("Invalid parameters, nothing changed");
+        }
     }
 
     /** 
@@ -90,68 +76,23 @@ public class Pump extends NonPipe implements SaboteurPointSource {
      */
     @Override
     public void step(){
-        //TODO leakedWaterIncrease ha nincs semmibe kötve
-    	//Tabulator.increaseTab();
-    	
         if(containingWater && !broken){
-        	//Tabulator.printTab();
-        	//System.out.println("1.5 "+getName()+"->"+outputPipe.getName()+".giveWater()");
-        	boolean give = outputPipe.giveWater();
-        	
-        	
-            if(give){
-                containingWater = false;
+            if(outputPipe.giveWater()){
+                containingWater=false;
             }
-            //Tabulator.printTab();
-            //System.out.println(getName()+".containingWater="+containingWater);
         }
-        
-        //Tabulator.printTab();
-        //System.out.println(getName()+".containingWater="+containingWater);
-        //Tabulator.printTab();
-        //System.out.println("1.6 "+getName()+"->"+inputPipe.getName()+".step()");
-        
-        inputPipe.step();
         if(!containingWater && !broken){
-        	//Tabulator.printTab();
-            //System.out.println("1.7 "+getName()+"->"+inputPipe.getName()+".waterExtraction()");
-        	boolean extraction = inputPipe.waterExtraction();
-        	//Tabulator.printTab();
-           // System.out.println("<-"+inputPipe.getName()+".waterExtraction():"+extraction);
-            
-            
-            if(extraction){
-                containingWater = true;
+            if(inputPipe.waterExtraction()){
+                containingWater=true;
             }
-            //Tabulator.printTab();
-            //System.out.println(getName()+".containingWater="+containingWater);
         }
-        
-        List<NonPipe> inputNeighbors = inputPipe.getNeighbors();
-        for(NonPipe np : inputNeighbors){
-        	if(this!=np)
-        	{
-                //Tabulator.printTab();
-                //System.out.println("1.8 "+getName()+"->"+np.getName()+".step()");
-        		np.step();
-        	}	
-        }
-        //Tabulator.decreaseTab();
-        //Tabulator.printTab();
-       // System.out.println("<-"+getName()+".step():void");
     }
 
     /** 
      * Elrontja a pumpat.
      */
     public void breakPump(){ 
-    	 if(broken) {
-    		//System.out.println(String.format("A %spumpa mar el van romolva.",getName()));
-         }
-         else {
-             	broken = true;
-             	//System.out.println(String.format("A %s pumpa elromlott", getName()));
-             }
+    	 broken=true;
     }
     public void stick() {};/** Ragadossa teszi az adott poziciot. */
     public void slime(){};/** Csuszossa tesz egy csovet. */

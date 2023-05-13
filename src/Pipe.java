@@ -1,14 +1,15 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Pipe extends Element implements SaboteurPointSource{
     private boolean holeOnPipe;
     private int leakedWaterAmount;
+    private int breakable;
     private int sticky;
     private int slimey;
     private List<NonPipe> neighbors;
-    
     
     
     /**
@@ -46,12 +47,53 @@ public class Pipe extends Element implements SaboteurPointSource{
      */
     @Override
     public boolean accept(Character c){
-        if(standingOn.size()<1){
-            standingOn.add(c);
+        boolean success;
+        if(standingOn.size()==1){
+            System.out.println("Failed to move to "+this.getName());
+            return false;
+        }else{
+            if(slimey>0){
+                success=false;
+                if(neighbors.size()>1){
+                    Random random=new Random();
+                    if(random.nextBoolean()){
+                        success = getNeighbors().get(0).accept(c);
+                        System.out.println("Slipped to "+getNeighbors().get(0).getName());
+                    }else{
+                        success = getNeighbors().get(1).accept(c);
+                        System.out.println("Slipped to "+getNeighbors().get(1).getName());
+                    }
+                }
+                else{
+                    success = getNeighbors().get(0).accept(c);
+                    System.out.println("Slipped to "+getNeighbors().get(0).getName());
+                }
+                return success;
+            }
+            else{
+                standingOn.add(c);
+                System.out.println("Successfully moved to "+ this.getName());
+                return true;
+            }
+        }
+    }
+
+    /**
+     * Lelepes egy csorol
+     * @param c a karakter
+     * @return Sikeres volt-e a lelepes 
+     */
+    public boolean remove(Character c){
+        if(sticky>0){
+            System.out.println("Sticked to "+this.getName()+"can't move until: "+ sticky);
+            sticky--;
+            return false;
+        }else{
+            if(sticky<0)
+                sticky = sticky*-1;
             return true;
         }
-        return false;
-    }
+    }    
 
     /** 
      * Ha lyukas, kifolyatja magabol a vizet, es noveli a kifolyt viz mennyiseget.
@@ -62,14 +104,6 @@ public class Pipe extends Element implements SaboteurPointSource{
             containingWater = false;
             leakedWaterAmount++;
         }
-        //Tabulator.increaseTab();
-        //Tabulator.printTab();
-        //System.out.println("containingWater="+containingWater);
-        //Tabulator.printTab();
-        //System.out.println("leakedWaterAmount="+leakedWaterAmount);
-        //Tabulator.decreaseTab();
-        //Tabulator.printTab();
-       // System.out.println("<-"+getName()+".step()");
     }
 
     /** 
@@ -77,31 +111,14 @@ public class Pipe extends Element implements SaboteurPointSource{
      */
     @Override
     public void repair(){
-		System.out.print("DECISION - A cső ki van lyukadva? (I/N) >");
-		
-		Scanner sc = new Scanner(System.in);
-		String brokePipe1;
-		while(sc.hasNext())
-		{
-			brokePipe1 = sc.next();
-			if(brokePipe1.equals("I"))
-			{
-				//System.out.println("1.3.A\t\t"+this.getName()+".broken=true");
-				this.holeOnPipe=true;
-				//System.out.println("\t\t"+this.getName()+".broken=false");
-				this.holeOnPipe=false;
-				break;
-				
-			}if(brokePipe1.equals("N")) {
-				//System.out.println("1.3.B\t\t"+this.getName()+".broken=false");
-				break;
-			}else {
-				System.out.print("\nErvenytelen valasz! Probalkozzon ujra. (I/N)>");
-			}
-		}
-		
-
-		//System.out.println("\t<-"+this.getName()+".repair():void;");
+        if(holeOnPipe){
+            holeOnPipe=false;
+            Random r=new Random();
+            breakable=r.nextInt(5);
+            System.out.println("Succesfully repaired "+ this.getName());
+        }else{
+            System.out.println("Not broken");
+        }
     }
 
     /** 
@@ -109,22 +126,15 @@ public class Pipe extends Element implements SaboteurPointSource{
      */
     @Override
     public void damage(){
-    	System.out.println("DECISION-A "+getName()+" kilyukasztasahoz irja be a 0-as szamot, majd enter! (csak szamok elfogadhatoak)");
-        Scanner userInput = new Scanner(System.in);
-        int input = 0;
-        //if(userInput.hasNextInt())
-        input= userInput.nextInt();
-        
-        if(holeOnPipe) {
-        	System.out.println(getName()+" mar lyukas.");
-        }
-        else {
-            if(input==0) {
-            	holeOnPipe = true;
-            	System.out.println("Kilyukasztottad "+getName()+"-et");
+        if(breakable==0){
+            if(holeOnPipe){
+                System.out.println("Failed to stab "+this.getName()+" already has a hole");
+            }else{
+                holeOnPipe=true;
+                System.out.println("Successfully stabbed "+this.getName());
             }
-            else System.out.println("Nem tortent lyukasztas.");
-            //userInput.close();
+        }else{
+            System.out.println("Failed to stab "+ this.getName()+" unbreakable until: "+ breakable);
         }
     }
     
@@ -136,56 +146,28 @@ public class Pipe extends Element implements SaboteurPointSource{
     @Override
     public Pipe placePump(Pump holdingPump) {
         NonPipe n;
-        try{
-            n = (NonPipe)getNeighbors().get(0);
-        }catch(Exception e){
-            n = null;
+        if(holdingPump==null){
+            System.out.println("No placable pump");
         }
-        
-        if(n != null){
-            //System.out.println(String.format("\t\t1.3 %s: %s = neighbors[0]", getName(), n.getName()));
-            
-            //System.out.println(String.format("\t\t1.4 %s->%s.removeNeighbor(%s)", getName(), getName(), n.getName()));
+        n = (NonPipe)getNeighbors().get(0);
+        if(n!=null){
             removeNeighbor(n);
-            //System.out.println(String.format("\t\t%s<-%s.removeNeighbor(%s)", getName(), getName(), n.getName()));
-            
-            //System.out.println(String.format("\t\t1.5 %s->%s.removeNeighbor(%s)", getName(), n.getName(), getName()));
             n.removeNeighbor(this);
-           // System.out.println(String.format("\t\t%s<-%s.removeNeighbor(%s)", getName(), n.getName(), getName()));
-
-            //System.out.println(String.format("\t\t1.6 %s->%s.addNeighbor(%s)", getName(), holdingPump.getName(), getName()));
             holdingPump.addNeighbor(this);
-           // System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), holdingPump.getName(), getName()));
-
-            //System.out.println(String.format("\t\t1.7 %s->%s.addNeighbor(%s)", getName(), getName(), holdingPump.getName()));
             addNeighbor(holdingPump);
-            //System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), getName(), holdingPump.getName()));
-
-            Pipe p = new Pipe();
-            p.setName("p");
-            //System.out.println(String.format("\t\t1.8 %s: Pipe %s created!", getName(), p.getName()));
-
-            //System.out.println(String.format("\t\t1.9 %s->%s.addNeighbor(%s)", getName(), p.getName(), n.getName()));
+            Pipe p=new Pipe();
             p.addNeighbor(n);
-            //System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), p.getName(), n.getName()));
-
-            //System.out.println(String.format("\t\t1.10 %s->%s.addNeighbor(%s)", getName(), n.getName(), p.getName()));
             n.addNeighbor(p);
-            //System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), n.getName(), p.getName()));
-
-            //System.out.println(String.format("\t\t1.11 %s->%s.addNeighbor(%s)", getName(), holdingPump.getName(), p.getName()));
             holdingPump.addNeighbor(p);
-            //System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), holdingPump.getName(), p.getName()));
-
-           // System.out.println(String.format("\t\t1.12 %s->%s.addNeighbor(%s)", getName(), p.getName(), holdingPump.getName()));
             p.addNeighbor(holdingPump);
-            //System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), p.getName(), holdingPump.getName()));
-
+            System.out.println("Successfully placed "+holdingPump.getName());
             return p;
+        }else{
+            System.out.println("Can't place "+ holdingPump.getName()+" on "+this.getName());
+            return null;
         }
-        //System.out.println(String.format("\t\t1.3 %s: neighbors[0] is null", getName()));
-        return null;
     }
+
     
     /** 
      * Olyan cso felemelesenel hasznaljuk, amelyiknek az egyik fele nincs sehova bekotve.
@@ -194,9 +176,7 @@ public class Pipe extends Element implements SaboteurPointSource{
      */
     @Override
     public Pipe lift(int dir){
-        NonPipe n1 = neighbors.get(0);
-        NonPipe n2 = neighbors.get(1);
-        if(n1 == null || n2 == null){
+        if(neighbors.get(0) == null || neighbors.get(1) == null){
             return this;
         }
         return null;
@@ -208,9 +188,7 @@ public class Pipe extends Element implements SaboteurPointSource{
      */
     public void addNeighbor(NonPipe n){
         if(neighbors.size()<2){
-        	//System.out.println("\t\t\t"+this.getName()+"->"+"neighbors.add("+n.getName()+")");
             neighbors.add(n);
-            //System.out.println("\t\t\t+"+this.getName()+".neighbors.get(2)=="+n.getName()+" ?" +(this.neighbors.get(0)==n));
         }
     }
 
@@ -238,20 +216,12 @@ public class Pipe extends Element implements SaboteurPointSource{
      * @return boolean - volt-e benne viz
      */
     public boolean waterExtraction(){
-    	//Tabulator.increaseTab();
-    	//Tabulator.printTab();
-    	
-    	
         if(containingWater){
             containingWater = false;
-            //System.out.println(getName()+".containingWater="+containingWater);
-            //Tabulator.decreaseTab();
             return true;
         }
         else
         {
-        	//System.out.println(getName()+".containingWater="+containingWater);
-        	//Tabulator.decreaseTab();
         	return false;
         }
         
@@ -262,7 +232,6 @@ public class Pipe extends Element implements SaboteurPointSource{
      * @return boolean - sikerult-e bele vizet tenni
      */
     public boolean giveWater(){
-    	//Tabulator.increaseTab();
     	boolean out = false;
         if(containingWater)
         {
@@ -273,16 +242,20 @@ public class Pipe extends Element implements SaboteurPointSource{
         	 containingWater = true;
         	out = true;
         }
-        //Tabulator.printTab();
-    	//System.out.println(getName()+".containingWater="+containingWater);
-    	//Tabulator.decreaseTab();
-    	//Tabulator.printTab();
-    	//System.out.println("<-"+getName()+".giveWater():"+out);
         return out;
-       
     }
-    public void stick() {};/** Ragadossa teszi az adott poziciot. */
-    public void slime(){};/** Csuszossa tesz egy csovet. */
+
+    /** Ragadossa teszi az adott poziciot. */
+    public void stick() {
+        sticky=-3;
+        System.out.println(this.getName()+" is now sticky");
+    };
+
+    /** Csuszossa tesz egy csovet. */
+    public void slime(){
+        slimey=3;
+        System.out.println(this.getName()+" is now slimey");
+    };
 
     /** 
      * Visszaadja a szomszedait
