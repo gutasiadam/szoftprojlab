@@ -1,0 +1,13 @@
+###Declaration###
+C c
+Pi pipeOnGround false false 0 0
+Pi holdingPipe false false 5 0
+Pu pump false false
+###Players###
+R repairman c holdingPipe null
+S sab c
+###Neighbors###
+c pipeOnGround holdingPipe
+holdingPipe c
+pipeOnGround c pump
+pump pipeOnGround

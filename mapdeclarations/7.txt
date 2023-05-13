@@ -1,0 +1,15 @@
+###Declaration###
+C Cistern
+Pu Pump false true
+W Source 
+Pi Pipe1 false true 0 0
+Pi Pipe2 false true 1 4
+###Players###
+R Repairman1 Pump null null
+S Saboteur1 Pump null null
+###Neighbors###
+Cistern Pipe1
+Pipe1 Cistern Pump
+Pump Pipe1 Pipe2
+Pipe2 Pump Source
+Source Pipe2

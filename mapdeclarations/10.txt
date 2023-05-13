@@ -1,0 +1,18 @@
+###Declaration###
+C c
+Pi pipeOnGround1 false false 0 0
+Pi pipeOnGround2 false false 0 0
+Pi holdingPipe false false 0 0
+Pu pump1 false false
+Pu pump2 false false
+###Players###
+R r1 holdingPipe null null
+R r2 c null null
+S sab c
+###Neighbors###
+c pipeOnGround1 holdingPipe
+holdingPipe c
+pipeOnGround1 c pump1
+pump1 pipeOnGround1 pipeOnGround2
+pipeOnGround2 pump1 pump2
+pump2 pipeOnGround2
