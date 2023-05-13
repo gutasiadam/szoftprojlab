@@ -1,0 +1,12 @@
+###Declaration###
+C c
+Pu Pump false true
+Pi Pipe1 false false 0 0
+###Players###
+R Repairman1 Pump null null
+S Saboteur1 Pump null null
+###Neighbors###
+c Pipe1
+Pump Pipe1
+Pipe1 c
+Pipe1 Pump

@@ -1,0 +1,17 @@
+###Declaration###
+Pu p1 false false
+C c
+W w
+Pi pi1 false false 0 0
+Pi pi2 false false 0 0
+###Players###
+S saboteur w null null
+###Neighbors###
+c pi1
+p1 pi1
+p1 pi2
+w pi2
+pi1 p1
+pi1 c
+pi2 w
+pi2 p1

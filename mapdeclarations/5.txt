@@ -1,0 +1,25 @@
+###Declaration###
+Pu p1 false false
+Pu p2 false false
+C c
+W w
+Pi pi1 false false 0 0
+Pi pi2 false false 0 0
+Pi pi3 false false 0 0
+Pi pi4 false false 0 0
+###Players###
+R repairman1 w null null
+R repairman2 w null null
+S saboteur1 c null null
+S saboteur2 c null null
+###Neighbors###
+c pi1
+c pi2
+pi1 c
+pi2 c p1
+pi3 w p1
+w pi3
+pi4 p1 p2
+p1 pi1
+p1 pi3
+p2 pi4
