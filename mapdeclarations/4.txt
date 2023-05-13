@@ -1,12 +1,12 @@
 ###Declaration###
-Pu p1 false false
-Pu p2 false false
-C c
+Pu p1 false false 0
+Pu p2 false false 0
+C c 0
 W w
-Pi pi1 false false 0 0
-Pi pi2 false false 0 0
-Pi pi3 false false 0 0
-Pi pi4 false false 0 0
+Pi pi1 false false 0 0 0
+Pi pi2 false false 0 0 0
+Pi pi3 false false 0 0 0
+Pi pi4 false false 0 0 0
 ###Players###
 R repairman1 c null null
 R repairman2 c null null
