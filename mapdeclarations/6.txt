@@ -1,18 +1,18 @@
 ###Declaration###
-C Cistern
-Pu Pump1 false true
-Pu Pump2 false true
-Pu Pump3 false true
-Pu Pump4 false true
-Pu Pump5 false true
-Pu Pump6 false true
-Pu Pump7 false true
-Pu Pump8 false true
-Pu Pump9 false true
-Pu Pump10 false true
+C Cistern 0
+Pu Pump1 false true 0
+Pu Pump2 false true 0
+Pu Pump3 false true 0
+Pu Pump4 false true 0
+Pu Pump5 false true 0
+Pu Pump6 false true 0
+Pu Pump7 false true 0
+Pu Pump8 false true 0
+Pu Pump9 false true 0
+Pu Pump10 false true 0
 W Source 
-Pi Pipe1 false true 0 0
-Pi Pipe2 false true 1 4
+Pi Pipe1 false true 0 0 0
+Pi Pipe2 false true 1 0 4
 ###Players###
 S Saboteur1 Pipe1 null null
 ###Neighbors###
