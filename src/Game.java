@@ -176,8 +176,8 @@ public class Game {
 	 */
 	public void SimulateWaterflow()
 	{
-		Tabulator.increaseTab();
-		Tabulator.printTab();
+		//Tabulator.increaseTab();
+		//Tabulator.printTab();
 		for(int i = 0;i<cisterns.size();i++)
 		{
 			

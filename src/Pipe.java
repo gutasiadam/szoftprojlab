@@ -62,14 +62,14 @@ public class Pipe extends Element implements SaboteurPointSource{
             containingWater = false;
             leakedWaterAmount++;
         }
-        Tabulator.increaseTab();
-        Tabulator.printTab();
-        System.out.println("containingWater="+containingWater);
-        Tabulator.printTab();
-        System.out.println("leakedWaterAmount="+leakedWaterAmount);
-        Tabulator.decreaseTab();
-        Tabulator.printTab();
-        System.out.println("<-"+getName()+".step()");
+        //Tabulator.increaseTab();
+        //Tabulator.printTab();
+        //System.out.println("containingWater="+containingWater);
+        //Tabulator.printTab();
+        //System.out.println("leakedWaterAmount="+leakedWaterAmount);
+        //Tabulator.decreaseTab();
+        //Tabulator.printTab();
+       // System.out.println("<-"+getName()+".step()");
     }
 
     /** 
@@ -86,14 +86,14 @@ public class Pipe extends Element implements SaboteurPointSource{
 			brokePipe1 = sc.next();
 			if(brokePipe1.equals("I"))
 			{
-				System.out.println("1.3.A\t\t"+this.getName()+".broken=true");
+				//System.out.println("1.3.A\t\t"+this.getName()+".broken=true");
 				this.holeOnPipe=true;
-				System.out.println("\t\t"+this.getName()+".broken=false");
+				//System.out.println("\t\t"+this.getName()+".broken=false");
 				this.holeOnPipe=false;
 				break;
 				
 			}if(brokePipe1.equals("N")) {
-				System.out.println("1.3.B\t\t"+this.getName()+".broken=false");
+				//System.out.println("1.3.B\t\t"+this.getName()+".broken=false");
 				break;
 			}else {
 				System.out.print("\nErvenytelen valasz! Probalkozzon ujra. (I/N)>");
@@ -101,7 +101,7 @@ public class Pipe extends Element implements SaboteurPointSource{
 		}
 		
 
-		System.out.println("\t<-"+this.getName()+".repair():void;");
+		//System.out.println("\t<-"+this.getName()+".repair():void;");
     }
 
     /** 
@@ -143,47 +143,47 @@ public class Pipe extends Element implements SaboteurPointSource{
         }
         
         if(n != null){
-            System.out.println(String.format("\t\t1.3 %s: %s = neighbors[0]", getName(), n.getName()));
+            //System.out.println(String.format("\t\t1.3 %s: %s = neighbors[0]", getName(), n.getName()));
             
-            System.out.println(String.format("\t\t1.4 %s->%s.removeNeighbor(%s)", getName(), getName(), n.getName()));
+            //System.out.println(String.format("\t\t1.4 %s->%s.removeNeighbor(%s)", getName(), getName(), n.getName()));
             removeNeighbor(n);
-            System.out.println(String.format("\t\t%s<-%s.removeNeighbor(%s)", getName(), getName(), n.getName()));
+            //System.out.println(String.format("\t\t%s<-%s.removeNeighbor(%s)", getName(), getName(), n.getName()));
             
-            System.out.println(String.format("\t\t1.5 %s->%s.removeNeighbor(%s)", getName(), n.getName(), getName()));
+            //System.out.println(String.format("\t\t1.5 %s->%s.removeNeighbor(%s)", getName(), n.getName(), getName()));
             n.removeNeighbor(this);
-            System.out.println(String.format("\t\t%s<-%s.removeNeighbor(%s)", getName(), n.getName(), getName()));
+           // System.out.println(String.format("\t\t%s<-%s.removeNeighbor(%s)", getName(), n.getName(), getName()));
 
-            System.out.println(String.format("\t\t1.6 %s->%s.addNeighbor(%s)", getName(), holdingPump.getName(), getName()));
+            //System.out.println(String.format("\t\t1.6 %s->%s.addNeighbor(%s)", getName(), holdingPump.getName(), getName()));
             holdingPump.addNeighbor(this);
-            System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), holdingPump.getName(), getName()));
+           // System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), holdingPump.getName(), getName()));
 
-            System.out.println(String.format("\t\t1.7 %s->%s.addNeighbor(%s)", getName(), getName(), holdingPump.getName()));
+            //System.out.println(String.format("\t\t1.7 %s->%s.addNeighbor(%s)", getName(), getName(), holdingPump.getName()));
             addNeighbor(holdingPump);
-            System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), getName(), holdingPump.getName()));
+            //System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), getName(), holdingPump.getName()));
 
             Pipe p = new Pipe();
             p.setName("p");
-            System.out.println(String.format("\t\t1.8 %s: Pipe %s created!", getName(), p.getName()));
+            //System.out.println(String.format("\t\t1.8 %s: Pipe %s created!", getName(), p.getName()));
 
-            System.out.println(String.format("\t\t1.9 %s->%s.addNeighbor(%s)", getName(), p.getName(), n.getName()));
+            //System.out.println(String.format("\t\t1.9 %s->%s.addNeighbor(%s)", getName(), p.getName(), n.getName()));
             p.addNeighbor(n);
-            System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), p.getName(), n.getName()));
+            //System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), p.getName(), n.getName()));
 
-            System.out.println(String.format("\t\t1.10 %s->%s.addNeighbor(%s)", getName(), n.getName(), p.getName()));
+            //System.out.println(String.format("\t\t1.10 %s->%s.addNeighbor(%s)", getName(), n.getName(), p.getName()));
             n.addNeighbor(p);
-            System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), n.getName(), p.getName()));
+            //System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), n.getName(), p.getName()));
 
-            System.out.println(String.format("\t\t1.11 %s->%s.addNeighbor(%s)", getName(), holdingPump.getName(), p.getName()));
+            //System.out.println(String.format("\t\t1.11 %s->%s.addNeighbor(%s)", getName(), holdingPump.getName(), p.getName()));
             holdingPump.addNeighbor(p);
-            System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), holdingPump.getName(), p.getName()));
+            //System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), holdingPump.getName(), p.getName()));
 
-            System.out.println(String.format("\t\t1.12 %s->%s.addNeighbor(%s)", getName(), p.getName(), holdingPump.getName()));
+           // System.out.println(String.format("\t\t1.12 %s->%s.addNeighbor(%s)", getName(), p.getName(), holdingPump.getName()));
             p.addNeighbor(holdingPump);
-            System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), p.getName(), holdingPump.getName()));
+            //System.out.println(String.format("\t\t%s<-%s.addNeighbor(%s)", getName(), p.getName(), holdingPump.getName()));
 
             return p;
         }
-        System.out.println(String.format("\t\t1.3 %s: neighbors[0] is null", getName()));
+        //System.out.println(String.format("\t\t1.3 %s: neighbors[0] is null", getName()));
         return null;
     }
     
@@ -238,20 +238,20 @@ public class Pipe extends Element implements SaboteurPointSource{
      * @return boolean - volt-e benne viz
      */
     public boolean waterExtraction(){
-    	Tabulator.increaseTab();
-    	Tabulator.printTab();
+    	//Tabulator.increaseTab();
+    	//Tabulator.printTab();
     	
     	
         if(containingWater){
             containingWater = false;
-            System.out.println(getName()+".containingWater="+containingWater);
-            Tabulator.decreaseTab();
+            //System.out.println(getName()+".containingWater="+containingWater);
+            //Tabulator.decreaseTab();
             return true;
         }
         else
         {
-        	System.out.println(getName()+".containingWater="+containingWater);
-        	Tabulator.decreaseTab();
+        	//System.out.println(getName()+".containingWater="+containingWater);
+        	//Tabulator.decreaseTab();
         	return false;
         }
         
@@ -262,7 +262,7 @@ public class Pipe extends Element implements SaboteurPointSource{
      * @return boolean - sikerult-e bele vizet tenni
      */
     public boolean giveWater(){
-    	Tabulator.increaseTab();
+    	//Tabulator.increaseTab();
     	boolean out = false;
         if(containingWater)
         {
@@ -273,11 +273,11 @@ public class Pipe extends Element implements SaboteurPointSource{
         	 containingWater = true;
         	out = true;
         }
-        Tabulator.printTab();
-    	System.out.println(getName()+".containingWater="+containingWater);
-    	Tabulator.decreaseTab();
-    	Tabulator.printTab();
-    	System.out.println("<-"+getName()+".giveWater():"+out);
+        //Tabulator.printTab();
+    	//System.out.println(getName()+".containingWater="+containingWater);
+    	//Tabulator.decreaseTab();
+    	//Tabulator.printTab();
+    	//System.out.println("<-"+getName()+".giveWater():"+out);
         return out;
        
     }

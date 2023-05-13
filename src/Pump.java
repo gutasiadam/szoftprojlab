@@ -55,14 +55,14 @@ public class Pump extends NonPipe implements SaboteurPointSource {
 			brokePump1 = sc.next();
 			if(brokePump1.equals("I"))
 			{
-				System.out.println("1.3.A\t\t"+this.getName()+".broken=true");
+				//System.out.println("1.3.A\t\t"+this.getName()+".broken=true");
 				this.broken=true;
-				System.out.println("\t\t"+this.getName()+".broken=false");
+				//System.out.println("\t\t"+this.getName()+".broken=false");
 				this.broken=false;
 				break;
 				
 			}if(brokePump1.equals("N")) {
-				System.out.println("1.3.B\t\t"+this.getName()+".broken=false");
+				//System.out.println("1.3.B\t\t"+this.getName()+".broken=false");
 				break;
 			}else {
 				System.out.print("\nErvenytelen valasz! Probalkozzon ujra. (I/N)>");
@@ -70,7 +70,7 @@ public class Pump extends NonPipe implements SaboteurPointSource {
 		}
 		
 
-		System.out.println("\t<-"+this.getName()+".repair():void;");
+		//System.out.println("\t<-"+this.getName()+".repair():void;");
     }
 
     
@@ -91,54 +91,54 @@ public class Pump extends NonPipe implements SaboteurPointSource {
     @Override
     public void step(){
         //TODO leakedWaterIncrease ha nincs semmibe kötve
-    	Tabulator.increaseTab();
+    	//Tabulator.increaseTab();
     	
         if(containingWater && !broken){
-        	Tabulator.printTab();
-        	System.out.println("1.5 "+getName()+"->"+outputPipe.getName()+".giveWater()");
+        	//Tabulator.printTab();
+        	//System.out.println("1.5 "+getName()+"->"+outputPipe.getName()+".giveWater()");
         	boolean give = outputPipe.giveWater();
         	
         	
             if(give){
                 containingWater = false;
             }
-            Tabulator.printTab();
-            System.out.println(getName()+".containingWater="+containingWater);
+            //Tabulator.printTab();
+            //System.out.println(getName()+".containingWater="+containingWater);
         }
         
-        Tabulator.printTab();
-        System.out.println(getName()+".containingWater="+containingWater);
-        Tabulator.printTab();
-        System.out.println("1.6 "+getName()+"->"+inputPipe.getName()+".step()");
+        //Tabulator.printTab();
+        //System.out.println(getName()+".containingWater="+containingWater);
+        //Tabulator.printTab();
+        //System.out.println("1.6 "+getName()+"->"+inputPipe.getName()+".step()");
         
         inputPipe.step();
         if(!containingWater && !broken){
-        	Tabulator.printTab();
-            System.out.println("1.7 "+getName()+"->"+inputPipe.getName()+".waterExtraction()");
+        	//Tabulator.printTab();
+            //System.out.println("1.7 "+getName()+"->"+inputPipe.getName()+".waterExtraction()");
         	boolean extraction = inputPipe.waterExtraction();
-        	Tabulator.printTab();
-            System.out.println("<-"+inputPipe.getName()+".waterExtraction():"+extraction);
+        	//Tabulator.printTab();
+           // System.out.println("<-"+inputPipe.getName()+".waterExtraction():"+extraction);
             
             
             if(extraction){
                 containingWater = true;
             }
-            Tabulator.printTab();
-            System.out.println(getName()+".containingWater="+containingWater);
+            //Tabulator.printTab();
+            //System.out.println(getName()+".containingWater="+containingWater);
         }
         
         List<NonPipe> inputNeighbors = inputPipe.getNeighbors();
         for(NonPipe np : inputNeighbors){
         	if(this!=np)
         	{
-                Tabulator.printTab();
-                System.out.println("1.8 "+getName()+"->"+np.getName()+".step()");
+                //Tabulator.printTab();
+                //System.out.println("1.8 "+getName()+"->"+np.getName()+".step()");
         		np.step();
         	}	
         }
-        Tabulator.decreaseTab();
-        Tabulator.printTab();
-        System.out.println("<-"+getName()+".step():void");
+        //Tabulator.decreaseTab();
+        //Tabulator.printTab();
+       // System.out.println("<-"+getName()+".step():void");
     }
 
     /** 
@@ -146,11 +146,11 @@ public class Pump extends NonPipe implements SaboteurPointSource {
      */
     public void breakPump(){ 
     	 if(broken) {
-    		System.out.println(String.format("A %spumpa mar el van romolva.",getName()));
+    		//System.out.println(String.format("A %spumpa mar el van romolva.",getName()));
          }
          else {
              	broken = true;
-             	System.out.println(String.format("A %s pumpa elromlott", getName()));
+             	//System.out.println(String.format("A %s pumpa elromlott", getName()));
              }
     }
     public void stick() {};/** Ragadossa teszi az adott poziciot. */
