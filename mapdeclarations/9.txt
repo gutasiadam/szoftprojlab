@@ -1,9 +1,9 @@
 ###Declaration###
-Pu p1 false false
-Pu p2 false false
-Pu p3 false false
-Pi pi1 false false 0 0
-Pi pi2 false false 0 0
+Pu p1 false false 0
+Pu p2 false false 0
+Pu p3 false false 0
+Pi pi1 false false 0 0 0
+Pi pi2 false false 0 0 0
 ###Players###
 R repairman p2 null null
 ###Neighbors###

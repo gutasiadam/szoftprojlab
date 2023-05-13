@@ -1,8 +1,8 @@
 ###Declaration###
-C c
-Pi pipeOnGround false false 0 0
-Pi holdingPipe false false 5 0
-Pu pump false false
+C c 0
+Pi pipeOnGround false false 0 0 0
+Pi holdingPipe false false  5 0 0
+Pu pump false false 0
 ###Players###
 R repairman c holdingPipe null
 S sab c
