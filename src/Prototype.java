@@ -151,7 +151,7 @@ public class Prototype {
 
                             case "W": 
                             name = sc.next();
-                            next = sc.next();
+                            //next = sc.next();
                             WaterSource ws = new WaterSource();
                             ws.setName(name);
                             gameElements.add(ws);
