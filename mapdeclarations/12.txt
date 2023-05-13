@@ -1,7 +1,7 @@
 ###Declaration###
-C c
-Pu Pump false true
-Pi Pipe1 false false 0 0
+C c 0
+Pu Pump false true 0
+Pi Pipe1 false false 0 0 0
 ###Players###
 R Repairman1 Pump null null
 S Saboteur1 Pump null null

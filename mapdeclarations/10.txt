@@ -1,10 +1,10 @@
 ###Declaration###
-C c
-Pi pipeOnGround1 false false 0 0
-Pi pipeOnGround2 false false 0 0
-Pi holdingPipe false false 0 0
-Pu pump1 false false
-Pu pump2 false false
+C c 0
+Pi pipeOnGround1 false false 0 0 0
+Pi pipeOnGround2 false false 0 0 0
+Pi holdingPipe false false 0 0 0
+Pu pump1 false false 0
+Pu pump2 false false 0
 ###Players###
 R r1 holdingPipe null null
 R r2 c null null

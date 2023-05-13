@@ -1,9 +1,9 @@
 ###Declaration###
-Pu p1 false false
-C c
+Pu p1 false false 0
+C c 0
 W w
-Pi pi1 false false 0 0
-Pi pi2 false false 0 0
+Pi pi1 false false 0 0 0
+Pi pi2 false false 0 0 0
 ###Players###
 S saboteur w null null
 ###Neighbors###

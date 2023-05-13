@@ -1,6 +1,4 @@
-## Getting Started
 A [BMEVIIIAB02](https://portal.vik.bme.hu/kepzes/targyak/VIIIAB02) tárgy (Szoftver projekt laboratórium) során elkészített munkája a codex csapatnak.
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
 
 ## Feladatkiírás
 
@@ -25,5 +23,5 @@ Módosítás
 - A csöveknek mindkét vége egyidőben le lehet csatolva.
 
 - A szabotőr azt a csövet, amin áll, rövid időre csúszóssá tudja tenni. Ilyenkor aki rálép, véletlenszerűen a cső valamelyik végéhez kapcsolódó elemre kerül.
- 
+
 - Mind a szabotőrök, mind a szerelők azt a csövet, amin állnak, rövid időre ragadóssá tudják tenni. Aki legközelebb rálép, egy ideig nem tud továbblépni.

@@ -1,7 +1,7 @@
 ###Declaration###
-Pu p1 false false
-C c
-Pi pi1 false false 0 0
+Pu p1 false false 0
+C c 0
+Pi pi1 false false 0 0 0
 ###Players###
 R repairman c null null
 ###Neighbors###

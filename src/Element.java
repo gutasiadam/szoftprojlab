@@ -134,7 +134,7 @@ public abstract class Element implements RepairmanPlace, SaboteurPlace{
     	if(n!=null) {
     		this.getNeighbors().remove(dir);
     		n.removeNeighbor((NonPipe) this); // n. removeNeighbor(onmaga)?
-        	System.out.println("Successfullz picked up "+n.getName());
+        	System.out.println("Successfully picked up "+n.getName());
     		return n;
     	}else {
     		System.out.println("Invalid object to pick up");
