@@ -256,7 +256,7 @@ public class Pipe extends Element implements SaboteurPointSource {
 
     /** Ragadossa teszi az adott poziciot. */
     public void stick() {
-        sticky = 3;
+        sticky = -3;
         System.out.println(this.getName() + " is now sticky");
     };
 
