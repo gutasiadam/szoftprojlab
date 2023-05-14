@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 /** @authorBodnar Mark*/
 public class Repairman extends Character {
@@ -67,6 +68,10 @@ public class Repairman extends Character {
 		//System.out.println(String.format("Aktualis pozicio:"+position.getName()));
 		List<? extends Element> neighbors = position.getNeighbors();
 		RepairmanPlace lastPosition=position;
+		if(dir<0||neighbors.size()<=dir){
+			System.out.println("Failed to move, invalid index.");
+			return;
+		}
 		//System.out.println(String.format("\t1.1 %s->%s.remove(%s)",this.getName(), position.getName(),this.getName()));
 		boolean removeSuccess=position.remove(this);
 		//System.out.println(String.format("\t1.1 %s->%s.accept(%s): Nem tortent lepes.",this.getName(), position.getName(),this.getName()));
@@ -78,6 +83,11 @@ public class Repairman extends Character {
 			boolean acceptSuccess=neighbors.get(dir).accept(this);
 			if(!acceptSuccess) lastPosition.accept(this);
 				//System.out.println(String.format("\t\t1.2 Sikeres lepes, uj pozicio:"+position.getName()));
+		}
+		ArrayList<Element> elements = game.getGameElements();
+		for(int i = 0; i < elements.size(); i++){
+			List<Character> chs = elements.get(i).getStandingOn();
+			if(chs.contains(this)) position = elements.get(i);
 		}
 		//System.out.println(String.format("\t%s<-%s.accept(%s):%s",this.getName(), position.getName(),this.getName(),success));	
 	}
@@ -104,10 +114,8 @@ public class Repairman extends Character {
      */
 	public void LiftPipe(int dir) {
 		if (holdingPipe == null) {
-			System.out.println(String.format("\t1.2 %s->%s.lift(dir)", getName(), position.getName()));
 			holdingPipe = position.lift(dir);
-			System.out.println(
-					String.format("\t%s<-%s.lift(dir): %s", getName(), position.getName(), holdingPipe.getName()));
+			System.out.println("Successfully picked up "+holdingPipe.getName());
 		}
 	}
 
@@ -117,67 +125,31 @@ public class Repairman extends Character {
      */
 	public void LiftPump() {
 		if (holdingPump == null) {
-			System.out.println(String.format("\t1.2 %s->%s.givePump()", getName(), position.getName()));
 			holdingPump = position.givePump();
-			if (holdingPump != null) {
-				System.out.println(
-						String.format("\t%s<-%s.givePump(): %s", getName(), position.getName(), holdingPump.getName()));
-			} else {
-				System.out.println(String.format("\t%s<-%s.givePump(): null", getName(), position.getName()));
-			}
 		}
 	}
     /** 
      * Cso elhelyezese.
      */
 	public void PlacePipe() {
-		System.out.println(String.format("\t1.2 %s->%s.placePipe()", getName(), position.getName()));
 		position.placePipe(holdingPipe);
-		System.out.println(String.format("\t%s<-%s.placePipe() : %s", getName(), position.getName(),
-				position.placePipe(holdingPipe)));
-		Tabulator.increaseTab();
-		Tabulator.printTab();
-		System.out.println("1.1 " + getName() + "->" + position.getName() + "placePipe(" + holdingPipe.getName() + ")");
+		String hpn = holdingPipe.getName();
 
-		if (position.placePipe(holdingPipe))
+		if (position.placePipe(holdingPipe)){
 			holdingPipe = null;
-
-		Tabulator.printTab();
-		if (holdingPipe != null)
-			System.out.println(getName() + ".holdingPipe=" + holdingPipe.getName());
-		else
-			System.out.println(getName() + ".holdingPipe=null");
-
-		Tabulator.decreaseTab();
-		Tabulator.printTab();
-		System.out.println("<-" + getName() + ".PlacePipe():void");
+			System.out.println("Successfully placed "+hpn);
+		}
+			
 	}
     /** 
      * Pumpa elhelyezese.
      */
 	public void PlacePump() {
-		System.out.println(
-				String.format("\t1.2 %s->%s.placePump(%s)", getName(), position.getName(), holdingPump.getName()));
 		Pipe createdPipe = position.placePump(holdingPump);
 		if (createdPipe != null) {
-			System.out.println(String.format("\t%s<-%s.placePump(%s): %s", getName(), position.getName(),
-					holdingPump.getName(), createdPipe.getName()));
-
-			System.out.println(String.format("\t1.13 %s->game.addPump(%s)", getName(), holdingPump.getName()));
-			System.out.println(String.format("\t\t1.14 game->timer.addPump(%s)", holdingPump.getName()));
 			game.addPump(holdingPump);
-			System.out.println(String.format("\t\tgame<-timer.addPump(%s)", holdingPump.getName()));
-			System.out.println(String.format("\t%s<-game.addPump(%s)", getName(), holdingPump.getName()));
-
-			System.out.println(String.format("\t1.15 %s->game.addPipe(%s)", getName(), createdPipe.getName()));
 			game.addPipe(createdPipe);
-			System.out.println(String.format("\t%s<-game.addPipe(%s)", getName(), createdPipe.getName()));
-
-			System.out.println(String.format("\t1.16 %s holdingPump := null", getName()));
 			holdingPump = null;
-		} else {
-			System.out.println(String.format("\t%s<-%s.placePump(%s): null", getName(), position.getName(),
-					holdingPump.getName()));
 		}
 	}
 	public void makeSticky(){position.stick();}

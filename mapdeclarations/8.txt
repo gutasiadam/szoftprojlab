@@ -1,7 +1,7 @@
 ###Declaration###
 C c 0
 Pi pipeOnGround false false 0 0 0
-Pi holdingPipe false false  5 0 0
+Pi holdingPipe false false  0 5 0
 Pu pump false false 0
 ###Players###
 R repairman c holdingPipe null

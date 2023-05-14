@@ -1,9 +1,11 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 /** @authorBodnar Mark*/
 public class Saboteur extends Character {
 	private SaboteurPlace position;
 	private boolean myTurn;
+	private Game game;
 	
 	Saboteur(){
 		myTurn=false;
@@ -38,6 +40,10 @@ public class Saboteur extends Character {
 		//System.out.println(String.format("Aktualis pozicio:"+position.getName()));
 		List<? extends Element> neighbors = position.getNeighbors();
 		SaboteurPlace lastPosition=position;
+		if(dir<0||neighbors.size()<=dir){
+			System.out.println("Failed to move, invalid index.");
+			return;
+		}
 		//System.out.println(String.format("\t1.1 %s->%s.remove(%s)",this.getName(), position.getName(),this.getName()));
 		boolean removeSuccess=position.remove(this);
 		//System.out.println(String.format("\t1.1 %s->%s.accept(%s): Nem tortent lepes.",this.getName(), position.getName(),this.getName()));
@@ -49,6 +55,11 @@ public class Saboteur extends Character {
 			boolean acceptSuccess=neighbors.get(dir).accept(this);
 			if(!acceptSuccess) lastPosition.accept(this);
 				//System.out.println(String.format("\t\t1.2 Sikeres lepes, uj pozicio:"+position.getName()));
+		}
+		ArrayList<Element> elements = game.getGameElements();
+		for(int i = 0; i < elements.size(); i++){
+			List<Character> chs = elements.get(i).getStandingOn();
+			if(chs.contains(this)) position = elements.get(i);
 		}
 		//System.out.println(String.format("\t%s<-%s.accept(%s):%s",this.getName(), position.getName(),this.getName(),success));	
 	}
@@ -73,5 +84,9 @@ public class Saboteur extends Character {
 	public String toString()
 	{
 		return "S "+this.getName()+" "+position.getName();
+	}
+
+	public void setGame(Game g) {
+		game = g;
 	}
 }

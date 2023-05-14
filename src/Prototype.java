@@ -19,6 +19,7 @@ public class Prototype {
     ArrayList<Character> characters;
     Character currentCharacter;
     int currentCharacterInt = 0;
+    int ac = 0; //* ActionCounter */
 
 	private String selectedMenuItem; /** A kivalasztott parancs */
 
@@ -185,13 +186,14 @@ public class Prototype {
                             elementName = sc.next();
                             element = getElementByName(elementName);
                             hPump = element;
-                            if(position!=null) // miert csak ekkor?
+                            if(position!=null)
                             {
                                 Repairman r = new Repairman((RepairmanPlace)position,(Pipe)hPipe,(Pump)hPump);
                                 r.setName(name);
                                 r.setGame(game);
                                 repairmanGroup.add(r);
                                 characters.add(r);
+                                position.addStandingOn(r);
                             }
                             else
                             {
@@ -208,8 +210,10 @@ public class Prototype {
                             {
                                 Saboteur s = new Saboteur((SaboteurPlace)position);
                                 s.setName(name);
+                                s.setGame(game);
                                 saboteurGroup.add(s);
                                 characters.add(s);
+                                position.addStandingOn(s);
                             }
                             else
                             {
@@ -335,6 +339,7 @@ public class Prototype {
 
     public void showMenu() {
         System.out.println("Kilepes: q");
+        System.out.println("Parancsok mutatasa: help");
 		Scanner userInput = new Scanner(System.in);
         System.out.print("parancs > ");
 		while (userInput.hasNextLine()) {
@@ -344,22 +349,22 @@ public class Prototype {
                 selectedMenuItem = args[0].toLowerCase();
                 args = Arrays.copyOfRange(args, 1, args.length);
                 switch(selectedMenuItem){
-                    case "adjust": currentCharacter.adjustPump(Integer.parseInt(args[0]), Integer.parseInt(args[1])); break;
-                    case "move": currentCharacter.move(Integer.parseInt(args[0])); break;
-                    case "stab": currentCharacter.dealDamage(); break;
-                    case "repair": ((Repairman)currentCharacter).RepairElement(); break;
-                    case "pickuppump": ((Repairman)currentCharacter).LiftPump(); break;
-                    case "pickuppipe": ((Repairman)currentCharacter).LiftPipe(Integer.parseInt(args[0])); break;
-                    case "placepump": ((Repairman)currentCharacter).PlacePump(); break;
-                    case "placepipe": ((Repairman)currentCharacter).PlacePipe(); break;
-                    case "stick": currentCharacter.makeSticky(); break;
-                    case "slime": ((Saboteur)currentCharacter).putSlime(); break;
-                    case "endturn": game.endTurn(); if(++currentCharacterInt>=characters.size()){ currentCharacterInt = 0;}currentCharacter = characters.get(currentCharacterInt);  break;
+                    case "adjust": if(dealAC()) currentCharacter.adjustPump(Integer.parseInt(args[0]), Integer.parseInt(args[1])); break;
+                    case "move": if(dealAC()) currentCharacter.move(Integer.parseInt(args[0])); break;
+                    case "stab": if(dealAC()) currentCharacter.dealDamage(); break;
+                    case "repair": if(dealAC()) ((Repairman)currentCharacter).RepairElement(); break;
+                    case "pickuppump": if(dealAC()) ((Repairman)currentCharacter).LiftPump(); break;
+                    case "pickuppipe": if(dealAC()) ((Repairman)currentCharacter).LiftPipe(Integer.parseInt(args[0])); break;
+                    case "placepump": if(dealAC()) ((Repairman)currentCharacter).PlacePump(); break;
+                    case "placepipe": if(dealAC()) ((Repairman)currentCharacter).PlacePipe(); break;
+                    case "stick": if(dealAC()) currentCharacter.makeSticky(); break;
+                    case "slime": if(dealAC()) ((Saboteur)currentCharacter).putSlime(); break;
+                    case "endturn": endTurn(); break;
                     case "save": save(args[0]); break;
                     case "load": load(args[0]); currentCharacter = characters.get(currentCharacterInt); break;
-                    case "help": System.out.println("adjust int int\nmove int\nstab\nrepair\npickuppump\npickuppipe int\nplacepump\nplacepipe\nstick\nslime\nendturn\nsave int\nload int\nhelp\nq"); break;
-                    case "info": for(int i = 0; i < gameElements.size(); i++){ if(gameElements.get(i).getName().equals(args[0])) System.out.println(gameElements.get(i).toString()); } break;
-                    case "q - kilepes": break;
+                    case "help": System.out.println("adjust int int\nmove int\nstab\nrepair\npickuppump\npickuppipe int\nplacepump\nplacepipe\nstick\nslime\nendturn\nsave int\nload int\nhelp\ninfo string\nq"); break;
+                    case "info": info(args[0]); break;
+                    case "q": break;
                     default: System.out.println("Nem letezik a megadott parancs");
                 }
                 if(selectedMenuItem.equals("q")) break;
@@ -368,7 +373,11 @@ public class Prototype {
             }catch(ArrayIndexOutOfBoundsException e){
                 System.out.println("Tul keves az argumentum");
             }catch(NullPointerException e){
-                System.out.println("Nincs jatekos hozzaadva");
+                if(characters.size()<=0) {
+                    System.out.println("Nincs jatekos hozzaadva");
+                } else {
+                    System.out.println("Nullptr: " + e.toString());
+                }
             }catch(NumberFormatException e){
                 System.out.println("Ervenytelen argumentum");
             }catch(Exception e){
@@ -379,4 +388,41 @@ public class Prototype {
 		}
 		userInput.close();
 	}
+
+    public void info(String name){
+        boolean found = false;
+        for(int i = 0; i < gameElements.size(); i++){
+            if(gameElements.get(i).getName().equals(name)){
+                System.out.println(gameElements.get(i).toString());
+                found = true;
+            }
+        }
+        for(int i = 0; i < characters.size(); i++){
+            if(characters.get(i).getName().equals(name)){
+                System.out.println(characters.get(i).toString());
+                found = true;
+            }
+        }
+        if(!found) System.out.println("Object " + name + " not found");
+    }
+
+    public boolean dealAC(){
+        if(ac>=3) System.out.println("Out of action");
+        return ac++<3;
+    }
+
+    public void endTurn(){
+        try{
+            game.endTurn();
+        }catch(Exception e){
+            System.out.println("Gebasz van a simulatewaterflowval valszeg");
+        }
+        String prevname = currentCharacter.getName();
+        if(++currentCharacterInt>=characters.size()){
+            currentCharacterInt = 0;
+        }
+        currentCharacter = characters.get(currentCharacterInt);
+        ac = 0;
+        System.out.println(prevname + "\'s turn ended, "+currentCharacter.getName()+"\'s turn next");
+    }
 }

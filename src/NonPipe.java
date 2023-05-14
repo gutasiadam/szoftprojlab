@@ -57,12 +57,8 @@ public abstract class NonPipe extends Element {
     @Override
     public boolean placePipe(Pipe holdingPipe) {
         if (holdingPipe != null) {
-            System.out.println(
-                    String.format("\t\t1.3 %s->%s.addNeighbor(%s)", getName(), holdingPipe.getName(), this.getName()));
             addNeighbor(holdingPipe);
             holdingPipe.addNeighbor(this);
-            System.out.println(
-                    String.format("\t\t %s<-%s.addNeighbor(%s)", getName(), holdingPipe.getName(), this.getName()));
             return true;
         }
         return false;

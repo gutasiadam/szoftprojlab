@@ -91,6 +91,7 @@ public class Pipe extends Element implements SaboteurPointSource{
         }else{
             if(sticky<0)
                 sticky = sticky*-1;
+            standingOn.remove(c);
             return true;
         }
     }    
@@ -160,7 +161,9 @@ public class Pipe extends Element implements SaboteurPointSource{
             n.addNeighbor(p);
             holdingPump.addNeighbor(p);
             p.addNeighbor(holdingPump);
-            System.out.println("Successfully placed "+holdingPump.getName());
+            int rnd = (int)(Math.random() * 1000) + 100;
+            p.setName("pi"+rnd);
+            System.out.println("Successfully placed "+holdingPump.getName()+", new pipe: "+p.getName());
             return p;
         }else{
             System.out.println("Can't place "+ holdingPump.getName()+" on "+this.getName());
@@ -176,9 +179,10 @@ public class Pipe extends Element implements SaboteurPointSource{
      */
     @Override
     public Pipe lift(int dir){
-        if(neighbors.get(0) == null || neighbors.get(1) == null){
+        if(neighbors.size()==1 && neighbors.get(0).getClass().getName().equals("Cistern")){
             return this;
         }
+        System.out.println("Invalid pipe to pick up.");
         return null;
     }
 
@@ -247,7 +251,7 @@ public class Pipe extends Element implements SaboteurPointSource{
 
     /** Ragadossa teszi az adott poziciot. */
     public void stick() {
-        sticky=-3;
+        sticky=3;
         System.out.println(this.getName()+" is now sticky");
     };
 

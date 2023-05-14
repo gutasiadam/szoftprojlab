@@ -54,6 +54,7 @@ public abstract class Element implements RepairmanPlace, SaboteurPlace{
     @Override
     public boolean accept(Character c) {
         standingOn.add(c);
+        System.out.println("Successfully moved to "+ this.getName());
         return true;
     }
 
@@ -141,5 +142,13 @@ public abstract class Element implements RepairmanPlace, SaboteurPlace{
     		return null;
     	}
 
+    }
+
+    public List<Character> getStandingOn(){
+        return standingOn;
+    }
+
+    public void addStandingOn(Character c){
+        standingOn.add(c);
     }
 }

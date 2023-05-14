@@ -101,8 +101,9 @@ public class Cistern extends NonPipe {
     @Override
     public Pump givePump(){
         Pump p = new Pump();
-        p.setName("p");
-        System.out.println("Successfullly picked up "+p.getName());
+        int rnd = (int)(Math.random() * 1000) + 100;
+        p.setName("p"+rnd);
+        System.out.println("Successfully picked up "+p.getName());
         return p;
     }
 
