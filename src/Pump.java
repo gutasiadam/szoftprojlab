@@ -143,6 +143,10 @@ public class Pump extends NonPipe implements SaboteurPointSource {
         return lkdwtramt;
     }
 
+    /**
+	 * Az osztály fontosabb attribútumait összefűzve adja vissza egy String-gé
+	 * @return String
+	 */
     @Override
     public String toString()
     {

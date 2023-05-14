@@ -107,6 +107,10 @@ public class Cistern extends NonPipe {
         return p;
     }
 
+    /**
+	 * Az osztály fontosabb attribútumait összefűzve adja vissza egy String-gé
+	 * @return String
+	 */
     @Override
     public String toString()
     {
