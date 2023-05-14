@@ -9,11 +9,8 @@ Pi pi3 false false 0 0 0
 R repairman p1 pi3 null
 ###Neighbors###
 c pi1
-p1 pi1
-p1 pi2
+p1 pi1 pi2
 w pi2
-pi1 p1
-pi1 c
-pi2 w
-pi2 p1
+pi1 p1 c
+pi2 w p1
 pi3 p1
