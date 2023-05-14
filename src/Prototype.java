@@ -23,6 +23,9 @@ public class Prototype {
 
 	private String selectedMenuItem; /** A kivalasztott parancs */
 
+    /**
+     * Inicializálja a Prototype-ot
+     */
     Prototype()
     {
         game = new Game();
@@ -53,6 +56,11 @@ public class Prototype {
         return null;
     }
 
+    /**
+     * Visszaadja az adott nevű NonPipe-ot ha létezik
+     * @param name A keresett NonPipe neve
+     * @return A NonPipe referenciája ha létezik, null ha nem
+     */
     private NonPipe getNonPipestByName(String name)
     {
         for(NonPipe nonpipe : gameNonPipes)
@@ -65,6 +73,11 @@ public class Prototype {
         return null;
     }
 
+    /**
+     * Visszaadja az adott nevű csövet ha létezik
+     * @param name A keresett cső neve
+     * @return A Cső referenciája ha létezik, null ha nem
+     */
     private Pipe getPipesByName(String name)
     {
         for(Pipe pipe : gamePipes)
@@ -77,6 +90,10 @@ public class Prototype {
         return null;
     }
 
+    /**
+     * BEtölti a mapdeclarations mappából a megadott nevű txt fájlt
+     * @param file A betöltendő fájl neve
+     */
     public void load(String file)
     {
         gameElements.clear();
@@ -152,7 +169,6 @@ public class Prototype {
 
                             case "W": 
                             name = sc.next();
-                            //next = sc.next();
                             WaterSource ws = new WaterSource();
                             ws.setName(name);
                             gameElements.add(ws);
@@ -276,6 +292,7 @@ public class Prototype {
                             round = sc.nextInt();
                             repPoints = sc.nextInt();
                             sabPoints = sc.nextInt();
+                            scPoints.close();
                         }
                         catch(Exception e)
                         {
@@ -284,20 +301,25 @@ public class Prototype {
                             repPoints = 0;
                         }
                         game.load(gameElements, sabPointSource, cisterns, repairmanGroup, saboteurGroup, repPoints, sabPoints, round);
-                        System.out.println(file+"Points.txt Load Successful");
+                        //System.out.println(file+"Points.txt Load Successful");
                     }
         }
         catch (Exception e) {
-            System.out.println(file+"Points.txt Load Failed");
+            System.out.println(file+".txt Load Failed");
         }
     }
 
+    /**
+     * Betölti a megadott nevű txt fájlt a mapdeclarations mappából
+     * @param file A betöltendő fájl neve
+     */
     public void save(String file)
     {
         PrintWriter pw;
         try 
         {
-            pw = new PrintWriter(file+".txt");
+            File f = new File("mapdeclarations/"+file+".txt");
+            pw = new PrintWriter(f);
             ArrayList<Element> gameElements = game.getGameElements();
             pw.println("###Declaration###");
             for(Element element:gameElements)
@@ -328,7 +350,8 @@ public class Prototype {
             }
             pw.close();
             
-            pw = new PrintWriter(file+"Points.txt");
+            f = new File("mapdeclarations/"+file+"Points.txt");
+            pw = new PrintWriter(f);
             pw.println(game.toString());
             pw.close();
             System.out.println("Save Successful");
@@ -336,10 +359,12 @@ public class Prototype {
             System.out.println("Save Failed");
         }
     }
-
+    /**
+     * Megjeleníti a felhasználó által használható menüt.
+     */
     public void showMenu() {
         System.out.println("Kilepes: q");
-        System.out.println("Parancsok mutatasa: help");
+        //System.out.println("Parancsok mutatasa: help");
 		Scanner userInput = new Scanner(System.in);
         System.out.print("parancs > ");
 		while (userInput.hasNextLine()) {
@@ -390,6 +415,10 @@ public class Prototype {
 		userInput.close();
 	}
 
+    /**
+     * Engedélyezi és letiltja a véletlen eseményeket
+     * @param param I - bekapcsol, N - kikapcsol
+     */
     public void togglerandom(String param)
     {
         if(param.equals("I"))
@@ -400,6 +429,10 @@ public class Prototype {
         System.out.println("Invalid input");
     }
 
+    /**
+     * A help függvényhez használatos segédfüggvény, mely megmondja hogy a jelenlegi játékos Szerelő-e
+     * @return true - ha az aktuális játékos Szerelő, false - ha Szabotőr
+     */
     private boolean isCurrentRepairman()
     {
         boolean out = false;
@@ -414,6 +447,9 @@ public class Prototype {
         return out;
     }
 
+    /**
+     * A help parancsot megvalósítő függvény
+     */
     public void help()
     {
         if(isCurrentRepairman())
@@ -448,7 +484,6 @@ public class Prototype {
         try{
             game.endTurn();
         }catch(Exception e){
-            System.out.println("Gebasz van a simulatewaterflowval valszeg");
             e.printStackTrace();
         }
         String prevname = currentCharacter.getName();

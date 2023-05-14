@@ -130,7 +130,6 @@ public class Game {
 	 */
 	public void playGame()
 	{
-		//System.out.println("playGame");
 		while(remainingRounds>0)
 		{
 			for(int i = 0;i<saboteurGroup.size();i++)
@@ -175,8 +174,8 @@ public class Game {
 	}
 	public void endTurn()
 	{
+		timer.tick();
 		this.SimulateWaterflow();
-		
 		int repairmanWater = 0;
 		int saboteurWater = 0;
 		for(int i=0;i<cisterns.size();i++) {
@@ -190,11 +189,6 @@ public class Game {
 		}
 		this.repairmanPoints+=repairmanWater;
 		this.saboteurPoints+=saboteurWater;
-		
-		
-
-		
-		
 		this.remainingRounds--;
 		if(remainingRounds==0) {
 			endGame();
@@ -210,10 +204,7 @@ public class Game {
 		//Tabulator.printTab();
 		for(int i = 0;i<cisterns.size();i++)
 		{
-			
 			cisterns.get(i).step();
-			
-			
 		}
 	}
 	

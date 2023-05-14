@@ -65,37 +65,36 @@ public class Repairman extends Character {
 	 * @param dir szam amely megadja az iranyt
 	 */
 	public void move(int dir) {
-		//System.out.println(String.format("Aktualis pozicio:"+position.getName()));
+		
 		List<? extends Element> neighbors = position.getNeighbors();
 		RepairmanPlace lastPosition=position;
 		if(dir<0||neighbors.size()<=dir){
 			System.out.println("Failed to move, invalid index.");
 			return;
 		}
-		//System.out.println(String.format("\t1.1 %s->%s.remove(%s)",this.getName(), position.getName(),this.getName()));
+		
 		boolean removeSuccess=position.remove(this);
-		//System.out.println(String.format("\t1.1 %s->%s.accept(%s): Nem tortent lepes.",this.getName(), position.getName(),this.getName()));
+		
 		
 		if(removeSuccess) {
 			//a szomszedok kozul a kivalsztott, dir poziciora probaljuk athelyezni a karaktert
 			//fontos majd, hogy a valasztott irany es a szomszedok lista konzisztens legyen
-			//System.out.println(String.format("\t\t1.2 %s->%s.accept(%s)",this.getName(), position.getName(),this.getName()));
+			
 			boolean acceptSuccess=neighbors.get(dir).accept(this);
 			if(!acceptSuccess) lastPosition.accept(this);
-				//System.out.println(String.format("\t\t1.2 Sikeres lepes, uj pozicio:"+position.getName()));
+				
 		}
 		ArrayList<Element> elements = game.getGameElements();
 		for(int i = 0; i < elements.size(); i++){
 			List<Character> chs = elements.get(i).getStandingOn();
 			if(chs.contains(this)) position = elements.get(i);
 		}
-		//System.out.println(String.format("\t%s<-%s.accept(%s):%s",this.getName(), position.getName(),this.getName(),success));	
+
 	}
 	/**
 	 * Az elem javitasa amin all a szerelo.
 	 */
 	public void RepairElement() {
-		System.out.println("1.2 "+this.getName() + "->" + position.getName() + ".repair();"); 
 		position.repair();
 	}
     /** 
@@ -142,9 +141,7 @@ public class Repairman extends Character {
 			}
 		}else {
 			System.out.println("No Pipe to place");
-		}
-
-			
+		}		
 	}
     /** 
      * Pumpa elhelyezese.
