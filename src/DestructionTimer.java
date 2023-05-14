@@ -10,7 +10,7 @@ public class DestructionTimer {
 	/**A tarolt pumpak, melyeket elronthat az idozito.*/
 	private ArrayList<Pump> pumps;
 	private String Name; /** Az idozito objektum neve a jatek soran. pl.: Timer1 */
-	
+	private boolean randomEnabled;
 	
 	/**
 	 * Létrehoz egy DestructionTimer-t.
@@ -18,6 +18,7 @@ public class DestructionTimer {
 	public DestructionTimer()
 	{
 		pumps=new ArrayList<Pump>();
+		randomEnabled = true;
 	}
 	/**
 	 * A teszthez lesz a nevre szukseg
@@ -26,6 +27,15 @@ public class DestructionTimer {
     	return Name;
     }
     
+	/**
+	 * Beállítja a randomEnabled értékét a paraméternek megfelelően.
+	 * @param random Legyenek-e engedélyezve a random események a DEstructionTimer-en belül.
+	 */
+	public void setRandomEnabled(boolean random)
+	{
+		randomEnabled = random;
+	}
+
     /**
      * Pumpa nevenek beallitasa.. String tipusu paramterkent varja a pumpa nevet.
      * @param name
@@ -35,17 +45,17 @@ public class DestructionTimer {
     }
 	/**
 	 * Bizonyos eséllyel elrontja a pumpákat egyesével.
+	 * Ha randomEnabled értéke igaz akkor biztosan elront minden pumpát.
 	 */
     public void tick()
 	{	
 		for(int i = 0; i<pumps.size();i++)
 		{
 			double ran = Math.random();
-			if(ran<0.1)/**10% hogy elrontja*/
+			if(!randomEnabled||ran<0.1)/**10% hogy elrontja*/
 			{
 				pumps.get(i).breakPump();
 			}
-			
 		}
 	}
 	

@@ -25,6 +25,8 @@ public class Game {
 	private int remainingRounds;
 	//A Pumpákat elrontó DestructionTimer
 	private DestructionTimer timer;
+	//Be vannak-e kapcsolva a random események
+	private boolean randomEnabled;
 	
 	/**
 	 * Létrehozza a Game-et.
@@ -40,18 +42,19 @@ public class Game {
 		repairmanPoints=0;
 		saboteurPoints=0;
 		remainingRounds=1;
+		randomEnabled = true;
 	}
 	
 	/**
 	 * Beállítja a Game megfelelő változóit.
 	 * @param gameE A csőhálózatot alkotó objektumok.
-	 * @param SabPointSources
-	 * @param cis
+	 * @param SabPointSources A SaboteurPointSource interfészt megvalósító elemek
+	 * @param cis A létező Ciszternák
 	 * @param repairmanG A Szerelő játékosok
 	 * @param saboteurG A Szabotőr játékosok
-	 * @param repPoints
-	 * @param sabPoints
-	 * @param rounds
+	 * @param repPoints A Szerelő csapat pontszáma
+	 * @param sabPoints A Szabotőr csapat pontszáma
+	 * @param rounds Hátralévő körök száma
 	 */
 	
 	public void load(ArrayList<Element> gameE,ArrayList<SaboteurPointSource> SabPointSources,ArrayList<Cistern> cis,
@@ -66,6 +69,33 @@ public class Game {
 		saboteurPoints=sabPoints;
 		remainingRounds=rounds;
 		this.initialize();
+	}
+
+	/**
+	 * Beállítja a randomEnabled értékét a paraméternek megfelelően.
+	 * @param random Legyenek-e engedélyezve a random események.
+	 */
+	public void setRandomEnabled(boolean random)
+	{
+		randomEnabled = random;
+		timer.setRandomEnabled(randomEnabled);
+		if(random==true)
+		{
+			System.out.println("Random events Enabled");
+		}
+		else 
+		{
+			System.out.println("Random events Disabled");
+		}
+	}
+
+	/**
+	 * Viszaadja, hogy engedélyezve vannek-e a véletlen események
+	 * @return randomEnabled
+	 */
+	public boolean isRandomEnabled()
+	{
+		return randomEnabled;
 	}
 
 	/**

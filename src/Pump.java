@@ -18,10 +18,23 @@ public class Pump extends NonPipe implements SaboteurPointSource {
         super();
         broken = false;
         leakedWaterAmount=0;
+
+        if(neighbors.size()>=1)
+        {
+            inputPipe=neighbors.get(0);
+            outputPipe = neighbors.get(0);
+        }
+
+        if(neighbors.size()>=2)
+        {
+            outputPipe = neighbors.get(1);
+        }
     }
 
     /**
      * Betöltésnél beállítja a Pumpa állapoát
+     * Ha a pumpának van legalább 1 szomszédja arra állítja a ki és bemeneti csövét,
+     *  ha van legalább 2 szomszédja akkor a kimeneti cső a 2. lesz
      * @param isBroken broken
      * @param isContainingWater containingWater
      * @param leakedWater leakedWaterAmount
@@ -31,7 +44,7 @@ public class Pump extends NonPipe implements SaboteurPointSource {
         super();
         containingWater=isContainingWater;
         broken = isBroken;
-        leakedWaterAmount = leakedWater;
+        leakedWaterAmount = leakedWater;  
     }
 
     /** @author Bodnar Mark
@@ -39,7 +52,7 @@ public class Pump extends NonPipe implements SaboteurPointSource {
      */
     public List<Pipe> getNeighbors(){
         return neighbors;
-    }
+    } 
     
     /** 
      * Pumpa megjavitása
@@ -54,6 +67,28 @@ public class Pump extends NonPipe implements SaboteurPointSource {
         }
     }
 
+
+    /**
+     * Meghívja az ős addNeighbor függvényét és
+     * beállítja a pumpa alap ki és bemeneti csövét.
+     * Betöltés miatt szükséges.
+     * @param pipe a hozzáadandó szomszéd
+     */
+    @Override
+    public void addNeighbor(Pipe pipe)
+    {
+        super.addNeighbor(pipe);
+        if(neighbors.size()>=1)
+        {
+            inputPipe=neighbors.get(0);
+            outputPipe = neighbors.get(0);
+        }
+
+        if(neighbors.size()>=2)
+        {
+            outputPipe = neighbors.get(1);
+        }
+    }
     
     /** 
      * Ezen keresztul lehet beallitani a pumpalasi iranyt.

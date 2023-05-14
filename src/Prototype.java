@@ -362,8 +362,9 @@ public class Prototype {
                     case "endturn": endTurn(); break;
                     case "save": save(args[0]); break;
                     case "load": load(args[0]); currentCharacter = characters.get(currentCharacterInt); break;
-                    case "help": System.out.println("adjust int int\nmove int\nstab\nrepair\npickuppump\npickuppipe int\nplacepump\nplacepipe\nstick\nslime\nendturn\nsave int\nload int\nhelp\ninfo string\nq"); break;
+                    case "help":  help(); break;
                     case "info": info(args[0]); break;
+                    case "togglerandom": togglerandom(args[0]); break;
                     case "q": break;
                     default: System.out.println("Nem letezik a megadott parancs");
                 }
@@ -388,6 +389,38 @@ public class Prototype {
 		}
 		userInput.close();
 	}
+
+    public void togglerandom(String param)
+    {
+        if(param.equals("I"))
+            game.setRandomEnabled(true);
+        else if(param.equals("N"))
+            game.setRandomEnabled(false);
+        else
+        System.out.println("Invalid input");
+    }
+
+    private boolean isCurrentRepairman()
+    {
+        boolean out = false;
+        ArrayList<Repairman> repairmans = game.getRepairmanGroup();
+        for(Repairman repairman : repairmans)
+        {
+            if(repairman.getName().equals(currentCharacter.getName()))
+            {
+                out = true;
+            }
+        }
+        return out;
+    }
+
+    public void help()
+    {
+        if(isCurrentRepairman())
+            System.out.println("adjust int int\nmove int\nstab\nrepair\npickuppump\npickuppipe int\nplacepump\nplacepipe\nstick\nendturn\nsave fileName\nload fileName\nhelp\ninfo string\ntogglerandom I/N\nq");
+        else
+        System.out.println("adjust int int\nmove int\nstab\nstick\nslime\nendturn\nsave fileName\nload fileName\nhelp\ninfo string\ntogglerandom I/N\nq");
+        }
 
     public void info(String name){
         boolean found = false;
@@ -416,6 +449,7 @@ public class Prototype {
             game.endTurn();
         }catch(Exception e){
             System.out.println("Gebasz van a simulatewaterflowval valszeg");
+            e.printStackTrace();
         }
         String prevname = currentCharacter.getName();
         if(++currentCharacterInt>=characters.size()){
