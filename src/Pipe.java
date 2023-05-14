@@ -179,11 +179,17 @@ public class Pipe extends Element implements SaboteurPointSource{
      */
     @Override
     public Pipe lift(int dir){
-        if(neighbors.size()==1 && neighbors.get(0).getClass().getName().equals("Cistern")){
-            return this;
-        }
-        System.out.println("Invalid pipe to pick up.");
+    	try {
+            if(neighbors.size()==1 && neighbors.get(0).getClass().getName().equals("Cistern")){
+                return this;
+            }
+    	}catch(IndexOutOfBoundsException e) {
+    		System.out.println("Invalid pipe to pick up.");
+            return null;
+    	}
+    	System.out.println("Invalid pipe to pick up.");
         return null;
+        
     }
 
     /** 

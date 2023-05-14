@@ -115,7 +115,7 @@ public class Repairman extends Character {
 	public void LiftPipe(int dir) {
 		if (holdingPipe == null) {
 			holdingPipe = position.lift(dir);
-			System.out.println("Successfully picked up "+holdingPipe.getName());
+			if(holdingPipe!=null)System.out.println("Successfully picked up "+holdingPipe.getName());
 		}
 	}
 
@@ -132,13 +132,18 @@ public class Repairman extends Character {
      * Cso elhelyezese.
      */
 	public void PlacePipe() {
-		position.placePipe(holdingPipe);
-		String hpn = holdingPipe.getName();
+		if(holdingPipe!=null) {
+			position.placePipe(holdingPipe);
+			String hpn = holdingPipe.getName();
 
-		if (position.placePipe(holdingPipe)){
-			holdingPipe = null;
-			System.out.println("Successfully placed "+hpn);
+			if (position.placePipe(holdingPipe)){
+				holdingPipe = null;
+				System.out.println("Successfully placed "+hpn);
+			}
+		}else {
+			System.out.println("No Pipe to place");
 		}
+
 			
 	}
     /** 

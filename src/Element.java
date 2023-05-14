@@ -131,13 +131,19 @@ public abstract class Element implements RepairmanPlace, SaboteurPlace{
      * Castolgatásokkal lehet hogy még baj lesz
      *  */
     public Pipe lift(int dir) {
-    	Pipe n =(Pipe) this.getNeighbors().get(dir);
-    	if(n!=null) {
-    		this.getNeighbors().remove(dir);
-    		n.removeNeighbor((NonPipe) this); // n. removeNeighbor(onmaga)?
-        	System.out.println("Successfully picked up "+n.getName());
-    		return n;
-    	}else {
+    	try {
+    		Pipe n =(Pipe) this.getNeighbors().get(dir);
+        	if(n!=null) {
+        		this.getNeighbors().remove(dir);
+        		n.removeNeighbor((NonPipe) this); // n. removeNeighbor(onmaga)?
+            	System.out.println("Successfully picked up "+n.getName());
+        		return n;
+        	}else {
+        		System.out.println("Invalid object to pick up");
+        		return null;
+        	}
+    	}catch(IndexOutOfBoundsException e) {
+    		//ha ervenytelen az index
     		System.out.println("Invalid object to pick up");
     		return null;
     	}

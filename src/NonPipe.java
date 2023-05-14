@@ -39,12 +39,19 @@ public abstract class NonPipe extends Element {
      */
     @Override
     public Pipe lift(int dir) {
-        Pipe n = neighbors.get(dir);
-        if (n != null) {
-            removeNeighbor(n);
-            n.removeNeighbor(this);
-            return n;
-        }
+        try{
+        	Pipe n = neighbors.get(dir);
+            if (n != null) {
+                removeNeighbor(n);
+                n.removeNeighbor(this);
+                return n;
+            }
+    	}catch(IndexOutOfBoundsException e) {
+    		//ha ervenytelen az index
+    		System.out.println("Invalid object to pick up");
+    		return null;
+    	}
+        System.out.println("Invalid object to pick up");
         return null;
     }
 
