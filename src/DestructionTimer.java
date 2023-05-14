@@ -67,4 +67,12 @@ public class DestructionTimer {
 	{
 		pumps.add(p);
 	}
+
+	/**
+	 * Kiüríti az eltárolt pumpákat.
+	 */
+	public void resetPumps()
+	{
+		pumps.clear();
+	}
 }

@@ -16,6 +16,7 @@ public class Prototype {
     ArrayList<NonPipe> gameNonPipes;
     ArrayList<SaboteurPointSource> sabPointSource;
     ArrayList<Cistern> cisterns;
+    ArrayList<Pump> pumps;
     ArrayList<Character> characters;
     Character currentCharacter;
     int currentCharacterInt = 0;
@@ -37,6 +38,7 @@ public class Prototype {
         sabPointSource = new ArrayList<SaboteurPointSource>();
         cisterns = new ArrayList<Cistern>();
         characters = new ArrayList<Character>();
+        pumps = new ArrayList<Pump>();
     }
 
     /**
@@ -101,6 +103,8 @@ public class Prototype {
         gamePipes.clear();
         sabPointSource.clear();
         cisterns.clear();
+        pumps.clear();
+
         File f = new File("mapdeclarations/"+file+".txt");
         try 
         {
@@ -146,6 +150,7 @@ public class Prototype {
                             gameElements.add(pu);
                             gameNonPipes.add(pu);
                             sabPointSource.add(pu);
+                            pumps.add(pu);
                             break;
 
                             case "Pi": 
@@ -303,7 +308,7 @@ public class Prototype {
                             _slimey = 3;
                             _sticky = 3;
                         }
-                        game.load(gameElements, sabPointSource, cisterns, repairmanGroup, saboteurGroup, repPoints, sabPoints, round,_slimey,_sticky);
+                        game.load(gameElements, sabPointSource, cisterns, repairmanGroup, saboteurGroup, repPoints, sabPoints, round,_slimey,_sticky,pumps);
                         //System.out.println(file+"Points.txt Load Successful");
                     }
         }

@@ -59,10 +59,13 @@ public class Game {
 	 * @param repPoints A Szerelő csapat pontszáma
 	 * @param sabPoints A Szabotőr csapat pontszáma
 	 * @param rounds Hátralévő körök száma
+	 * @param _slimey Hány körig állítódik csúszósra egy cső
+	 * @param _sticky Hány körig állítódik ragadósra egy cső
+	 * @param pumps A pumpákat tartalmazó lista
 	 */
 	
 	public void load(ArrayList<Element> gameE,ArrayList<SaboteurPointSource> SabPointSources,ArrayList<Cistern> cis,
-	ArrayList<Repairman> repairmanG,ArrayList<Saboteur> saboteurG, int repPoints, int sabPoints, int rounds, int _slimey, int _sticky)
+	ArrayList<Repairman> repairmanG,ArrayList<Saboteur> saboteurG, int repPoints, int sabPoints, int rounds, int _slimey, int _sticky, ArrayList<Pump> pumps)
 	{
 		repairmanGroup=repairmanG;
 		saboteurGroup=saboteurG;
@@ -75,6 +78,12 @@ public class Game {
 		slimey = _slimey;
 		sticky = _sticky;
 		this.initialize();
+
+		timer.resetPumps();
+		for(Pump p : pumps)
+		{
+			timer.addPump(p);
+		}
 	}
 
 	/**
@@ -84,7 +93,7 @@ public class Game {
 	public void setRandomEnabled(boolean random)
 	{
 		randomEnabled = random;
-		timer.setRandomEnabled(randomEnabled);
+		timer.setRandomEnabled(random);
 		if(random==true)
 		{
 			System.out.println("Random events Enabled");
