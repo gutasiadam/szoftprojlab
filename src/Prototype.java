@@ -282,8 +282,8 @@ public class Prototype {
                         int round = 0;
                         int sabPoints = 0;
                         int repPoints = 0;
-                        int _slimey = 0;
-                        int _sticky = 0;
+                        int _slimey = 3;
+                        int _sticky = 3;
                         try{
                             File fPoints = new File(file+"Points.txt"); 
                             Scanner scPoints = new Scanner(fPoints);
@@ -300,8 +300,8 @@ public class Prototype {
                             round = 0;
                             sabPoints = 0;
                             repPoints = 0;
-                            _slimey = 0;
-                            _sticky = 0;
+                            _slimey = 3;
+                            _sticky = 3;
                         }
                         game.load(gameElements, sabPointSource, cisterns, repairmanGroup, saboteurGroup, repPoints, sabPoints, round,_slimey,_sticky);
                         //System.out.println(file+"Points.txt Load Successful");
