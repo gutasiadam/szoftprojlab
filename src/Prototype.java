@@ -292,6 +292,8 @@ public class Prototype {
                             round = sc.nextInt();
                             repPoints = sc.nextInt();
                             sabPoints = sc.nextInt();
+                            _slimey = sc.nextInt();
+                            _sticky = sc.nextInt();
                             scPoints.close();
                         }
                         catch(Exception e)
@@ -299,8 +301,10 @@ public class Prototype {
                             round = 0;
                             sabPoints = 0;
                             repPoints = 0;
+                            _slimey = 0;
+                            _sticky = 0;
                         }
-                        game.load(gameElements, sabPointSource, cisterns, repairmanGroup, saboteurGroup, repPoints, sabPoints, round);
+                        game.load(gameElements, sabPointSource, cisterns, repairmanGroup, saboteurGroup, repPoints, sabPoints, round,_slimey,_sticky);
                         //System.out.println(file+"Points.txt Load Successful");
                     }
         }

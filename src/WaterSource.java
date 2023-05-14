@@ -58,6 +58,10 @@ public class WaterSource extends NonPipe {
         return out;
     }
 
+    /**
+	 * Az osztály fontosabb attribútumait összefűzve adja vissza egy String-gé
+	 * @return String
+	 */
     @Override
     public String toString()
     {

@@ -27,7 +27,11 @@ public class Game {
 	private DestructionTimer timer;
 	//Be vannak-e kapcsolva a random események
 	private boolean randomEnabled;
-	
+	//Hány körig lehet egy Cső csúszós
+	public static int slimey = 3;
+	//Hány körig lehet egy cső ragadós
+	public static int sticky = 3;
+
 	/**
 	 * Létrehozza a Game-et.
 	 */
@@ -58,7 +62,7 @@ public class Game {
 	 */
 	
 	public void load(ArrayList<Element> gameE,ArrayList<SaboteurPointSource> SabPointSources,ArrayList<Cistern> cis,
-	ArrayList<Repairman> repairmanG,ArrayList<Saboteur> saboteurG, int repPoints, int sabPoints, int rounds)
+	ArrayList<Repairman> repairmanG,ArrayList<Saboteur> saboteurG, int repPoints, int sabPoints, int rounds, int _slimey, int _sticky)
 	{
 		repairmanGroup=repairmanG;
 		saboteurGroup=saboteurG;
@@ -68,6 +72,8 @@ public class Game {
 		repairmanPoints=repPoints;
 		saboteurPoints=sabPoints;
 		remainingRounds=rounds;
+		slimey = _slimey;
+		sticky = _sticky;
 		this.initialize();
 	}
 
@@ -316,10 +322,13 @@ public class Game {
 		}
 	}
 
-	//Slimey és Sticky még kell!!!!!!!!!!!????????
+	/**
+	 * Az osztály fontosabb attribútumait összefűzve adja vissza egy String-gé
+	 * @return String
+	 */
 	@Override
 	public String toString()
 	{
-		return remainingRounds+" "+repairmanPoints+" "+saboteurPoints;
+		return remainingRounds+" "+repairmanPoints+" "+saboteurPoints+" "+slimey+" "+sticky;
 	}
 }

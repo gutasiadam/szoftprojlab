@@ -256,13 +256,13 @@ public class Pipe extends Element implements SaboteurPointSource {
 
     /** Ragadossa teszi az adott poziciot. */
     public void stick() {
-        sticky = 3;
+        sticky = Game.sticky;
         System.out.println(this.getName() + " is now sticky");
     };
 
     /** Csuszossa tesz egy csovet. */
     public void slime() {
-        slimey = 3;
+        slimey = Game.slimey;
         System.out.println(this.getName() + " is now slimey");
     };
 
@@ -275,6 +275,10 @@ public class Pipe extends Element implements SaboteurPointSource {
         return neighbors;
     }
 
+    /**
+	 * Az osztály fontosabb attribútumait összefűzve adja vissza egy String-gé
+	 * @return String
+	 */
     @Override
     public String toString() {
         return "Pi " + this.getName() + " " + holeOnPipe + " " + containingWater + " " + leakedWaterAmount + " "
