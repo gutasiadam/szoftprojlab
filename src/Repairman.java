@@ -5,14 +5,12 @@ public class Repairman extends Character {
 	private RepairmanPlace position;
 	private Pipe holdingPipe;
 	private Pump holdingPump;
-	private Game game;
 	private boolean myTurn;
 
     /**  Ha nincs nala pumpa vagy cso akkor annak nullnak kell lennie.*/
 	Repairman() {
 		holdingPipe = null;
 		holdingPump = null;
-		game = null;
 		myTurn=false;
 	}
 
@@ -53,9 +51,6 @@ public class Repairman extends Character {
 		holdingPipe = p;
 	}
 
-	public void setGame(Game g) {
-		game = g;
-	}
 
 	// -----------------------------------------
 	
@@ -84,7 +79,7 @@ public class Repairman extends Character {
 			if(!acceptSuccess) lastPosition.accept(this);
 				
 		}
-		ArrayList<Element> elements = game.getGameElements();
+		ArrayList<Element> elements = Game.getInstance().getGameElements();
 		for(int i = 0; i < elements.size(); i++){
 			List<Character> chs = elements.get(i).getStandingOn();
 			if(chs.contains(this)) position = elements.get(i);
@@ -149,8 +144,8 @@ public class Repairman extends Character {
 	public void PlacePump() {
 		Pipe createdPipe = position.placePump(holdingPump);
 		if (createdPipe != null) {
-			game.addPump(holdingPump);
-			game.addPipe(createdPipe);
+			Game.getInstance().addPump(holdingPump);
+			Game.getInstance().addPipe(createdPipe);
 			holdingPump = null;
 		}
 	}

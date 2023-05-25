@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class Saboteur extends Character {
 	private SaboteurPlace position;
 	private boolean myTurn;
-	private Game game;
 	
 	Saboteur(){
 		myTurn=false;
@@ -56,7 +55,7 @@ public class Saboteur extends Character {
 			if(!acceptSuccess) lastPosition.accept(this);
 				//System.out.println(String.format("\t\t1.2 Sikeres lepes, uj pozicio:"+position.getName()));
 		}
-		ArrayList<Element> elements = game.getGameElements();
+		ArrayList<Element> elements = Game.getInstance().getGameElements();
 		for(int i = 0; i < elements.size(); i++){
 			List<Character> chs = elements.get(i).getStandingOn();
 			if(chs.contains(this)) position = elements.get(i);
@@ -84,9 +83,5 @@ public class Saboteur extends Character {
 	public String toString()
 	{
 		return "S "+this.getName()+" "+position.getName();
-	}
-
-	public void setGame(Game g) {
-		game = g;
 	}
 }

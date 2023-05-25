@@ -32,10 +32,12 @@ public class Game {
 	//Hány körig lehet egy cső ragadós
 	public static int sticky = 3;
 
+	private static Game instance = new Game();
+
 	/**
 	 * Létrehozza a Game-et.
 	 */
-	public Game()
+	protected Game()
 	{
 		repairmanGroup=new ArrayList<Repairman>();
 		saboteurGroup=new ArrayList<Saboteur>();
@@ -47,6 +49,15 @@ public class Game {
 		saboteurPoints=0;
 		remainingRounds=1;
 		randomEnabled = true;
+	}
+
+	/**
+	 * Visszatér a Singleton Game-el
+	 * @return Game objektum
+	 */
+	public static Game getInstance()
+	{
+		return instance;
 	}
 	
 	/**

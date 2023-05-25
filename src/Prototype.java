@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Prototype {
-    Game game;
     ArrayList<Repairman> repairmanGroup;
     ArrayList<Saboteur> saboteurGroup;
     ArrayList<Element> gameElements;
@@ -29,7 +28,6 @@ public class Prototype {
      */
     Prototype()
     {
-        game = new Game();
         repairmanGroup = new ArrayList<Repairman>();
         saboteurGroup = new ArrayList<Saboteur>();
         gameElements = new ArrayList<Element>();
@@ -211,7 +209,6 @@ public class Prototype {
                             {
                                 Repairman r = new Repairman((RepairmanPlace)position,(Pipe)hPipe,(Pump)hPump);
                                 r.setName(name);
-                                r.setGame(game);
                                 repairmanGroup.add(r);
                                 characters.add(r);
                                 position.addStandingOn(r);
@@ -231,7 +228,6 @@ public class Prototype {
                             {
                                 Saboteur s = new Saboteur((SaboteurPlace)position);
                                 s.setName(name);
-                                s.setGame(game);
                                 saboteurGroup.add(s);
                                 characters.add(s);
                                 position.addStandingOn(s);
@@ -308,7 +304,7 @@ public class Prototype {
                             _slimey = 3;
                             _sticky = 3;
                         }
-                        game.load(gameElements, sabPointSource, cisterns, repairmanGroup, saboteurGroup, repPoints, sabPoints, round,_slimey,_sticky,pumps);
+                        Game.getInstance().load(gameElements, sabPointSource, cisterns, repairmanGroup, saboteurGroup, repPoints, sabPoints, round,_slimey,_sticky,pumps);
                         //System.out.println(file+"Points.txt Load Successful");
                     }
         }
@@ -328,15 +324,15 @@ public class Prototype {
         {
             File f = new File("mapdeclarations/"+file+".txt");
             pw = new PrintWriter(f);
-            ArrayList<Element> gameElements = game.getGameElements();
+            ArrayList<Element> gameElements = Game.getInstance().getGameElements();
             pw.println("###Declaration###");
             for(Element element:gameElements)
             {
                 pw.println(element.toString());
             }
             pw.println("###Players###");
-            ArrayList<Repairman> repairmanGroup = game.getRepairmanGroup();
-            ArrayList<Saboteur> saboteurGroup = game.getSaboteurGroup();
+            ArrayList<Repairman> repairmanGroup = Game.getInstance().getRepairmanGroup();
+            ArrayList<Saboteur> saboteurGroup = Game.getInstance().getSaboteurGroup();
 
             for(Repairman character:repairmanGroup)
             {
@@ -360,7 +356,7 @@ public class Prototype {
             
             f = new File("mapdeclarations/"+file+"Points.txt");
             pw = new PrintWriter(f);
-            pw.println(game.toString());
+            pw.println(Game.getInstance().toString());
             pw.close();
             System.out.println("Save Successful");
         } catch (FileNotFoundException e) {
@@ -430,9 +426,9 @@ public class Prototype {
     public void togglerandom(String param)
     {
         if(param.equals("I"))
-            game.setRandomEnabled(true);
+        Game.getInstance().setRandomEnabled(true);
         else if(param.equals("N"))
-            game.setRandomEnabled(false);
+        Game.getInstance().setRandomEnabled(false);
         else
         System.out.println("Invalid input");
     }
@@ -444,7 +440,7 @@ public class Prototype {
     private boolean isCurrentRepairman()
     {
         boolean out = false;
-        ArrayList<Repairman> repairmans = game.getRepairmanGroup();
+        ArrayList<Repairman> repairmans = Game.getInstance().getRepairmanGroup();
         for(Repairman repairman : repairmans)
         {
             if(repairman.getName().equals(currentCharacter.getName()))
@@ -490,7 +486,7 @@ public class Prototype {
 
     public void endTurn(){
         try{
-            game.endTurn();
+            Game.getInstance().endTurn();
         }catch(Exception e){
             e.printStackTrace();
         }
