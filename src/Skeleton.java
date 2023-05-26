@@ -178,11 +178,11 @@ class Skeleton {
 		position.addNeighbor(n2);
 		n2.addNeighbor(position);
 
-		Game game = new Game();
-		r.setGame(game);
-		game.addPump(n1);
-		game.addPipe(position);
-		game.addPump(n2);
+		//Game game = new Game();
+		//r.setGame(game);
+		//game.addPump(n1);
+		//game.addPipe(position);
+		//game.addPump(n2);
 
 		/** Teszt futtatasa */
 		System.out.println(String.format("1.1 BEGIN->%s.placePump()", r.getName()));
@@ -212,9 +212,9 @@ class Skeleton {
 		holdingPump.setName("holdingPump");
 		r.setHoldingPump(holdingPump);
 
-		Game game = new Game();
-		r.setGame(game);
-		game.addPipe(position);
+		//Game game = new Game();
+		//r.setGame(game);
+		//game.addPipe(position);
 
 		/** Teszt futtatasa */
 		System.out.println(String.format("1.1 BEGIN->%s.placePump()", r.getName()));
@@ -229,13 +229,13 @@ class Skeleton {
 	public void PlaceNewPipeTest() {
 		/** Inicializalas */
 		System.out.println("6. Place new Pipe");
-		this.game=new Game();
+		//this.game=new Game();
 		Cistern cistern1 = new Cistern();
 		cistern1.setName("cistern1");
-		this.game.addCistern(cistern1);
+		//this.game.addCistern(cistern1);
 		/** Teszt futtatasa */
 		System.out.println(String.format("1.1 BEGIN->game.newPipe()"));
-		game.newPipe();
+		//game.newPipe();
 		System.out.println(String.format("END<-game.newPipe()"));
 	}
 
