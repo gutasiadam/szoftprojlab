@@ -15,6 +15,7 @@ public class WaterSource extends NonPipe {
     WaterSource()
     {
         super();
+        setAvailableActions(true, false, true, false, false, true, false, false, false, false);
     }
     /** @author Bodnar Mark
      * Visszaadja a szomszedait.

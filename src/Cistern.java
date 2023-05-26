@@ -18,6 +18,7 @@ public class Cistern extends NonPipe {
    {
        super();
        waterFlown = 0;
+       setAvailableActions(true, false, true, true, false, true, false, false, false, false);
    }
 
    /**

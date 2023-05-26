@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /** 
@@ -13,12 +14,51 @@ public abstract class Element implements RepairmanPlace, SaboteurPlace{
     protected List<Character> standingOn; /** Eltarolja, hogy kik allnak rajta  */
     private String Name; /** Az objektum neve a Jatek soran */
 
-    
+    //Tárolja, hogy adott action-t végre tud-e hajtani
+    protected HashMap<String,Boolean> canPerformAction = new HashMap<String,Boolean>();
 
     Element()
     {
         containingWater = false;
         standingOn= new ArrayList<Character>();
+    }
+
+    /**
+     * Beállítja milyen action-t lehet végrehajtani az adott Element-en. True ha végre lehet rajta hajtani, false ha nem.
+     * @param move Rálépés
+     * @param stab Lyukasztás
+     * @param pickuppipe Cső felvétele róla
+     * @param pickuppump Pumpa felvétele róla
+     * @param placepump Pumpa elhelyezése rá
+     * @param placepipe Cső bekötése
+     * @param repair Megjavítás
+     * @param slime Csúszóssá tétel
+     * @param stick Ragadóssá tétel
+     * @param adjust Be és kimenet állítása
+     */
+    protected void setAvailableActions(boolean move,boolean stab,boolean pickuppipe, boolean pickuppump,
+    boolean placepump, boolean placepipe, boolean repair, boolean slime, boolean stick, boolean adjust)
+    {
+        canPerformAction.put("move", move);
+        canPerformAction.put("stab", stab);
+        canPerformAction.put("pickuppipe", pickuppipe);
+        canPerformAction.put("pickuppump", pickuppump);
+        canPerformAction.put("placepump", placepump);
+        canPerformAction.put("placepipe", placepipe);
+        canPerformAction.put("repair", repair);
+        canPerformAction.put("slime", slime);
+        canPerformAction.put("stick", stick);
+        canPerformAction.put("adjust", adjust);
+    }
+
+/**
+ * Visszaadja, hogy a paraméterül adott Action véggrehajtható-e az adott Element-en
+ * @param actionName Az Action neve amire kíváncsiak vagyunk
+ * @return true ha végrehajtható, false ha nem, null ha nincs ilyen action
+ */
+    public boolean canPerformAction(String actionName)
+    {
+        return canPerformAction.get(actionName);
     }
 
     

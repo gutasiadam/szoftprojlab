@@ -19,6 +19,7 @@ public class Pipe extends Element implements SaboteurPointSource {
         neighbors = new ArrayList<NonPipe>();
         leakedWaterAmount = 0;
         holeOnPipe = false;
+        setAvailableActions(true, true, false, false, true, false, true, true, true, false);
     }
 
     /**

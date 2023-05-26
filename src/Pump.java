@@ -29,6 +29,7 @@ public class Pump extends NonPipe implements SaboteurPointSource {
         {
             outputPipe = neighbors.get(1);
         }
+        setAvailableActions(true, false, true, false, false, true, true, false, false, true);
     }
 
     /**
