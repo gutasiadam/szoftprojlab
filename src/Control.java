@@ -107,6 +107,7 @@ public class Control {
 
     /**
      * Ezen a függvényen keresztül tudjuk befejezni az adott játékos körét, a következő játékos léphet.
+     * Felébreszti a Game-et futtató szálat.
      */
     public void EndMove(){
         //TODO

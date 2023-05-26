@@ -33,7 +33,7 @@ public class Game {
 	public static int sticky = 3;
 	//Éppen körön lévő játékos
 	private Character currentCharacter;
-
+	//A Singleton Game objektum
 	private static Game instance = new Game();
 
 	/**
@@ -152,7 +152,6 @@ public class Game {
 	public void initialize()
 	{
 		//Create Map
-		//System.out.println("inicialize");
 	}
 	
 	/**
@@ -184,7 +183,6 @@ public class Game {
 	 */
 	public void endGame()
 	{
-		//System.out.println("endGame");
 		if(saboteurPoints>repairmanPoints)
 		{
 			System.out.println("Saboteur Team Won!");
