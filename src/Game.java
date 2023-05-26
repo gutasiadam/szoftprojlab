@@ -31,6 +31,8 @@ public class Game {
 	public static int slimey = 3;
 	//Hány körig lehet egy cső ragadós
 	public static int sticky = 3;
+	//Éppen körön lévő játékos
+	private Character currentCharacter;
 
 	private static Game instance = new Game();
 
@@ -97,6 +99,8 @@ public class Game {
 		}
 	}
 
+
+
 	/**
 	 * Beállítja a randomEnabled értékét a paraméternek megfelelően.
 	 * @param random Legyenek-e engedélyezve a random események.
@@ -160,12 +164,14 @@ public class Game {
 		{
 			for(int i = 0;i<saboteurGroup.size();i++)
 			{
+				currentCharacter=saboteurGroup.get(i);
 				saboteurGroup.get(i).step();
 				endTurn();
 			}
 			
 			for(int i = 0;i<repairmanGroup.size();i++)
 			{
+				currentCharacter=repairmanGroup.get(i);
 				repairmanGroup.get(i).step();
 				endTurn();
 			}
@@ -350,5 +356,12 @@ public class Game {
 	public String toString()
 	{
 		return remainingRounds+" "+repairmanPoints+" "+saboteurPoints+" "+slimey+" "+sticky;
+	}
+
+	/**
+	 * Visszaadja a soron lévő játékost
+	 */
+	public Character getCurrentCharacter(){
+		return currentCharacter;
 	}
 }
