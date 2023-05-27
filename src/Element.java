@@ -58,7 +58,7 @@ public abstract class Element implements RepairmanPlace, SaboteurPlace{
  */
     public boolean canPerformAction(String actionName)
     {
-        return canPerformAction.get(actionName);
+        return canPerformAction.get(actionName.toLowerCase());
     }
 
     
