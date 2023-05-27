@@ -64,12 +64,12 @@ public class ElementButton extends JButton{
         JPanel buttonPanel = new JPanel();
 
         // ActionButton-ok letrehozasa es hozzaadasa a panelhoz
-        ActionButton actionButton1 = new ActionButton(element);
+        ActionButton actionButton1 = new ActionButton(null);
         actionButton1.setActionCommand("Repair");
         actionButton1.setText("Repair");
         buttonPanel.add(actionButton1);
 
-        ActionButton actionButton2 = new ActionButton(element);
+        ActionButton actionButton2 = new ActionButton(null);
         actionButton2.setActionCommand("Stab");
         actionButton2.setText("Stab");
         buttonPanel.add(actionButton2);
