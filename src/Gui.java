@@ -63,6 +63,7 @@ public class Gui {
 
        JButton bStart = new JButton("Start");
        bStart.setBounds(1080, 200, 100, 30);
+       bStart.addActionListener(e -> nextPanel());
        menuPanel.add(bStart);
 
         //TODO: Scoreboard hozzáadása
@@ -71,6 +72,7 @@ public class Gui {
 
         //---------------MAIN GAME PANEL-----------------
         gamePanel = new JPanel();
+        gamePanel.setLayout(null);
         gamePanel.setSize(1280, 720);
         //Soronlevő játékos neve
         turn = new JLabel("NULL");
@@ -83,8 +85,32 @@ public class Gui {
         //Initialize log textfield
         log = new JTextField("Log");
         log.setEditable(false);
-        log.setBounds(700, 100, 500, 500); // TODO: Pontos érték megadása ide
+        log.setBounds(980, 100, 300, 500); // TODO: Pontos érték megadása ide
         gamePanel.add(log);
+
+        ElementButton cistern1 = new ElementButton(new Cistern(0));
+        cistern1.setBounds(200, 500, 50, 50);
+        gamePanel.add(cistern1);
+
+        ElementButton ws1 = new ElementButton(new WaterSource());
+        ws1.setBounds(200, 100, 50, 50);
+        gamePanel.add(ws1);
+
+        ElementButton pump1 = new ElementButton(new Pump());
+        pump1.setBounds(200, 300, 50, 50);
+        gamePanel.add(pump1);
+
+        ElementButton cistern2 = new ElementButton(new Cistern(0));
+        cistern2.setBounds(600, 500, 50, 50);
+        gamePanel.add(cistern2);
+
+        ElementButton ws2 = new ElementButton(new WaterSource());
+        ws2.setBounds(600, 100, 50, 50);
+        gamePanel.add(ws2);
+
+        ElementButton pump2 = new ElementButton(new Pump());
+        pump2.setBounds(600, 300, 50, 50);
+        gamePanel.add(pump2);
 
 
         // ---------------END GAME FRAME-----------------
