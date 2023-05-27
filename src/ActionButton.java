@@ -5,12 +5,21 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 
 public class ActionButton extends JButton{
-    private ArrayList<Integer> actions = new ArrayList<Integer>();
-    private Element element;
+    private ArrayList<Integer> actions;
+    //private Element element;
 
-    ActionButton(Element _element)
+    ActionButton(ArrayList<Integer> acts/*Element _element*/)
     {
-        element=_element; 
+		actions = acts;
+
+		if(acts==null)
+			actions = new ArrayList<Integer>();
+
+		//Hozzaad 2 db parametert ami nem lesz hasznalva, csak ha nem kap eleg parametert a konstuktor
+		actions.add(0);
+		actions.add(0);
+
+        //element=_element; 
         /** Ezen keresztul tudjuk meghivni a Control fuggvenyeit.*/
         Control instance = Control.getInstance();
         
@@ -22,7 +31,7 @@ public class ActionButton extends JButton{
                 switch(e.getActionCommand()) {
                 case "Move": 
                 	/** Atadja a kivalasztott Elementet amire lepni szeretne.*/
-                	//instance.Move(_element);
+                	instance.Move(actions.get(0));
                 	break;
                 	/** Valasztott Elementen lyukasztas.*/
                 case "Stab": 
@@ -38,7 +47,7 @@ public class ActionButton extends JButton{
                 	break;
                 	/** Valasztott cso vegenek felvetele.*/
                 case "PickUpPipe": 
-                	//instance.PickUpPipe(_element);
+                	instance.PickUpPipe(actions.get(0));
                 	break;
                 	/** Valasztott Element javitasa.*/
                 case "Repair": 
@@ -55,6 +64,7 @@ public class ActionButton extends JButton{
                 	/** Pumpa ki es bemenetenek allitasa.*/
                 case "Adjust": 
                 	//ez meg kerdeses
+					instance.Adjust(actions.get(0), actions.get(1));
                 	break;
                 	/** Adott karakter korenek vege.*/
                 case "EndMove": 
