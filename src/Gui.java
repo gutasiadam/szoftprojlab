@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -15,9 +16,10 @@ import java.awt.geom.*;
  */
 public class Gui {
     private JFrame frame; // Main Game Frame
-    private JFrame menuFrame; // Menu Frame
-    private JFrame endGameFrame; // End Game Frame
-    private JFrame activeFrame; // A jelenelg aktív keret. Ez lehet a menü, a játék vagy a vége.
+    private JPanel menuPanel; // Menu Frame
+    private JPanel endGamePanel; // End Game Frame
+    private JPanel gamePanel; // End Game Frame
+    private JPanel activePanel; // A jelenelg aktív keret. Ez lehet a menü, a játék vagy a vége.
     private JLabel turn; //Soronlevő játékos neve
     private JLabel lSaboteurPoints;
     private JLabel lRepairmenPoints;
@@ -27,78 +29,79 @@ public class Gui {
     ArrayList<ElementButton> elementButtons;
 
     public Gui(){
-        // ---------------MENU FRAME-----------------
-        menuFrame = new JFrame("codeX-Menü");
-        menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        menuFrame.setSize(1280, 720);
-        menuFrame.setLayout(null);
-
-       
-        JLabel lRoundSettings = new JLabel("Körök száma: ");
-        lRoundSettings.setBounds(600, 100, 0, 0);
-        menuFrame.add(lRoundSettings);
-        JLabel lPlayerCount = new JLabel("Játékosok száma: ");
-        lPlayerCount.setBounds(600, 200, 0, 0);
-        menuFrame.add(lPlayerCount);
-
-       
-        NumberFormatter formatter = new NumberFormatter();
-        formatter.setMinimum(1);
-        formatter.setMaximum(100);
-        JSpinner sRoundSettings = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
-        sRoundSettings.setBounds(700, 100, 0, 0);
-        menuFrame.add(sRoundSettings);
-        JSpinner sPlayerCount = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
-        sPlayerCount.setBounds(700, 200, 0, 0);
-        menuFrame.add(sPlayerCount);
-
-        JButton bStart = new JButton("Start");
-        bStart.setBounds(1080, 200, 700, 100); //TODO: Pontos érték megadása ide
-        menuFrame.add(bStart);
-
-        //TODO: Scoreboard hozzáadása
-
-        //Menü beállítása aktív keretnek
-        activeFrame = menuFrame;
-
-        //---------------MAIN GAME FRAME-----------------
-
-        frame = new JFrame("codeX-Játék");
+        // ---------------FRAME INIT-----------------
+        frame = new JFrame("codeX");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 720);
-        frame.setLayout(null);
+        frame.setLayout(null); //Lehet jobb lenne, ha csak a gamePanel lenne null layouttal
+        //frame.setLayout(new BorderLayout()); -- Ezzel megjelenik, de nullal nem
 
+
+       // ---------------MENU PANEL-----------------
+       menuPanel = new JPanel();
+       menuPanel.setSize(1280, 720);
+
+       menuPanel.setLayout(null); // Null layout beállítása a menü panelen
+
+       JLabel lRoundSettings = new JLabel("Körök száma: ");
+       Dimension size = lRoundSettings.getPreferredSize();
+       lRoundSettings.setBounds(600, 100, size.width, size.height);
+       menuPanel.add(lRoundSettings);
+
+       JLabel lPlayerCount = new JLabel("Játékosok száma: ");
+       size = lPlayerCount.getPreferredSize();
+       lPlayerCount.setBounds(600, 200, size.width, size.height);
+       menuPanel.add(lPlayerCount);
+
+       JSpinner sRoundSettings = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
+       sRoundSettings.setBounds(700, 100, 40, 30);
+       menuPanel.add(sRoundSettings);
+
+       JSpinner sPlayerCount = new JSpinner(new SpinnerNumberModel(1, 1, 8, 1));
+       sPlayerCount.setBounds(700, 200, 40, 30);
+       menuPanel.add(sPlayerCount);
+
+       JButton bStart = new JButton("Start");
+       bStart.setBounds(1080, 200, 100, 30);
+       menuPanel.add(bStart);
+
+        //TODO: Scoreboard hozzáadása
+        
+        
+
+        //---------------MAIN GAME PANEL-----------------
+        gamePanel = new JPanel();
+        gamePanel.setSize(1280, 720);
         //Soronlevő játékos neve
         turn = new JLabel("NULL");
         turn.setBounds(40, 10, 0, 0);
-        turn.add(frame);
+        gamePanel.add(turn);
 
         endturn = new JButton("End turn");
-        frame.add(endturn);
+        gamePanel.add(endturn);
 
         //Initialize log textfield
         log = new JTextField("Log");
         log.setEditable(false);
         log.setBounds(700, 100, 500, 500); // TODO: Pontos érték megadása ide
-        frame.add(log);
+        gamePanel.add(log);
 
 
         // ---------------END GAME FRAME-----------------
-        endGameFrame = new JFrame("codeX-Vége a játéknak");
-        endGameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        endGameFrame.setSize(1280, 720);
-        endGameFrame.setLayout(null);
-
+        endGamePanel = new JPanel();
+        endGamePanel.setSize(1280, 720);
         lSaboteurPoints = new JLabel("0");
         lRoundSettings.setBounds(600, 100, 0, 0);
-        menuFrame.add(lSaboteurPoints);
+        endGamePanel.add(lSaboteurPoints);
         lRepairmenPoints = new JLabel("0");
         lPlayerCount.setBounds(600, 200, 0, 0);
-        menuFrame.add(lRepairmenPoints);
+        endGamePanel.add(lRepairmenPoints);
 
         //------------------------------------------------
-        //Aktív keret megjelenítése
-        activeFrame.setVisible(true);
+        //Keret megjelenítése az aktív panellel
+        activePanel = menuPanel;
+        frame.getContentPane().add(activePanel);
+        frame.setVisible(true);
     }
 
     public void addToView(JButton b){
@@ -112,23 +115,25 @@ public class Gui {
     public void updateFrame(){
 
         //Redraw frame
-        activeFrame.repaint();
+        frame.repaint();
     }
 
     /**
-     * A következő keretre lépteti a játékot.
+     * A következő panelre lépteti a játékot.
      * menü -> játék -> vége
      */
-    public void nextFrame(){
+    public void nextPanel(){
         
-        activeFrame.setVisible(false);
-        if(activeFrame == menuFrame){
-            activeFrame = frame;
+        frame.setVisible(false);
+        frame.getContentPane().removeAll();
+        if(activePanel == menuPanel){
+            activePanel = gamePanel;
         }
         else{
-            activeFrame=endGameFrame;
+            activePanel=endGamePanel;
         }
-        activeFrame.setVisible(true);
+        frame.getContentPane().add(activePanel);
+        frame.setVisible(true);
     }
 
     /**
