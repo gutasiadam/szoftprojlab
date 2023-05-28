@@ -1,3 +1,7 @@
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -112,6 +116,82 @@ public class ElementButton extends JButton{
                 System.out.println(ex);
             }
         }
+
+        // Állapotok ha pumpa
+        if(element.getClass().getName().equals("Pump")){
+            Pump e = (Pump)element;
+            if(e.getBroken()){
+                JLabel b = new JLabel();
+                try {
+                    Image img = ImageIO.read(getClass().getResource("img/high-voltage.png"));
+                    Image newimg = img.getScaledInstance( 20, 20,  java.awt.Image.SCALE_SMOOTH ) ;
+                    b.setIcon(new ImageIcon(newimg));
+                    b.setBounds(0, 70, 20, 20);
+                    add(b);
+                } catch (Exception ex) {System.out.println(ex);}
+            }
+            if(e.getContainingWater()){
+                JLabel b = new JLabel();
+                try {
+                    Image img = ImageIO.read(getClass().getResource("img/droplets.png"));
+                    Image newimg = img.getScaledInstance( 20, 20,  java.awt.Image.SCALE_SMOOTH ) ;
+                    b.setIcon(new ImageIcon(newimg));
+                    b.setBounds(20, 70, 20, 20);
+                    add(b);
+                } catch (Exception ex) {System.out.println(ex);}
+            }
+        }
+
+        // Állapotok ha cső
+        if(element.getClass().getName().equals("Pipe")){
+            Pipe e = (Pipe)element;
+            if(e.getHoleOnPipe()){
+                JLabel b = new JLabel();
+                try {
+                    Image img = ImageIO.read(getClass().getResource("img/hole.png"));
+                    Image newimg = img.getScaledInstance( 20, 20,  java.awt.Image.SCALE_SMOOTH ) ;
+                    b.setIcon(new ImageIcon(newimg));
+                    b.setBounds(40, 0, 20, 20);
+                    add(b);
+                } catch (Exception ex) {System.out.println(ex);}
+            }
+            if(e.getContainingWater()){
+                JLabel b = new JLabel();
+                try {
+                    Image img = ImageIO.read(getClass().getResource("img/droplets.png"));
+                    Image newimg = img.getScaledInstance( 20, 20,  java.awt.Image.SCALE_SMOOTH ) ;
+                    b.setIcon(new ImageIcon(newimg));
+                    b.setBounds(40, 40, 20, 20);
+                    add(b);
+                } catch (Exception ex) {System.out.println(ex);}
+            }
+            if(e.getSlimey() > 0){
+                JLabel b = new JLabel();
+                try {
+                    Image img = ImageIO.read(getClass().getResource("img/wavy-dash.png"));
+                    Image newimg = img.getScaledInstance( 20, 20,  java.awt.Image.SCALE_SMOOTH ) ;
+                    b.setIcon(new ImageIcon(newimg));
+                    b.setBounds(0, 0, 20, 20);
+                    add(b);
+                    JLabel n = new JLabel(String.valueOf(e.getSlimey()));
+                    n.setBounds(20, 0, 20, 20);
+                    add(n);
+                } catch (Exception ex) {System.out.println(ex);}
+            }
+            if(e.getSticky() > 0){
+                JLabel b = new JLabel();
+                try {
+                    Image img = ImageIO.read(getClass().getResource("img/sticky.png"));
+                    Image newimg = img.getScaledInstance( 20, 20,  java.awt.Image.SCALE_SMOOTH ) ;
+                    b.setIcon(new ImageIcon(newimg));
+                    b.setBounds(0, 40, 20, 20);
+                    add(b);
+                    JLabel n = new JLabel(String.valueOf(e.getSticky()));
+                    n.setBounds(20, 40, 20, 20);
+                    add(n);
+                } catch (Exception ex) {System.out.println(ex);}
+            }
+        }
     }
 
     public ArrayList<ElementButton> getNeighboursElementButton(ArrayList<ElementButton> eb){
@@ -129,5 +209,26 @@ public class ElementButton extends JButton{
         }else{
             return null;
         }
+    }
+
+    public void drawWaterFlowDirection(Graphics g, ArrayList<ElementButton> eb){
+        if(element.getClass().getName().equals("Pump")){
+            Pump p = (Pump)element;
+            Element src = p.getSrc();
+            Element dest = p.getDest();
+            ElementButton pe = p.getElementButton(eb);
+            ElementButton srce = src.getElementButton(eb);
+            ElementButton deste = dest.getElementButton(eb);
+            Graphics2D g2 = (Graphics2D)g;
+            g2.setStroke(new BasicStroke(2));
+            g2.setColor(Color.GREEN);
+            g2.fillOval((pe.getBounds().x + pe.getWidth()/2) + (int)(0.5*((srce.getBounds().x + srce.getWidth()/2)-(pe.getBounds().x + pe.getWidth()/2)))-10, (pe.getBounds().y + pe.getHeight()/2) + (int)(0.5*((srce.getBounds().y + srce.getHeight()/2)-(pe.getBounds().y + pe.getHeight()/2)))-10, 20, 20);
+            g2.setColor(Color.RED);
+            g2.fillOval((pe.getBounds().x + pe.getWidth()/2) + (int)(0.5*((deste.getBounds().x + deste.getWidth()/2)-(pe.getBounds().x + pe.getWidth()/2)))-10, (pe.getBounds().y + pe.getHeight()/2) + (int)(0.5*((deste.getBounds().y + deste.getHeight()/2)-(pe.getBounds().y + pe.getHeight()/2)))-10, 20, 20);
+        }
+    }
+
+    public Element getElement(){
+        return element;
     }
 }

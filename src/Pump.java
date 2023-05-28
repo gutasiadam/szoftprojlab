@@ -153,4 +153,28 @@ public class Pump extends NonPipe implements SaboteurPointSource {
     {
         return "Pu "+this.getName()+" "+broken+" "+containingWater+" "+leakedWaterAmount;
     }
+
+    /**
+	 * Lekérdezi, hogy el van-e romolva
+	 * @return boolean - elromlott-e
+	 */
+    public boolean getBroken(){
+        return broken;
+    }
+
+    /**
+	 * Lekérdezi, hogy tartalmaz-e vizet
+	 * @return boolean - van-e benne víz
+	 */
+    public boolean getContainingWater(){
+        return containingWater;
+    }
+
+    public Pipe getSrc(){
+        return inputPipe; 
+    }
+
+    public Pipe getDest(){
+        return outputPipe; 
+    }
 }

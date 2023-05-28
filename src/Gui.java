@@ -85,6 +85,10 @@ public class Gui {
                         }
                     }
                 }
+                for(int i = 0; i < elementButtons.size(); i++){
+                    ElementButton eb = elementButtons.get(i);
+                    eb.drawWaterFlowDirection(g, elementButtons);
+                }
             }
         };
         gamePanel.setLayout(null);
@@ -140,7 +144,7 @@ public class Gui {
         Game.getInstance().addElement(w2);
         gamePanel.add(ws2);
 
-        Pump p2 = new Pump();
+        Pump p2 = new Pump(true, true, 0);
         ElementButton pump2 = new ElementButton(p2);
         pump2.setBounds(600, 300, 90, 90);
         elementButtons.add(pump2);
@@ -202,6 +206,9 @@ public class Gui {
         elementButtons.add(pie5);
         Game.getInstance().addPipe(pi5);
         gamePanel.add(pie5);
+
+        p1.adjust(0, 1);
+        p2.adjust(0, 1);
 
         // ---------------END GAME FRAME-----------------
         endGamePanel = new JPanel();
@@ -294,7 +301,6 @@ public class Gui {
         Graphics2D g2 = (Graphics2D)g;
         g2.setStroke(new BasicStroke(2)); //2px Vastag
         g2.setColor(color);
-        int sth = (int)b1.getAlignmentX();
         g2.drawLine(b1.getBounds().x + b1.getWidth()/2, b1.getBounds().y + b1.getHeight()/2, b2.getBounds().x + b2.getWidth()/2, b2.getBounds().y + b2.getHeight()/2);
     }
 

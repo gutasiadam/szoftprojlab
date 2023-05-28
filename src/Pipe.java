@@ -285,4 +285,36 @@ public class Pipe extends Element implements SaboteurPointSource {
         return "Pi " + this.getName() + " " + holeOnPipe + " " + containingWater + " " + leakedWaterAmount + " "
                 + slimey + " " + sticky;
     }
+
+    /**
+	 * Van-e lyuk a csövön
+	 * @return bool
+	 */
+    public boolean getHoleOnPipe() {
+        return holeOnPipe;
+    }
+
+    /**
+	 * Van-e víz a csőben
+	 * @return bool
+	 */
+    public boolean getContainingWater() {
+        return containingWater;
+    }
+
+    /**
+	 * hány körig csúszós
+	 * @return bool
+	 */
+    public int getSlimey() {
+        return slimey;
+    }
+
+    /**
+	 * hány körig ragad
+	 * @return bool
+	 */
+    public int getSticky() {
+        return sticky;
+    }
 }

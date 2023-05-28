@@ -197,4 +197,13 @@ public abstract class Element implements RepairmanPlace, SaboteurPlace{
     public void addStandingOn(Character c){
         standingOn.add(c);
     }
+
+    public ElementButton getElementButton(ArrayList<ElementButton> eb){
+        for(ElementButton ebiter : eb){
+            if(ebiter.getElement().equals(this)){
+                return ebiter;
+            }
+        }
+        return null;
+    }
 }
