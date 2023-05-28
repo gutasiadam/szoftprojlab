@@ -69,15 +69,6 @@ public class Saboteur extends Character {
 	public void adjustPump(int src, int dest) {
 		position.adjust(src, dest);
 	}
-	public void step() {
-		myTurn=true;
-		while(myTurn) {
-			//ezt meg meg kell beszelni
-			//lastInput=input
-			//lastInputSuccess=input()
-			//if(lastInputSuccess && lastInput!=move) myTurn=false;
-		}
-	}
 
 	@Override
 	public String toString()

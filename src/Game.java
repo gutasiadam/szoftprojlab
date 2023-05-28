@@ -161,18 +161,21 @@ public class Game {
 	{
 		while(remainingRounds>0)
 		{
+			//System.out.println("Sab: "+saboteurGroup.size());
 			for(int i = 0;i<saboteurGroup.size();i++)
 			{
 				currentCharacter=saboteurGroup.get(i);
 				saboteurGroup.get(i).step();
 				endTurn();
+				//System.out.println(currentCharacter.getName());
 			}
-			
+			//System.out.println("Rep: "+repairmanGroup.size());
 			for(int i = 0;i<repairmanGroup.size();i++)
 			{
 				currentCharacter=repairmanGroup.get(i);
 				repairmanGroup.get(i).step();
 				endTurn();
+				//System.out.println(currentCharacter.getName());
 			}
 			remainingRounds--;
 		}
@@ -361,5 +364,11 @@ public class Game {
 	 */
 	public Character getCurrentCharacter(){
 		return currentCharacter;
+	}
+
+	public void setTurns(int turns)
+	{
+		this.remainingRounds = turns;
+		//System.out.println("Turn set: "+turns);
 	}
 }

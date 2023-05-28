@@ -153,16 +153,7 @@ public class Repairman extends Character {
 	void dealDamage() {
 		position.damage();
 	}
-	public void step() {
-		myTurn=true;
-		while(myTurn) {
-			//ezt meg meg kell beszelni
-			//lastInput=input
-			//lastInputSuccess=input()
-			//if(lastInputSuccess && lastInput!=move) myTurn=false;
-		}
-	}
-
+	
 	@Override
 	public String toString()
 	{
