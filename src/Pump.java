@@ -8,7 +8,7 @@ public class Pump extends NonPipe implements SaboteurPointSource {
 
     private boolean broken;
     private int leakedWaterAmount;
-    private int capacity = (int)(Math.random() * ((10 - 3) + 1)) + 3;
+    private int capacity = (int)(Math.random() * ((10 - 4) + 1)) + 4;
     
     /**
      * @author Szikszai Levente

@@ -93,8 +93,12 @@ public class Gui {
                     ElementButton eb = elementButtons.get(i);
                     ArrayList<ElementButton> neigh = eb.getNeighboursElementButton(elementButtons);
                     if(neigh != null){
-                        for(ElementButton n : neigh){
-                            drawLineBetweenButtons(eb, n, Color.BLACK, g);
+                        if(neigh.size()==2 && neigh.get(0).equals(neigh.get(1))){
+                            drawLineBetweenButtons(eb, neigh.get(0), Color.BLACK, g, true);
+                        }else{
+                            for(ElementButton n : neigh){
+                                drawLineBetweenButtons(eb, n, Color.BLACK, g, false);
+                            }
                         }
                     }
                 }
@@ -342,11 +346,16 @@ public class Gui {
     }
 
     //Vonal rajzolása két gomb között, a megadott színnel
-    public void drawLineBetweenButtons(ElementButton b1, ElementButton b2, Color color, Graphics g) {
+    public void drawLineBetweenButtons(ElementButton b1, ElementButton b2, Color color, Graphics g, boolean loop) {
         Graphics2D g2 = (Graphics2D)g;
         g2.setStroke(new BasicStroke(2)); //2px Vastag
         g2.setColor(color);
-        g2.drawLine(b1.getBounds().x + b1.getWidth()/2, b1.getBounds().y + b1.getHeight()/2, b2.getBounds().x + b2.getWidth()/2, b2.getBounds().y + b2.getHeight()/2);
+        if(loop){
+            g2.drawLine(b1.getBounds().x + b1.getWidth()/2 + 10, b1.getBounds().y + b1.getHeight()/2 + 10, b2.getBounds().x + b2.getWidth()/2 + 10, b2.getBounds().y + b2.getHeight()/2 + 10);
+            g2.drawLine(b1.getBounds().x + b1.getWidth()/2 - 10, b1.getBounds().y + b1.getHeight()/2 - 10, b2.getBounds().x + b2.getWidth()/2 - 10, b2.getBounds().y + b2.getHeight()/2 - 10);
+        }else{
+            g2.drawLine(b1.getBounds().x + b1.getWidth()/2, b1.getBounds().y + b1.getHeight()/2, b2.getBounds().x + b2.getWidth()/2, b2.getBounds().y + b2.getHeight()/2);
+        }
     }
 
     
