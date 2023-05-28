@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.geom.*;
@@ -57,6 +59,16 @@ public class Gui {
        JSpinner sRoundSettings = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
        sRoundSettings.setBounds(700, 100, 40, 30);
        menuPanel.add(sRoundSettings);
+       sRoundSettings.addChangeListener(new ChangeListener()
+       {
+
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            JSpinner spinner = (JSpinner) e.getSource();
+            Game.getInstance().setTurns((int)spinner.getValue());
+        }
+        
+       });
 
        sPlayerCount = new JSpinner(new SpinnerNumberModel(4, 4, 8, 1));
        sPlayerCount.setBounds(700, 200, 40, 30);
@@ -262,13 +274,24 @@ public class Gui {
                     c = new Repairman(e1, null, null);
                     if(i==0) c = new Repairman(e1, null, new Pump());
                     e1.addStandingOn(c);
+                    Game.getInstance().addRepairman((Repairman)c);
                 }else{
                     Element e2 = Game.getInstance().getGameElements().get(2);
                     c = new Saboteur(e2);
                     e2.addStandingOn(c);
+                    Game.getInstance().addSaboteur((Saboteur)c);
                 }
             }
             updateFrame();
+            Thread gameThread = new Thread()
+            {
+                @Override
+                public void run()
+                {
+                    Game.getInstance().playGame();
+                }
+            };
+            gameThread.start();
         }
         else{
             activePanel=endGamePanel;

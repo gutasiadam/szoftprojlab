@@ -7,6 +7,16 @@ public abstract class Character {
 	public void move(int dir) {}/** Csorendszeren mozgas.*/
 	public void adjustPump(int src, int dest) {}/** Pumpak ki- es bemenetenek valtoztatasa*/
 	void dealDamage() {}/** Lyukasztas*/
-	public void step() {}
+	public synchronized void step() {
+		try{
+			wait();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 	public void makeSticky(){}/** Ragadossa teszi az adott csovet amin all*/
+	public synchronized void WakeUp() {
+		this.notify();
+	}
 }

@@ -110,6 +110,6 @@ public class Control {
      * Felébreszti a Game-et futtató szálat.
      */
     public void EndMove(){
-        //TODO
+        Game.getInstance().getCurrentCharacter().WakeUp();
     }
 }
