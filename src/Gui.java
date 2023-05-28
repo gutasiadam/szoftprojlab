@@ -28,6 +28,7 @@ public class Gui {
     JSpinner sPlayerCount;
     ArrayList<ActionButton> actionButtons;
     ArrayList<ElementButton> elementButtons;
+    private Pipe pi6;
 
     public Gui(){
         // ---------------FRAME INIT-----------------
@@ -207,6 +208,15 @@ public class Gui {
         Game.getInstance().addPipe(pi5);
         gamePanel.add(pie5);
 
+        pi6 = new Pipe(false, false, 0, 0, 0);
+        pi6.addNeighbor(p2);
+        p2.addNeighbor(pi6);
+        ElementButton pie6 = new ElementButton(pi6);
+        pie6.setBounds(815, 315, 60, 60);
+        elementButtons.add(pie6);
+        Game.getInstance().addPipe(pi6);
+        gamePanel.add(pie6);
+
         p1.adjust(0, 1);
         p2.adjust(0, 1);
 
@@ -239,6 +249,15 @@ public class Gui {
 
         //Redraw frame
         frame.repaint();
+        ArrayList<Repairman> rs = Game.getInstance().getRepairmanGroup();
+        ElementButton.holdingPipes.clear();
+        for(Repairman r : rs){
+            if(r.getHoldingPipe()!=null){
+                if(!ElementButton.holdingPipes.contains(r.getHoldingPipe())) {
+                    ElementButton.holdingPipes.add(r.getHoldingPipe());
+                }
+            }
+        }
         for(ElementButton e : elementButtons){
             e.update();
         }
@@ -256,16 +275,20 @@ public class Gui {
             activePanel = gamePanel;
             int playerc = (Integer)sPlayerCount.getValue();
             for(int i = 0; i < playerc; i++){
-                Character c;
                 if(i%2==0){
+                    Repairman c;
                     Element e1 = Game.getInstance().getGameElements().get(0);
                     c = new Repairman(e1, null, null);
                     if(i==0) c = new Repairman(e1, null, new Pump());
+                    if(i==2) c = new Repairman(e1, pi6, null);
                     e1.addStandingOn(c);
+                    Game.getInstance().addRepairman(c);
                 }else{
+                    Saboteur c;
                     Element e2 = Game.getInstance().getGameElements().get(2);
                     c = new Saboteur(e2);
                     e2.addStandingOn(c);
+                    Game.getInstance().addSaboteur(c);
                 }
             }
             updateFrame();

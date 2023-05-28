@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 public class ElementButton extends JButton{
     private ArrayList<ImageIcon> statusimages = new ArrayList<ImageIcon>();
     private Element element;
+    public static ArrayList<Pipe> holdingPipes = new ArrayList<Pipe>();
 
     ElementButton(Element element)
     {
@@ -100,6 +101,16 @@ public class ElementButton extends JButton{
                 imgname = "man-mechanic.png";
                 if(((Repairman)c).hasHoldingPump()){
                     imgname = "man-with-pump.png";
+                }
+                for(int i = 0; i < 4 && i < holdingPipes.size(); i++){
+                    if(((Repairman)c).getHoldingPipe()!=null && ((Repairman)c).getHoldingPipe().equals(holdingPipes.get(i))){
+                        switch(i){
+                            case 0: imgname = "man-with-blue-pipe.png"; break;
+                            case 1: imgname = "man-with-red-pipe.png"; break;
+                            case 2: imgname = "man-with-green-pipe.png"; break;
+                            case 3: imgname = "man-with-yellow-pipe.png"; break;
+                        }
+                    }
                 }
             }else{
                 imgname = "man-wearing-turban.png";
@@ -196,6 +207,25 @@ public class ElementButton extends JButton{
                     JLabel n = new JLabel(String.valueOf(e.getSticky()));
                     n.setBounds(20, 40, 20, 20);
                     add(n);
+                } catch (Exception ex) {System.out.println(ex);}
+            }
+            for(int i = 0; i < 4 && i < holdingPipes.size(); i++){
+                String imgname = "";
+                if(e.equals(holdingPipes.get(i))){
+                    switch(i){
+                        case 0: imgname = "blue-pipe.png"; break;
+                        case 1: imgname = "red-pipe.png"; break;
+                        case 2: imgname = "green-pipe.png"; break;
+                        case 3: imgname = "yellow-pipe.png"; break;
+                    }
+                }
+                JLabel b = new JLabel();
+                try {
+                    Image img = ImageIO.read(getClass().getResource("img/" + imgname));
+                    Image newimg = img.getScaledInstance( 20, 20,  java.awt.Image.SCALE_SMOOTH ) ;
+                    b.setIcon(new ImageIcon(newimg));
+                    b.setBounds(0, 20, 20, 20);
+                    add(b);
                 } catch (Exception ex) {System.out.println(ex);}
             }
         }
