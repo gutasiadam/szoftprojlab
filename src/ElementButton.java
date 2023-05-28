@@ -98,6 +98,9 @@ public class ElementButton extends JButton{
             String imgname;
             if(c.getClass().getName().equals("Repairman")){
                 imgname = "man-mechanic.png";
+                if(((Repairman)c).hasHoldingPump()){
+                    imgname = "man-with-pump.png";
+                }
             }else{
                 imgname = "man-wearing-turban.png";
             }
@@ -140,6 +143,10 @@ public class ElementButton extends JButton{
                     add(b);
                 } catch (Exception ex) {System.out.println(ex);}
             }
+            // Max csövek száma
+            JLabel b = new JLabel("Max: " + e.getCapacity());
+            b.setBounds(45, 70, 50, 20);
+            add(b);
         }
 
         // Állapotok ha cső

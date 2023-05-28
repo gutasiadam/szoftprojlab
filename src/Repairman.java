@@ -168,4 +168,8 @@ public class Repairman extends Character {
 	{
 		return "R "+this.getName()+" "+position.getName()+" "+((holdingPipe!=null)?(holdingPipe.getName()):("null"))+" "+((holdingPump!=null)?(holdingPump.getName()):("null"));
 	}
+
+	public boolean hasHoldingPump(){
+		return holdingPump!=null;
+	}
 }

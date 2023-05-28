@@ -8,6 +8,7 @@ public class Pump extends NonPipe implements SaboteurPointSource {
 
     private boolean broken;
     private int leakedWaterAmount;
+    private int capacity = (int)(Math.random() * ((10 - 3) + 1)) + 3;
     
     /**
      * @author Szikszai Levente
@@ -78,16 +79,18 @@ public class Pump extends NonPipe implements SaboteurPointSource {
     @Override
     public void addNeighbor(Pipe pipe)
     {
-        super.addNeighbor(pipe);
-        if(neighbors.size()>=1)
-        {
-            inputPipe=neighbors.get(0);
-            outputPipe = neighbors.get(0);
-        }
+        if(neighbors.size()<capacity){
+            super.addNeighbor(pipe);
+            if(neighbors.size()>=1)
+            {
+                inputPipe=neighbors.get(0);
+                outputPipe = neighbors.get(0);
+            }
 
-        if(neighbors.size()>=2)
-        {
-            outputPipe = neighbors.get(1);
+            if(neighbors.size()>=2)
+            {
+                outputPipe = neighbors.get(1);
+            }
         }
     }
     
@@ -176,5 +179,9 @@ public class Pump extends NonPipe implements SaboteurPointSource {
 
     public Pipe getDest(){
         return outputPipe; 
+    }
+
+    public int getCapacity(){
+        return capacity;
     }
 }

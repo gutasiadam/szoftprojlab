@@ -58,7 +58,7 @@ public class Gui {
        sRoundSettings.setBounds(700, 100, 40, 30);
        menuPanel.add(sRoundSettings);
 
-        sPlayerCount = new JSpinner(new SpinnerNumberModel(1, 1, 8, 1));
+       sPlayerCount = new JSpinner(new SpinnerNumberModel(4, 4, 8, 1));
        sPlayerCount.setBounds(700, 200, 40, 30);
        menuPanel.add(sPlayerCount);
 
@@ -260,6 +260,7 @@ public class Gui {
                 if(i%2==0){
                     Element e1 = Game.getInstance().getGameElements().get(0);
                     c = new Repairman(e1, null, null);
+                    if(i==0) c = new Repairman(e1, null, new Pump());
                     e1.addStandingOn(c);
                 }else{
                     Element e2 = Game.getInstance().getGameElements().get(2);
