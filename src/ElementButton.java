@@ -142,7 +142,6 @@ public class ElementButton extends JButton{
             if(element.canPerformAction("Move")) 
             {
                 ArrayList<Integer> params = new ArrayList<Integer>();
-                System.out.println("Next: "+getElementIndexInNeighbors(place));
                 params.add(getElementIndexInNeighbors(place));
                 ActionButton moveButton = new ActionButton(params);
                 moveButton.setActionCommand("Move");
@@ -153,7 +152,7 @@ public class ElementButton extends JButton{
         }
         
         
-        if(element.canPerformAction("Stab")) {
+        if(element.canPerformAction("Stab")&&place==element) {
             ActionButton stabButton = new ActionButton(null);
             stabButton.setActionCommand("Stab");
             stabButton.setText("Stab");
@@ -161,7 +160,7 @@ public class ElementButton extends JButton{
             buttonPanel.add(stabButton);
         }
         
-        if(isRepairman && element.canPerformAction("PlacePump")) {
+        if(isRepairman && element.canPerformAction("PlacePump")&&place==element) {
             ActionButton placePumpButton = new ActionButton(null);
             placePumpButton.setActionCommand("PlacePump");
             placePumpButton.setText("PlacePump");
@@ -169,7 +168,7 @@ public class ElementButton extends JButton{
             buttonPanel.add(placePumpButton);
         }
         
-        if(element.canPerformAction("PlacePipe")) {
+        if(element.canPerformAction("PlacePipe")&&place==element) {
             ActionButton placePipeButton = new ActionButton(null);
             placePipeButton.setActionCommand("PlacePipe");
             placePipeButton.setText("PlacePipe");
@@ -177,7 +176,7 @@ public class ElementButton extends JButton{
             buttonPanel.add(placePipeButton);
         }
         
-        if(isRepairman && element.canPerformAction("PickupPump")) {
+        if(isRepairman && element.canPerformAction("PickupPump")&&place==element) {
             ActionButton pickupPumpButton = new ActionButton(null);
             pickupPumpButton.setActionCommand("PickupPump");
             pickupPumpButton.setText("PickupPump");
@@ -185,7 +184,7 @@ public class ElementButton extends JButton{
             buttonPanel.add(pickupPumpButton);
         }
         
-        if(element.canPerformAction("PickUpPipe")) {
+        if(element.canPerformAction("PickUpPipe")&&place==element) {
             ActionButton pickUpPipe = new ActionButton(null);
             pickUpPipe.setActionCommand("PickUpPipe");
             pickUpPipe.setText("PickUpPipe");
@@ -193,7 +192,7 @@ public class ElementButton extends JButton{
             buttonPanel.add(pickUpPipe);
         }
         
-        if(isRepairman && element.canPerformAction("Repair")) {
+        if(isRepairman && element.canPerformAction("Repair")&&place==element) {
             ActionButton repairButton = new ActionButton(null);
             repairButton.setActionCommand("Repair");
             repairButton.setText("Repair");
@@ -201,7 +200,7 @@ public class ElementButton extends JButton{
             buttonPanel.add(repairButton);
         }
         
-        if(element.canPerformAction("Stick")) {
+        if(element.canPerformAction("Stick")&&place==element) {
             ActionButton stickButton = new ActionButton(null);
             stickButton.setActionCommand("Stick");
             stickButton.setText("Stick");
@@ -209,7 +208,7 @@ public class ElementButton extends JButton{
             buttonPanel.add(stickButton);
         }
         
-        if(!isRepairman && element.canPerformAction("Slime")) {
+        if(!isRepairman && element.canPerformAction("Slime")&&place==element) {
             ActionButton slimeButton = new ActionButton(null);
             slimeButton.setActionCommand("Slime");
             slimeButton.setText("Slime");
@@ -217,12 +216,28 @@ public class ElementButton extends JButton{
             buttonPanel.add(slimeButton);
         }
         
-        if(element.canPerformAction("Adjust")) {
-            ActionButton adjustButton = new ActionButton(null);
-            adjustButton.setActionCommand("Adjust");
-            adjustButton.setText("Adjust");
-            adjustButton.addActionListener(closeButtonListener);
-            buttonPanel.add(adjustButton);
+        if(element.canPerformAction("Adjust")&&place==element) {
+            for(Element e:element.getNeighbors())
+            {
+                ArrayList<Integer> params = new ArrayList<Integer>();
+                Pump p = (Pump) element;
+                params.add(getElementIndexInNeighbors(e));
+                params.add(getElementIndexInNeighbors(p.getDest()));
+                ActionButton adjustButton1 = new ActionButton(params);
+                adjustButton1.setActionCommand("Adjust");
+                adjustButton1.setText("Adjust Input to "+e.getName());
+                adjustButton1.addActionListener(closeButtonListener);
+                buttonPanel.add(adjustButton1);
+
+                params.clear();
+                params.add(getElementIndexInNeighbors(p.getSrc()));
+                params.add(getElementIndexInNeighbors(e));
+                ActionButton adjustButton2 = new ActionButton(params);
+                adjustButton2.setActionCommand("Adjust");
+                adjustButton2.setText("Adjust Output to "+e.getName());
+                adjustButton2.addActionListener(closeButtonListener);
+                buttonPanel.add(adjustButton2);
+            }
         }
         
         ActionButton endMoveButton = new ActionButton(null);
