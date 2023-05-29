@@ -371,4 +371,12 @@ public class Game {
 		this.remainingRounds = turns;
 		//System.out.println("Turn set: "+turns);
 	}
+
+	public int getSaboteurPoints(){
+		return saboteurPoints;
+	}
+
+	public int getRepairmanPoints(){
+		return repairmanPoints;
+	}
 }
