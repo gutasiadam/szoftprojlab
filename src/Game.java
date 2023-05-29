@@ -249,6 +249,7 @@ public class Game {
 	{
 		//System.out.println("addCistern");
 		cisterns.add(c);
+		gameElements.add(c);
 	}
 	
 	/**
