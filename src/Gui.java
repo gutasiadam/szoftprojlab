@@ -36,7 +36,7 @@ public class Gui {
     private Pipe pi6;
 
     // Az egyetlen Gui objektum
-    private static Gui instance;
+    private static Gui instance = new Gui();;
 
     /**
      * Visszaadja a Singleton Gui objektumot
@@ -44,13 +44,10 @@ public class Gui {
      * @return Singleton Gui objektum
      */
     public static Gui getInstance() {
-        if (instance == null) {
-            instance = new Gui();
-        }
         return instance;
     }
 
-    public Gui(){
+    private Gui(){
         // ---------------FRAME INIT-----------------
         frame = new JFrame("codeX");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
