@@ -28,6 +28,7 @@ public class Control {
      */
     public void Move(int dir){
         Game.getInstance().getCurrentCharacter().move(dir);
+        updateFrame();
     }
 
     /**
@@ -35,6 +36,7 @@ public class Control {
      */
     public void Stab(){
         Game.getInstance().getCurrentCharacter().dealDamage();
+        updateFrame();
     }
 
     /**
@@ -45,6 +47,7 @@ public class Control {
         //Ha viszont nem így akarjátok akkor minden fv kell a character osztályba, hogy meg lehessen azokat hívni
         r=(Repairman)Game.getInstance().getCurrentCharacter(); 
         r.PlacePump();
+        updateFrame();
     }
 
     /**
@@ -53,6 +56,7 @@ public class Control {
     public void PlacePipe(){
         r=(Repairman)Game.getInstance().getCurrentCharacter();
         r.PlacePipe();
+        updateFrame();
     }
 
     /**
@@ -61,6 +65,7 @@ public class Control {
     public void PickupPump(){
         r=(Repairman)Game.getInstance().getCurrentCharacter();
         r.LiftPump();
+        updateFrame();
     }
 
     /**
@@ -70,6 +75,7 @@ public class Control {
     public void PickUpPipe(int dir){
         r=(Repairman)Game.getInstance().getCurrentCharacter();
         r.LiftPipe(dir);
+        updateFrame();
     }
 
     /**
@@ -86,6 +92,7 @@ public class Control {
     public void Stick(){
         s=(Saboteur)Game.getInstance().getCurrentCharacter();
         s.makeSticky();
+        updateFrame();
     }
 
     /** 
@@ -94,6 +101,7 @@ public class Control {
     public void Slime(){
         s=(Saboteur)Game.getInstance().getCurrentCharacter();
         s.putSlime();
+        updateFrame();
     }
 
     /**
@@ -103,6 +111,7 @@ public class Control {
      */
     public void Adjust(int src, int dest){
         Game.getInstance().getCurrentCharacter().adjustPump(src, dest);
+        updateFrame();
     }
 
     /**
