@@ -181,7 +181,9 @@ public class ElementButton extends JButton{
     }
 
     public void update(){
-        // Characterek az adott elemen
+        //* Törlés */
+        removeAll();
+        //* Characterek az adott elemen */
         setLayout(null);
         List<Character> cs = element.getStandingOn();
         int offset = 0;

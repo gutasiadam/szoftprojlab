@@ -333,12 +333,22 @@ public class Gui {
         endGamePanel = new JPanel();
         endGamePanel.setLayout(null);
         endGamePanel.setSize(1280, 720);
-        // lSaboteurPoints = new JLabel("0");
-        // lRoundSettings.setBounds(600, 100, 0, 0);
-        // endGamePanel.add(lSaboteurPoints);
-        // lRepairmenPoints = new JLabel("0");
-        // lPlayerCount.setBounds(600, 200, 0, 0);
-        // endGamePanel.add(lRepairmenPoints);
+
+        //* Label of result */
+        lResult = new JLabel();
+        lResult.setFont(new Font(lResult.getFont().getName(), Font.PLAIN, 64));
+        lResult.setBounds(300, 100, 800, 100);
+        endGamePanel.add(lResult);
+
+        lSaboteurPoints = new JLabel("0");
+        lSaboteurPoints.setFont(new Font(lSaboteurPoints.getFont().getName(), Font.PLAIN, 32));
+        lSaboteurPoints.setBounds(500, 200, 400, 50);
+        endGamePanel.add(lSaboteurPoints);
+
+        lRepairmenPoints = new JLabel("0");
+        lRepairmenPoints.setFont(new Font(lRepairmenPoints.getFont().getName(), Font.PLAIN, 32));
+        lRepairmenPoints.setBounds(500, 250, 400, 50);
+        endGamePanel.add(lRepairmenPoints);
 
         //------------------------------------------------
         //Keret megjelenítése az aktív panellel
