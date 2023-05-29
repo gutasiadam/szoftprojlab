@@ -9,9 +9,9 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.text.NumberFormatter;
 import java.awt.*;
-import java.awt.geom.*;
+import javax.swing.*;
+import javax.swing.border.*;
 
 /**
  * A játék grafikus felületét megvalósító osztály.
@@ -64,18 +64,19 @@ public class Gui {
 
        menuPanel.setLayout(null); // Null layout beállítása a menü panelen
 
-       JLabel lRoundSettings = new JLabel("Körök száma: ");
-       Dimension size = lRoundSettings.getPreferredSize();
-       lRoundSettings.setBounds(600, 100, size.width, size.height);
+       JLabel lRoundSettings = new JLabel("Körök száma");
+       lRoundSettings.setBounds(450, 100, 300, 30);
+       lRoundSettings.setFont(new Font("Arial", Font.PLAIN, 30)); // Creating an Arial Font Style with size 30
        menuPanel.add(lRoundSettings);
 
-       JLabel lPlayerCount = new JLabel("Játékosok száma: ");
-       size = lPlayerCount.getPreferredSize();
-       lPlayerCount.setBounds(600, 200, size.width, size.height);
+       JLabel lPlayerCount = new JLabel("Játékosok száma");
+       lPlayerCount.setBounds(450, 300, 300, 30);
+       lPlayerCount.setFont(new Font("Arial", Font.PLAIN, 30)); // Creating an Arial Font Style with size 30
        menuPanel.add(lPlayerCount);
 
        JSpinner sRoundSettings = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
-       sRoundSettings.setBounds(700, 100, 40, 30);
+       sRoundSettings.setBounds(700, 90, 50, 50);
+       sRoundSettings.setFont(new Font("Arial", Font.PLAIN, 30));
        menuPanel.add(sRoundSettings);
        sRoundSettings.addChangeListener(new ChangeListener()
        {
@@ -89,11 +90,15 @@ public class Gui {
        });
 
        sPlayerCount = new JSpinner(new SpinnerNumberModel(4, 4, 8, 2));
-       sPlayerCount.setBounds(700, 200, 40, 30);
+       sPlayerCount.setBounds(700, 290, 50, 50);
+       sPlayerCount.setFont(new Font("Arial", Font.PLAIN, 30));
        menuPanel.add(sPlayerCount);
 
        JButton bStart = new JButton("Start");
-       bStart.setBounds(1080, 200, 100, 30);
+       bStart.setBounds(500, 600, 200, 50);
+       bStart.setFont(new Font("Arial", Font.PLAIN, 30));
+       bStart.setBackground(Color.GRAY);
+       bStart.setForeground(Color.BLACK);
        bStart.addActionListener(e -> nextPanel());
        menuPanel.add(bStart);
 
@@ -142,6 +147,74 @@ public class Gui {
         log.setBounds(980, 100, 300, 500); // TODO: Pontos érték megadása ide
         gamePanel.add(log);
 
+        //Main Game Panel - ScoreBoard
+        JPanel jPanelScoreBoard = new JPanel();
+        jPanelScoreBoard.setLayout(null);
+        jPanelScoreBoard.setBounds(20, 20, 120, 90);
+        jPanelScoreBoard.setBorder(BorderFactory.createLineBorder(Color.black));
+
+        //Scoreboard label
+        JLabel lScoreBoard = new JLabel("ScoreBoard");
+        lScoreBoard.setFont(new Font("Arial", Font.BOLD, 20));
+        lScoreBoard.setBounds(5, 0, 200, 20);
+        jPanelScoreBoard.add(lScoreBoard);
+
+        //Saboteurs label
+        JLabel lSaboteurs = new JLabel("Saboteurs");
+        lSaboteurs.setFont(new Font("Arial", Font.BOLD, 15));
+        lSaboteurs.setBounds(5, 25, 200, 20);
+        jPanelScoreBoard.add(lSaboteurs);
+
+        //Saboteurs points label
+        lSaboteurPoints = new JLabel("0");
+        lSaboteurPoints.setFont(new Font("Arial", Font.PLAIN, 15));
+        lSaboteurPoints.setBounds(100, 25, 200, 20);
+        jPanelScoreBoard.add(lSaboteurPoints);
+
+        //Repairmen label
+        JLabel lRepairmen = new JLabel("Repairmen");
+        lRepairmen.setFont(new Font("Arial", Font.BOLD, 15));
+        lRepairmen.setBounds(5, 45, 200, 20);
+        jPanelScoreBoard.add(lRepairmen);
+        
+
+        //Repairmen points label
+        lRepairmenPoints = new JLabel("0");
+        lRepairmenPoints.setFont(new Font("Arial", Font.PLAIN, 15));
+        lRepairmenPoints.setBounds(100, 45, 200, 20);
+        jPanelScoreBoard.add(lRepairmenPoints);
+
+
+        //Turn label
+        JLabel lTurn = new JLabel("Turn");
+        lTurn.setFont(new Font("Arial", Font.BOLD, 15));
+        lTurn.setBounds(5, 65, 200, 20);
+        jPanelScoreBoard.add(lTurn);
+
+        //Turn points label
+        JLabel lTurnPoints = new JLabel("0");
+        lTurnPoints.setFont(new Font("Arial", Font.PLAIN, 15));
+        lTurnPoints.setBounds(100, 65, 200, 20);
+        jPanelScoreBoard.add(lTurnPoints);
+
+        //Add scoreboard to main game panel
+        gamePanel.add(jPanelScoreBoard);
+
+
+        //Who`s turn label
+        JLabel lWhosTurn = new JLabel("...-s turn");
+        lWhosTurn.setFont(new Font("Arial", Font.BOLD, 30));
+        lWhosTurn.setBounds(980, 20, 200, 20);
+        gamePanel.add(lWhosTurn);
+
+        //End Move button
+        JButton bEndMove = new JButton("End Move");
+        bEndMove.setBounds(980, 600, 300, 50);
+        bEndMove.setFont(new Font("Arial", Font.PLAIN, 30));
+        bEndMove.setBackground(Color.WHITE);
+        bEndMove.setForeground(Color.BLACK);
+        bEndMove.addActionListener(e -> Control.getInstance().EndMove());
+        gamePanel.add(bEndMove);
         // Első hat pályaelem
         Cistern c1 = new Cistern(0);
         ElementButton cistern1 = new ElementButton(c1);
@@ -256,12 +329,12 @@ public class Gui {
         // ---------------END GAME FRAME-----------------
         endGamePanel = new JPanel();
         endGamePanel.setSize(1280, 720);
-        lSaboteurPoints = new JLabel("0");
-        lRoundSettings.setBounds(600, 100, 0, 0);
-        endGamePanel.add(lSaboteurPoints);
-        lRepairmenPoints = new JLabel("0");
-        lPlayerCount.setBounds(600, 200, 0, 0);
-        endGamePanel.add(lRepairmenPoints);
+        // lSaboteurPoints = new JLabel("0");
+        // lRoundSettings.setBounds(600, 100, 0, 0);
+        // endGamePanel.add(lSaboteurPoints);
+        // lRepairmenPoints = new JLabel("0");
+        // lPlayerCount.setBounds(600, 200, 0, 0);
+        // endGamePanel.add(lRepairmenPoints);
 
         //------------------------------------------------
         //Keret megjelenítése az aktív panellel
