@@ -27,6 +27,8 @@ public class Gui {
     private JLabel lRepairmenPoints;
     private JButton endturn;
     private JTextField log;
+    private int repairmanNum = 0;
+    private int saboteurNum = 0;
     JSpinner sPlayerCount;
     ArrayList<ActionButton> actionButtons;
     ArrayList<ElementButton> elementButtons;
@@ -295,6 +297,7 @@ public class Gui {
                     Repairman c;
                     Element e1 = Game.getInstance().getGameElements().get(0);
                     c = new Repairman(e1, null, null);
+                    c.setName("Repairman"+repairmanNum++);
                     if(i==0) c = new Repairman(e1, null, new Pump());
                     if(i==2) c = new Repairman(e1, pi6, null);
                     e1.addStandingOn(c);
@@ -303,6 +306,7 @@ public class Gui {
                     Saboteur c;
                     Element e2 = Game.getInstance().getGameElements().get(2);
                     c = new Saboteur(e2);
+                    c.setName("Saboteur"+saboteurNum++);
                     e2.addStandingOn(c);
                     Game.getInstance().addSaboteur((Saboteur)c);
                 }
