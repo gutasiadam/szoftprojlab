@@ -112,4 +112,20 @@ public class Control {
     public void EndMove(){
         Game.getInstance().getCurrentCharacter().WakeUp();
     }
+
+    /**
+     * Frissiti a kepernyot
+     * Hivhato nem UI szalrol is
+     */
+    public void updateFrame()
+    {
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+				Gui.getInstance().updateFrame();
+			}
+        });
+    }
+
 }
