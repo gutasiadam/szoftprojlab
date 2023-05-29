@@ -23,6 +23,7 @@ public class Gui {
     private JPanel gamePanel; // End Game Frame
     private JPanel activePanel; // A jelenelg aktív keret. Ez lehet a menü, a játék vagy a vége.
     private JLabel turn; //Soronlevő játékos neve
+    private JLabel lResult;
     private JLabel lSaboteurPoints;
     private JLabel lRepairmenPoints;
     private JButton endturn;
@@ -326,8 +327,14 @@ public class Gui {
         p1.adjust(0, 1);
         p2.adjust(0, 1);
 
+        JButton bEnd = new JButton("End Game");
+        bEnd.setBounds(980, 630, 300, 50);
+        bEnd.addActionListener(e -> nextPanel());
+        gamePanel.add(bEnd);
+
         // ---------------END GAME FRAME-----------------
         endGamePanel = new JPanel();
+        endGamePanel.setLayout(null);
         endGamePanel.setSize(1280, 720);
         // lSaboteurPoints = new JLabel("0");
         // lRoundSettings.setBounds(600, 100, 0, 0);
@@ -411,6 +418,21 @@ public class Gui {
             gameThread.start();
         }
         else{
+            //* Determine the points and the result */
+            int saboteurPoints = Game.getInstance().getSaboteurPoints();
+            int repairmanPoints = Game.getInstance().getRepairmanPoints();
+            String result;
+            if(saboteurPoints>repairmanPoints) result = "Saboteur Team Won!";
+    		else if(repairmanPoints>saboteurPoints) result = "Repairman Team Won!";
+            else result = "It's a Draw!";
+
+            /** Set the label's content */
+            lResult.setText(result);
+            lResult.setBounds(640 - lResult.getPreferredSize().width/2, 100, lResult.getPreferredSize().width, lResult.getPreferredSize().height);
+            lSaboteurPoints.setText("Saboteurs' points: " + String.valueOf(saboteurPoints));
+            lSaboteurPoints.setBounds(640 - lSaboteurPoints.getPreferredSize().width/2, 200, lSaboteurPoints.getPreferredSize().width, lSaboteurPoints.getPreferredSize().height);
+            lRepairmenPoints.setText("Repairmen's points: " + String.valueOf(repairmanPoints));
+            lRepairmenPoints.setBounds(640 - lRepairmenPoints.getPreferredSize().width/2, 250, lRepairmenPoints.getPreferredSize().width, lRepairmenPoints.getPreferredSize().height);
             activePanel=endGamePanel;
         }
         frame.getContentPane().add(activePanel);
