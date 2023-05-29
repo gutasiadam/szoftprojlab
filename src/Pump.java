@@ -47,6 +47,7 @@ public class Pump extends NonPipe implements SaboteurPointSource {
         containingWater=isContainingWater;
         broken = isBroken;
         leakedWaterAmount = leakedWater;  
+        setAvailableActions(true, false, true, false, false, true, true, false, false, true);
     }
 
     /** @author Bodnar Mark

@@ -59,6 +59,55 @@ public class ElementButton extends JButton{
         }
         return "";
     }
+
+    private Element getCurrentCharacterPlace()
+    {
+        Character currenCharacter = Game.getInstance().getCurrentCharacter();
+        for(Element element : Game.getInstance().getGameElements())
+        {
+            for(Character c : element.getStandingOn())
+            {
+                if(c==currenCharacter)
+                {
+                    return element;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Megtalalhato-e a tartalmazott element-e a parameter szomszedjai kozott
+     * @param e Element, aminek a szomszedjai kozott keresunk
+     * @return True, ha szomszedok, false ha nem
+     */
+    private boolean findElementInNeighbors(Element e)
+    {
+        boolean out = false;
+        for(Element neighbor : e.getNeighbors())
+        {
+            if(neighbor==element)
+                out = true;
+        }
+        return out;
+    }
+
+    /**
+     * Visszaadja, hogy a parameterul kapott element hanyadik szomszedja a tartalmazott.
+     * @param e Element, aminek a szomszedai kozottkeressuk a tartalmazott element-et
+     * @return index, ha megtalaltuk, -1 ha nem
+     */
+    private int getElementIndexInNeighbors(Element e)
+    {
+        int index = 0;
+        for(Element neighbor : e.getNeighbors())
+        {
+            if(neighbor==element)
+               return index;
+            index++;
+        }
+        return -1;
+    }
     
     private void showActionButtonWindow() {
     	/** Letrehozunk egy JDialog objektumot es beallitjuk a tulajdonsagait.*/
@@ -83,13 +132,22 @@ public class ElementButton extends JButton{
         
         /** ActionButton-ok letrehozasa es hozzaadasa a panelhoz*/
         /** Igy beszeltuk meg,de ugye a harom muveleten kivul egyebkent lehetne optimalizalni, hogy ne legyen ilyen brute force*/
-        if(element.canPerformAction("Move")) {
-            ActionButton moveButton = new ActionButton(null);
-            moveButton.setActionCommand("Move");
-            moveButton.setText("Move");
-            moveButton.addActionListener(closeButtonListener);
-            buttonPanel.add(moveButton);
+        Element place = getCurrentCharacterPlace();
+        if(findElementInNeighbors(place))
+        {
+            if(element.canPerformAction("Move")) 
+            {
+                ArrayList<Integer> params = new ArrayList<Integer>();
+                System.out.println("Next: "+getElementIndexInNeighbors(place));
+                params.add(getElementIndexInNeighbors(place));
+                ActionButton moveButton = new ActionButton(params);
+                moveButton.setActionCommand("Move");
+                moveButton.setText("Move");
+                moveButton.addActionListener(closeButtonListener);
+                buttonPanel.add(moveButton);
+            }
         }
+        
         
         if(element.canPerformAction("Stab")) {
             ActionButton stabButton = new ActionButton(null);

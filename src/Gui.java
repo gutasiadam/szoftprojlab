@@ -316,6 +316,7 @@ public class Gui {
         pi6.addNeighbor(p2);
         p2.addNeighbor(pi6);
         ElementButton pie6 = new ElementButton(pi6);
+       // pie6.setEnabled(true);
         pie6.setBounds(815, 315, 60, 60);
         elementButtons.add(pie6);
         Game.getInstance().addPipe(pi6);

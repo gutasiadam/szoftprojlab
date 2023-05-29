@@ -37,6 +37,7 @@ public class Pipe extends Element implements SaboteurPointSource {
         containingWater = hasWater;
         slimey = _slimey;
         sticky = _sticky;
+        setAvailableActions(true, true, false, false, true, false, true, true, true, false);
     }
 
     /**
