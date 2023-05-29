@@ -61,33 +61,122 @@ public class ElementButton extends JButton{
     }
     
     private void showActionButtonWindow() {
-        // Letrehozunk egy JDialog objektumot �s beallitjuk a tulajdons�gait
+    	/** Letrehozunk egy JDialog objektumot es beallitjuk a tulajdonsagait.*/
+    	/** */
         JDialog dialog = new JDialog();
         dialog.setTitle("Valassz a muveletek kozul");
-        dialog.setModal(true); // Beallitjuk modalis ablaknak, amig bezarodik, a fiablak nem erheto el
+        dialog.setModal(true);/** Beallitjuk modalis ablaknak, amig bezarodik, a foablak nem erheto el*/ 
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        
+        /** Csak azokat a muveleteket jelenitjuk meg amit az adott karakterrel lehet vegezni.*/ 
+        boolean isRepairman = Game.getInstance().getCurrentCharacter().getClass().getName().equals("Repairman");
 
-        // Letrehozunk egy JPanel objektumot az ActionButton-ok tarolasara
+        /** Letrehozunk egy JPanel objektumot az ActionButton-ok tarolasara*/
         JPanel buttonPanel = new JPanel();
 
-        // ActionButton-ok letrehozasa es hozzaadasa a panelhoz
-        ActionButton actionButton1 = new ActionButton(null);
-        actionButton1.setActionCommand("Repair");
-        actionButton1.setText("Repair");
-        buttonPanel.add(actionButton1);
-
-        ActionButton actionButton2 = new ActionButton(null);
-        actionButton2.setActionCommand("Stab");
-        actionButton2.setText("Stab");
-        buttonPanel.add(actionButton2);
+        ActionListener closeButtonListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dialog.dispose();
+            }
+        };
         
-        // Panel hozzaadasa a dialogushoz
+        /** ActionButton-ok letrehozasa es hozzaadasa a panelhoz*/
+        /** Igy beszeltuk meg,de ugye a harom muveleten kivul egyebkent lehetne optimalizalni, hogy ne legyen ilyen brute force*/
+        if(element.canPerformAction("Move")) {
+            ActionButton moveButton = new ActionButton(null);
+            moveButton.setActionCommand("Move");
+            moveButton.setText("Move");
+            moveButton.addActionListener(closeButtonListener);
+            buttonPanel.add(moveButton);
+        }
+        
+        if(element.canPerformAction("Stab")) {
+            ActionButton stabButton = new ActionButton(null);
+            stabButton.setActionCommand("Stab");
+            stabButton.setText("Stab");
+            stabButton.addActionListener(closeButtonListener);
+            buttonPanel.add(stabButton);
+        }
+        
+        if(isRepairman && element.canPerformAction("PlacePump")) {
+            ActionButton placePumpButton = new ActionButton(null);
+            placePumpButton.setActionCommand("PlacePump");
+            placePumpButton.setText("PlacePump");
+            placePumpButton.addActionListener(closeButtonListener);
+            buttonPanel.add(placePumpButton);
+        }
+        
+        if(element.canPerformAction("PlacePipe")) {
+            ActionButton placePipeButton = new ActionButton(null);
+            placePipeButton.setActionCommand("PlacePipe");
+            placePipeButton.setText("PlacePipe");
+            placePipeButton.addActionListener(closeButtonListener);
+            buttonPanel.add(placePipeButton);
+        }
+        
+        if(isRepairman && element.canPerformAction("PickupPump")) {
+            ActionButton pickupPumpButton = new ActionButton(null);
+            pickupPumpButton.setActionCommand("PickupPump");
+            pickupPumpButton.setText("PickupPump");
+            pickupPumpButton.addActionListener(closeButtonListener);
+            buttonPanel.add(pickupPumpButton);
+        }
+        
+        if(element.canPerformAction("PickUpPipe")) {
+            ActionButton pickUpPipe = new ActionButton(null);
+            pickUpPipe.setActionCommand("PickUpPipe");
+            pickUpPipe.setText("PickUpPipe");
+            pickUpPipe.addActionListener(closeButtonListener);
+            buttonPanel.add(pickUpPipe);
+        }
+        
+        if(isRepairman && element.canPerformAction("Repair")) {
+            ActionButton repairButton = new ActionButton(null);
+            repairButton.setActionCommand("Repair");
+            repairButton.setText("Repair");
+            repairButton.addActionListener(closeButtonListener);
+            buttonPanel.add(repairButton);
+        }
+        
+        if(element.canPerformAction("Stick")) {
+            ActionButton stickButton = new ActionButton(null);
+            stickButton.setActionCommand("Stick");
+            stickButton.setText("Stick");
+            stickButton.addActionListener(closeButtonListener);
+            buttonPanel.add(stickButton);
+        }
+        
+        if(!isRepairman && element.canPerformAction("Slime")) {
+            ActionButton slimeButton = new ActionButton(null);
+            slimeButton.setActionCommand("Slime");
+            slimeButton.setText("Slime");
+            slimeButton.addActionListener(closeButtonListener);
+            buttonPanel.add(slimeButton);
+        }
+        
+        if(element.canPerformAction("Adjust")) {
+            ActionButton adjustButton = new ActionButton(null);
+            adjustButton.setActionCommand("Adjust");
+            adjustButton.setText("Adjust");
+            adjustButton.addActionListener(closeButtonListener);
+            buttonPanel.add(adjustButton);
+        }
+        
+        ActionButton endMoveButton = new ActionButton(null);
+        endMoveButton.setActionCommand("EndMove");
+        endMoveButton.setText("EndMove");
+        endMoveButton.addActionListener(closeButtonListener);
+        buttonPanel.add(endMoveButton);  
+        
+        
+        /**Panel hozzaadasa a dialogushoz */
         dialog.add(buttonPanel);
 
-        // A dialogus meretenek beallitasa a tartalomhoz
+        /** A dialogus meretenek beallitasa a tartalomhoz*/
         dialog.pack();
 
-        // A dialogus megjelenitese
+        /** A dialogus megjelenitese */
         dialog.setVisible(true);
     }
 
@@ -133,7 +222,7 @@ public class ElementButton extends JButton{
             }
         }
 
-        // Állapotok ha pumpa
+        // Ă�llapotok ha pumpa
         if(element.getClass().getName().equals("Pump")){
             Pump e = (Pump)element;
             if(e.getBroken()){
@@ -156,13 +245,13 @@ public class ElementButton extends JButton{
                     add(b);
                 } catch (Exception ex) {System.out.println(ex);}
             }
-            // Max csövek száma
+            // Max csĂ¶vek szĂˇma
             JLabel b = new JLabel("Max: " + e.getCapacity());
             b.setBounds(45, 70, 50, 20);
             add(b);
         }
 
-        // Állapotok ha cső
+        // Ă�llapotok ha csĹ‘
         if(element.getClass().getName().equals("Pipe")){
             Pipe e = (Pipe)element;
             if(e.getHoleOnPipe()){
