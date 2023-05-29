@@ -26,14 +26,16 @@ public class ElementButton extends JButton{
     ElementButton(Element element)
     {
         this.element=element;
-
-        try {
-            Image img = ImageIO.read(getClass().getResource("img/" + getImageName()));
-            Image newimg = img.getScaledInstance( 40, 40,  java.awt.Image.SCALE_SMOOTH ) ;
-            setIcon(new ImageIcon(newimg));
-        } catch (Exception ex) {
-            System.out.println(ex);
+        if(getImageName()!=""){
+            try {
+                Image img = ImageIO.read(getClass().getResource("img/" + getImageName()));
+                Image newimg = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
+                setIcon(new ImageIcon(newimg));
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
         }
+
 
         addActionListener(
             new ActionListener()
@@ -220,13 +222,15 @@ public class ElementButton extends JButton{
                     }
                 }
                 JLabel b = new JLabel();
-                try {
-                    Image img = ImageIO.read(getClass().getResource("img/" + imgname));
-                    Image newimg = img.getScaledInstance( 20, 20,  java.awt.Image.SCALE_SMOOTH ) ;
-                    b.setIcon(new ImageIcon(newimg));
-                    b.setBounds(0, 20, 20, 20);
-                    add(b);
-                } catch (Exception ex) {System.out.println(ex);}
+                if(imgname!=""){
+                    try {
+                        Image img = ImageIO.read(getClass().getResource("img/" + imgname));
+                        Image newimg = img.getScaledInstance( 20, 20,  java.awt.Image.SCALE_SMOOTH ) ;
+                        b.setIcon(new ImageIcon(newimg));
+                        b.setBounds(0, 20, 20, 20);
+                        add(b);
+                    } catch (Exception ex) {System.out.println(ex);}
+                }
             }
         }
     }
