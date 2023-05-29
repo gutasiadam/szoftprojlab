@@ -34,6 +34,21 @@ public class Gui {
     ArrayList<ElementButton> elementButtons;
     private Pipe pi6;
 
+    // Az egyetlen Gui objektum
+    private static Gui instance;
+
+    /**
+     * Visszaadja a Singleton Gui objektumot
+     * 
+     * @return Singleton Gui objektum
+     */
+    public static Gui getInstance() {
+        if (instance == null) {
+            instance = new Gui();
+        }
+        return instance;
+    }
+
     public Gui(){
         // ---------------FRAME INIT-----------------
         frame = new JFrame("codeX");
@@ -73,7 +88,7 @@ public class Gui {
         
        });
 
-       sPlayerCount = new JSpinner(new SpinnerNumberModel(4, 4, 8, 1));
+       sPlayerCount = new JSpinner(new SpinnerNumberModel(4, 4, 8, 2));
        sPlayerCount.setBounds(700, 200, 40, 30);
        menuPanel.add(sPlayerCount);
 
