@@ -60,6 +60,10 @@ public class ElementButton extends JButton{
         return "";
     }
 
+    /**
+     * Visszaadja az Elementet amin a CurrentCharacter all
+     * @return Element, amin a CurrentCharacter talalhato
+     */
     private Element getCurrentCharacterPlace()
     {
         Character currenCharacter = Game.getInstance().getCurrentCharacter();
