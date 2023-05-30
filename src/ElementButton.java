@@ -100,17 +100,31 @@ public class ElementButton extends JButton{
     /**
      * Visszaadja, hogy a parameterul kapott element hanyadik szomszedja a tartalmazott.
      * @param e Element, aminek a szomszedai kozottkeressuk a tartalmazott element-et
+     * @param searchInParam a parameter szomszedjai kozott keressunk-e
      * @return index, ha megtalaltuk, -1 ha nem
      */
-    private int getElementIndexInNeighbors(Element e)
+    private int getElementIndexInNeighbors(Element e, boolean searchInParam)
     {
         int index = 0;
-        for(Element neighbor : e.getNeighbors())
+        if(searchInParam)
         {
-            if(neighbor==element)
-               return index;
-            index++;
+            for(Element neighbor : e.getNeighbors())
+            {
+                if(neighbor==element)
+                return index;
+                index++;
+            } 
         }
+        else
+        {
+            for(Element neighbor : element.getNeighbors())
+            {
+                if(neighbor==e)
+                return index;
+                index++;
+            } 
+        }
+        
         return -1;
     }
     
@@ -152,7 +166,7 @@ public class ElementButton extends JButton{
             if(element.canPerformAction("Move")) 
             {
                 ArrayList<Integer> params = new ArrayList<Integer>();
-                params.add(getElementIndexInNeighbors(place));
+                params.add(getElementIndexInNeighbors(place,true));
                 ActionButton moveButton = new ActionButton(params);
                 moveButton.setActionCommand("Move");
                 moveButton.setText("Move");
@@ -238,21 +252,21 @@ public class ElementButton extends JButton{
         if(element.canPerformAction("Adjust")&&place==element) {
             for(Element e:element.getNeighbors())
             {
-                ArrayList<Integer> params = new ArrayList<Integer>();
+                ArrayList<Integer> params1 = new ArrayList<Integer>();
                 Pump p = (Pump) element;
-                params.add(getElementIndexInNeighbors(e));
-                params.add(getElementIndexInNeighbors(p.getDest()));
-                ActionButton adjustButton1 = new ActionButton(params);
+                params1.add(getElementIndexInNeighbors(e,false));
+                params1.add(getElementIndexInNeighbors(p.getDest(),false));
+                ActionButton adjustButton1 = new ActionButton(params1);
                 adjustButton1.setActionCommand("Adjust");
                 adjustButton1.setText("Adjust Input to "+e.getName());
                 adjustButton1.addActionListener(closeButtonListener);
                 buttonPanel.add(adjustButton1, gbc);
                 gbc.gridy++;
 
-                params.clear();
-                params.add(getElementIndexInNeighbors(p.getSrc()));
-                params.add(getElementIndexInNeighbors(e));
-                ActionButton adjustButton2 = new ActionButton(params);
+                ArrayList<Integer> params2 = new ArrayList<Integer>();
+                params2.add(getElementIndexInNeighbors(p.getSrc(),false));
+                params2.add(getElementIndexInNeighbors(e,false));
+                ActionButton adjustButton2 = new ActionButton(params2);
                 adjustButton2.setActionCommand("Adjust");
                 adjustButton2.setText("Adjust Output to "+e.getName());
                 adjustButton2.addActionListener(closeButtonListener);
