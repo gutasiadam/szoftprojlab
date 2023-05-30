@@ -84,6 +84,7 @@ public class Control {
     public void Repair(){
         r=(Repairman)Game.getInstance().getCurrentCharacter();
         r.RepairElement();
+        updateFrame();
     }
 
     /**

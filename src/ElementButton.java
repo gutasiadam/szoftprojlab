@@ -208,7 +208,7 @@ public class ElementButton extends JButton{
             gbc.gridy++;
         }
         
-        if(isRepairman && element.canPerformAction("Repair")&&place==element) {
+        if(isRepairman && element.canPerformAction("Repair")&&place==element && ((Pump)element).getBroken()) {
             ActionButton repairButton = new ActionButton(null);
             repairButton.setActionCommand("Repair");
             repairButton.setText("Repair");
