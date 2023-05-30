@@ -148,10 +148,22 @@ public class Repairman extends Character {
      * Pumpa elhelyezese.
      */
 	public void PlacePump() {
+		Element end1 = position.getNeighbors().get(0);
+		Element end2 = position.getNeighbors().get(1);
 		Pipe createdPipe = position.placePump(holdingPump);
 		if (createdPipe != null) {
 			Game.getInstance().addPump(holdingPump);
 			Game.getInstance().addPipe(createdPipe);
+			int PuX = (Gui.getInstance().findElementButton(end1).getX()+Gui.getInstance().findElementButton(end2).getX())/2;
+			int PuY = (Gui.getInstance().findElementButton(end1).getY()+Gui.getInstance().findElementButton(end2).getY())/2;
+			int PiX = (PuX+Gui.getInstance().findElementButton(end2).getX())/2;
+			int PiY = (PuY+Gui.getInstance().findElementButton(end2).getY())/2;
+			ElementButton placeButton = Gui.getInstance().findElementButton((Element)position);
+			int placeX = (PuX+Gui.getInstance().findElementButton(end1).getX())/2;
+			int placeY = (PuY+Gui.getInstance().findElementButton(end1).getY())/2;
+			placeButton.setLocation(placeX, placeY);
+			Gui.getInstance().createElementButton(holdingPump,PuX,PuY,false);
+			Gui.getInstance().createElementButton(createdPipe,PiX,PiY,true);
 			holdingPump = null;
 		}
 	}

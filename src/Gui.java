@@ -541,4 +541,30 @@ public class Gui {
     }
 
     
+    /**
+     * Letrehoz egy ElementButton-t adott Element-tel, adott helyen es hozzaadja a Gui-hoz
+     * @param element Az Element amit tartalmazzon
+     * @param posX Az ElementButton X pozicioja
+     * @param posY AZ ElementButton Y pozicioja
+     */
+    public void  createElementButton(Element element,int posX, int posY,boolean isPipe)
+    {
+        ElementButton elementButton = new ElementButton(element);
+        if(!isPipe)
+            elementButton.setBounds(posX, posY, 90, 90);
+        else
+            elementButton.setBounds(posX, posY, 60, 60);
+        elementButtons.add(elementButton);
+        gamePanel.add(elementButton);
+    }
+
+    public ElementButton findElementButton(Element element)
+    {
+        for(ElementButton button : elementButtons)
+        {
+            if(button.getElement()==element)
+                return button;
+        }
+        return null;
+    }
 }
