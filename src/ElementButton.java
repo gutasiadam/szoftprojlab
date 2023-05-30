@@ -237,7 +237,7 @@ public class ElementButton extends JButton{
             }
         }
         
-        if(isRepairman && element.canPerformAction("Repair")&&place==element && element.getClass().getName().equals("Pump") && ((Pump)element).getBroken()) {
+        if(isRepairman && element.canPerformAction("Repair")&&place==element && (element.getClass().getName().equals("Pump") && ((Pump)element).getBroken() || element.getClass().getName().equals("Pipe") && ((Pipe)element).getHoleOnPipe())) {
             ActionButton repairButton = new ActionButton(null);
             repairButton.setActionCommand("Repair");
             repairButton.setText("Repair");
