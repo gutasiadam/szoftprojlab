@@ -195,7 +195,7 @@ public class ElementButton extends JButton{
             gbc.gridy++;
         }
         
-        if(element.canPerformAction("PlacePipe")&&place==element) {
+        if(isRepairman && element.canPerformAction("PlacePipe")&&place==element) {
             ActionButton placePipeButton = new ActionButton(null);
             placePipeButton.setActionCommand("PlacePipe");
             placePipeButton.setText("PlacePipe");
@@ -213,13 +213,18 @@ public class ElementButton extends JButton{
             gbc.gridy++;
         }
         
-        if(element.canPerformAction("PickUpPipe")&&place==element) {
-            ActionButton pickUpPipe = new ActionButton(null);
-            pickUpPipe.setActionCommand("PickUpPipe");
-            pickUpPipe.setText("PickUpPipe");
-            pickUpPipe.addActionListener(closeButtonListener);
-            buttonPanel.add(pickUpPipe, gbc);
-            gbc.gridy++;
+        if(isRepairman && element.canPerformAction("PickUpPipe")&&place==element) {
+            for(Element e : element.getNeighbors())
+            {
+                ArrayList<Integer> params = new ArrayList<Integer>();
+                params.add(getElementIndexInNeighbors(e, false));
+                ActionButton pickUpPipe = new ActionButton(params);
+                pickUpPipe.setActionCommand("PickUpPipe");
+                pickUpPipe.setText("PickUpPipe "+e.getName());
+                pickUpPipe.addActionListener(closeButtonListener);
+                buttonPanel.add(pickUpPipe, gbc);
+                gbc.gridy++;
+            }
         }
         
         if(isRepairman && element.canPerformAction("Repair")&&place==element && ((Pump)element).getBroken()) {
