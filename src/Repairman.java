@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
-/** @authorBodnar Mark*/
+
+/** A szerelő karaktereket reprezentáló osztály.
+ * @author Bodnar Mark*/
 public class Repairman extends Character {
 	private RepairmanPlace position;
 	private Pipe holdingPipe;

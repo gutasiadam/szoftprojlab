@@ -1,4 +1,6 @@
-
+/**
+ * A skeleton osztálybeli parancssoros diagramok megjelenítéséhez használt osztály.
+ */
 public class Tabulator {
 
 	private static int tabNum = 0;

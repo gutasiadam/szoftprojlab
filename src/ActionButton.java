@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 
+/**
+ * A játékban végrehajtható akciókat megvalósító gombokat reprezentáló osztály.
+ * A gombokat az ElementButton kattintására hozzuk létre, és a gombon megjelenítjük az adott akciót.
+ */
 public class ActionButton extends JButton{
     private ArrayList<Integer> actions;
     //private Element element;

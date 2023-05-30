@@ -1,3 +1,6 @@
+/**
+ * Interfész, ami a szerelők által látható metódusokat tartalmazza a Place osztályból.
+ */
 public interface RepairmanPlace extends Place {
     public void repair(); /** Megjavitja a palyaelemet. */
     public Pipe placePump(Pump p); /** Elhelyezi a pumpat a csovon kettevagva azt. */

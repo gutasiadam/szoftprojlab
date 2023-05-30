@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 /**
- * 
  * Idozito, mely minden jatekos lepese elott, veletlen esellyel elrontja az egyes pumpakat.
- * Last modified: @author Gutasi Adam
  * @author Szikszai Levente
  */
 public class DestructionTimer {

@@ -1,19 +1,24 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-/** @authorBodnar Mark*/
+
+/** Szabotőr karaktereket reprezentáló osztály.
+ * @author Bodnar Mark*/
 public class Saboteur extends Character {
 	private SaboteurPlace position;
 	private boolean myTurn;
 	
+	/**
+	 * Konstruktor.
+	 */
 	Saboteur(){
 		myTurn=false;
 	}
 
-/**
- * Betültéskor létrehoz egy megfelelő állapotú Szabotőrt
- * @param pos position
- */
+	/**
+	 * Betöltéskor létrehoz egy megfelelő állapotú Szabotőrt
+	 * @param pos position
+	 */
 	Saboteur(SaboteurPlace pos)
 	{
 		position = pos;
@@ -63,14 +68,29 @@ public class Saboteur extends Character {
 		}
 		//System.out.println(String.format("\t%s<-%s.accept(%s):%s",this.getName(), position.getName(),this.getName(),success));	
 	}
+
+	/**
+	 * pozíció ragadósra állítása
+	 */
 	public void makeSticky(){position.stick();}
+
+	/**
+	 * pozíció csúszóssá állítása
+	 */
 	public void putSlime() {
 		position.slime();
 	}
+
+	/**
+	 * Pumpa ki és bemeneti csövének beállítása
+	 */
 	public void adjustPump(int src, int dest) {
 		position.adjust(src, dest);
 	}
 
+	/**
+	 * Osztály kiírása stringént
+	 */
 	@Override
 	public String toString()
 	{

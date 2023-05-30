@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Nem cső elemeket reprezentáló osztály.
+ */
 public abstract class NonPipe extends Element {
     protected List<Pipe> neighbors;
 

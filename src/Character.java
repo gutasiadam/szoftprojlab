@@ -1,4 +1,6 @@
-/** @author Bodnar Mark*/
+/**
+ * Character osztaly, mely a jatekosok által irányított karaktereket reprezentálja.
+ * @author Bodnar Mark*/
 public abstract class Character {
     private String Name;
 	private int remainingSteps = 3;

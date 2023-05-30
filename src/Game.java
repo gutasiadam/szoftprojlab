@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 /**
  * Az elemek tarolasaert es a jatek mukodeseert felelos osztaly
- * Last modified: Gutasi Adam
  * @author Szikszai Levente
  */
 public class Game {

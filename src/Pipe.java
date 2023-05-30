@@ -3,6 +3,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * A csöveket reprezentáló osztály.
+ */
 public class Pipe extends Element implements SaboteurPointSource {
     private boolean holeOnPipe;
     private int leakedWaterAmount;

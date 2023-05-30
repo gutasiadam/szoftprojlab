@@ -19,16 +19,26 @@ import javax.swing.JLabel;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
+/**
+ * A játék elemeit tartalmazó gombokat reprezentáló osztály.
+ */
 public class ElementButton extends JButton{
     private ArrayList<ImageIcon> statusimages = new ArrayList<ImageIcon>();
     private Element element;
     public static ArrayList<Pipe> holdingPipes = new ArrayList<Pipe>();
 
+    /**
+     * Konstruktors
+     * @param element - A gombhoz tartozó modellelem.
+     */
     ElementButton(Element element)
     {
         this.element=element;
         if(getImageName()!=""){
             try {
+                /** 
+                 * Beolvassa a megfelelő képfájlt, es atmeretezi 40x40-re.
+                 */
                 Image img = ImageIO.read(getClass().getResource("img/" + getImageName()));
                 Image newimg = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
                 setIcon(new ImageIcon(newimg));
@@ -43,13 +53,15 @@ public class ElementButton extends JButton{
             {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // TODO Auto-generated method stub
                 	showActionButtonWindow();
-                	//throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
                 }
         });
     }
 
+    /**
+     * Visszaadja az elem típusától függően a megfelelő képfájl nevét, amit be kell töltenünk rá.
+     * @return
+     */
     String getImageName(){
         String className = element.getClass().getName();
         switch(className){
@@ -170,6 +182,7 @@ public class ElementButton extends JButton{
         Element place = getCurrentCharacterPlace();
         if(findElementInNeighbors(place))
         {
+            //Ha az elemen végre lehet hajtani lépést, akkor hozzáadunk egy ezt végrehajtó gombot
             if(element.canPerformAction("Move")) 
             {
                 ArrayList<Integer> params = new ArrayList<Integer>();
@@ -183,7 +196,7 @@ public class ElementButton extends JButton{
             }
         }
         
-        
+        //Ha az elemen végre lehet hajtani lyukasztást, akkor hozzáadunk egy ezt végrehajtó gombot
         if(element.canPerformAction("Stab")&&place==element) {
             ActionButton stabButton = new ActionButton(null);
             stabButton.setActionCommand("Stab");
@@ -193,6 +206,7 @@ public class ElementButton extends JButton{
             gbc.gridy++;
         }
         
+        //Ha az elemen végre lehet hajtani pumpa lerakást, akkor hozzáadunk egy ezt végrehajtó gombot
         if(isRepairman && element.canPerformAction("PlacePump")&&place==element && ((Repairman)Game.getInstance().getCurrentCharacter()).hasHoldingPump()) {
             ActionButton placePumpButton = new ActionButton(null);
             placePumpButton.setActionCommand("PlacePump");
@@ -201,7 +215,8 @@ public class ElementButton extends JButton{
             buttonPanel.add(placePumpButton, gbc);
             gbc.gridy++;
         }
-        
+
+        //Ha az elemen végre lehet hajtani cső lerakást, akkor hozzáadunk egy ezt végrehajtó gombot
         if(isRepairman && element.canPerformAction("PlacePipe")&&place==element && ((Repairman)Game.getInstance().getCurrentCharacter()).getHoldingPipe()!=null) {
             ActionButton placePipeButton = new ActionButton(null);
             placePipeButton.setActionCommand("PlacePipe");
@@ -211,6 +226,7 @@ public class ElementButton extends JButton{
             gbc.gridy++;
         }
         
+        //Ha az elemen végre lehet hajtani pumpa felvételt, akkor hozzáadunk egy ezt végrehajtó gombot
         if(isRepairman && element.canPerformAction("PickupPump")&&place==element&&hasNothing) {
             ActionButton pickupPumpButton = new ActionButton(null);
             pickupPumpButton.setActionCommand("PickupPump");
@@ -220,6 +236,7 @@ public class ElementButton extends JButton{
             gbc.gridy++;
         }
         
+        // Ha az elemen végre lehet hajtani cső felvételt, akkor hozzáadunk egy ezt végrehajtó gombot
         if(isRepairman && element.canPerformAction("PickUpPipe")&&place==element&&hasNothing) {
             for(Element e : element.getNeighbors())
             {
@@ -234,6 +251,7 @@ public class ElementButton extends JButton{
             }
         }
         
+        //Ha az elemen végre lehet hajtani javítást, akkor hozzáadunk egy ezt végrehajtó gombot
         if(isRepairman && element.canPerformAction("Repair")&&place==element && (element.getClass().getName().equals("Pump") && ((Pump)element).getBroken() || element.getClass().getName().equals("Pipe") && ((Pipe)element).getHoleOnPipe())) {
             ActionButton repairButton = new ActionButton(null);
             repairButton.setActionCommand("Repair");
@@ -243,6 +261,7 @@ public class ElementButton extends JButton{
             gbc.gridy++;
         }
         
+        //Ha az elemen végre lehet hajtani ragadossá tételt, akkor hozzáadunk egy ezt végrehajtó gombot
         if(element.canPerformAction("Stick")&&place==element) {
             ActionButton stickButton = new ActionButton(null);
             stickButton.setActionCommand("Stick");
@@ -252,6 +271,7 @@ public class ElementButton extends JButton{
             gbc.gridy++;
         }
         
+        //Ha az elemen végre lehet hajtani csúszóssá tételt, akkor hozzáadunk egy ezt végrehajtó gombot
         if(!isRepairman && element.canPerformAction("Slime")&&place==element) {
             ActionButton slimeButton = new ActionButton(null);
             slimeButton.setActionCommand("Slime");
@@ -261,6 +281,7 @@ public class ElementButton extends JButton{
             gbc.gridy++;
         }
         
+        //Ha az elemen végre lehet hajtani be és kimenet állítást, akkor hozzáadunk ezeket végrehajtó gombokat
         if(element.canPerformAction("Adjust")&&place==element) {
             for(Element e:element.getNeighbors())
             {
@@ -287,6 +308,7 @@ public class ElementButton extends JButton{
             }
         }
         
+        //Karakter körének véget vető gomb
         ActionButton endMoveButton = new ActionButton(null);
         endMoveButton.setActionCommand("EndMove");
         endMoveButton.setText("EndMove");
@@ -333,6 +355,7 @@ public class ElementButton extends JButton{
                 imgname = "man-wearing-turban.png";
             }
             try {
+                // Beolvassa a megfelelő képfájlt, es atmeretezi 20x20-ra.
                 Image img = ImageIO.read(getClass().getResource("img/" + imgname));
                 Image newimg = img.getScaledInstance( 20, 20,  java.awt.Image.SCALE_SMOOTH ) ;
                 b.setIcon(new ImageIcon(newimg));
@@ -457,6 +480,11 @@ public class ElementButton extends JButton{
         }
     }
 
+    /**
+     * Visszaadja az adott elem szomszédjait
+     * @param eb - Az összes UI elementButton elem.
+     * @return
+     */
     public ArrayList<ElementButton> getNeighboursElementButton(ArrayList<ElementButton> eb){
         if(element.getClass().getName().equals("Pipe")){
             List<Element> es = (List<Element>) element.getNeighbors();
@@ -474,6 +502,12 @@ public class ElementButton extends JButton{
         }
     }
 
+    /**
+     * Kirajzolja a víz áramlását
+     * 
+     * @param g
+     * @param eb - Az összes UI elementButton elem.
+     */
     public void drawWaterFlowDirection(Graphics g, ArrayList<ElementButton> eb){
         if(element.getClass().getName().equals("Pump")){
             Pump p = (Pump)element;
@@ -491,6 +525,10 @@ public class ElementButton extends JButton{
         }
     }
 
+    /**
+     * Visszaadja az elemet, amit a gomb tartalmaz.
+     * @return
+     */
     public Element getElement(){
         return element;
     }

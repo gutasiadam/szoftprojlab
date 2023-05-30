@@ -30,7 +30,7 @@ public class Gui {
     private JLabel lgRepairmenPoints;
     private JLabel lWhosTurn; // Soronlevő játékost kiíró JLabel a GUI-n
     private JLabel lTurnPoints; // Hátralevő körk száma
-    private JButton endturn;
+    // private JButton endturn;
     private JSpinner sRoundSettings; //A beállított hátralevő krök száma
     private JTextArea log;
     private int repairmanNum = 1;
@@ -133,20 +133,12 @@ public class Gui {
         gamePanel.setLayout(null);
         gamePanel.setSize(1280, 720);
         elementButtons = new ArrayList<ElementButton>();
-        //Soronlevő játékos neve
-        // turn = new JLabel("NULL");
-        // turn.setBounds(40, 10, 0, 0);
-        // gamePanel.add(turn);
-
-        // endturn = new JButton("End turn");
-        // gamePanel.add(endturn);
-
 
 
         //Initialize log textarea
         log = new JTextArea("");
         log.setEditable(false);
-        log.setBounds(980, 50, 300, 500); // TODO: Pontos érték megadása ide
+        log.setBounds(980, 50, 300, 500);
         JScrollPane scroll = new JScrollPane (log);
         gamePanel.add(log);
         gamePanel.add(scroll);
@@ -509,7 +501,6 @@ public class Gui {
             ElementButton button = new ElementButton(element);
             elementButtons.add(button);
             frame.add(button);
-            //TODO: Hogyan számoljuk ki, hol legyen a gomb?
         }
     }
 
@@ -532,10 +523,17 @@ public class Gui {
         }
     }
 
+    /**
+     * Kiírja a logba, ha egy játékos lépéseinek száma elérte a maximumot ebben a körben.
+     */
     public void showOutOfActionWarning(){
         this.log.setText(this.log.getText()+System.lineSeparator()+this.turn+" is out of action!");
     }
 
+    /**
+     * Szöveget fűz a loghoz
+     * @param s - A szöveg, amit hozzá szeretnénk fűzni a loghoz
+     */
     public void appendToLog(String s){
         this.log.setText(this.log.getText()+System.lineSeparator()+s);
     }
@@ -558,6 +556,9 @@ public class Gui {
         gamePanel.add(elementButton);
     }
 
+    /**
+     * Megkeresi az adott Element-hez tartozo ElementButton-t
+     */
     public ElementButton findElementButton(Element element)
     {
         for(ElementButton button : elementButtons)

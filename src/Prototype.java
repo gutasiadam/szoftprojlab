@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * Prototípus osztály. Csak tesztelésre (Prototype, nogui Version)
+ */
 public class Prototype {
     ArrayList<Repairman> repairmanGroup;
     ArrayList<Saboteur> saboteurGroup;

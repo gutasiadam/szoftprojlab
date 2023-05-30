@@ -1,3 +1,6 @@
+/**
+ * Egyszerű osztály, amely két objektumot képes együtt tárolni.
+ */
 public class Pair<F, S> {
     private final F first;
     private final S second;

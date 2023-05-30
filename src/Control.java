@@ -1,3 +1,6 @@
+/**
+ * A MVC modell Control osztálya. Singleton osztály.
+ */
 public class Control {
 
     //Az egyetlen Control objektum
@@ -147,6 +150,10 @@ public class Control {
         Gui.getInstance().showOutOfActionWarning();
     }
 
+    /**
+     * Szöveget fűz a GUI logjához
+     * @param s Fűzendő szöveg
+     */
     public void appendToLog(String s){
         Gui.getInstance().appendToLog(s);
     }

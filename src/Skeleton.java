@@ -2,6 +2,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.lang.reflect.*;
 
+/**
+ * A programváz tesztek futtatására szolgáló osztály.
+ */
 class Skeleton {
 	/*
 	 * Játék objektum (singleton class)
@@ -386,6 +389,7 @@ class Skeleton {
 			Tabulator.printTab();
 			System.out.println("<-" + Pump1.getName() + ".addNeighbor(" + holdingPipe.getName() + ")");
 		}
+		sc.close();
 
 		// Teszt
 

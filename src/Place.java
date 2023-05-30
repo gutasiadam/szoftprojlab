@@ -1,5 +1,8 @@
 import java.util.List;
 
+/**
+ * Olyan helyeket reprezental, ahova a karakterek lephetnek.
+ */
 public interface Place {
     public void adjust(int src, int dest); /** Ezen keresztul lehet beallitani a pumpalasi iranyt. */
     public boolean accept(Character c); /** Ot kell meghivni ha ra szeretnek lepni a helyre. */

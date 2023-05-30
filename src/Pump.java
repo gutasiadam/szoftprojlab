@@ -1,11 +1,12 @@
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * A Pumpákat reprezentáló osztály.
+ */
 public class Pump extends NonPipe implements SaboteurPointSource {
     private Pipe inputPipe;
     private Pipe outputPipe;
-    //TODO: private DestructionTimer destructionTimer
-
     private boolean broken;
     private int leakedWaterAmount;
     private int capacity = (int)(Math.random() * ((10 - 4) + 1)) + 4;
@@ -183,14 +184,26 @@ public class Pump extends NonPipe implements SaboteurPointSource {
         return containingWater;
     }
 
+    /**
+     * Visszaadja a bemeneti csövet
+     * @return
+     */
     public Pipe getSrc(){
         return inputPipe; 
     }
 
+    /**
+     * Visszaadja a kimeneti csövet
+     * @return
+     */
     public Pipe getDest(){
         return outputPipe; 
     }
 
+    /**
+     * Visszaadja a pumpa kapaicitását
+     * @return
+     */
     public int getCapacity(){
         return capacity;
     }

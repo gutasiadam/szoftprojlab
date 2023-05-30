@@ -4,7 +4,6 @@ import java.util.List;
  * A viz szimulacioja innen indul. A belefolyt viz mennyiseget tarolja.
  * A jatekosok veges szamban ra tudnak lepni. Uj csovek jonnek letre rajta, melzek egzik vege bele, masik vege
  * a sivatagba vezet. A Szerelo jatekosok felvehetnek innen uj pumpat.
- * Last modified: @author Gutasi Adam
  *
  */
 public class Cistern extends NonPipe {

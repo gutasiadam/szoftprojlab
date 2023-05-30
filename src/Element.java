@@ -4,8 +4,7 @@ import java.util.List;
 
 /** 
  * Kozos absztrakt ose a palyaelemeknek. Megvalositja a karakterek szamara szukseges fuggvenyeket, 
- * azok alap implementaciot megvalositja.
- * Last modified: @author Gutasi Adam
+ * azok alap implementaciot megvalositja. A tobbi fuggveny csak a leszarmazottakban van implementalva.
  * @author Szikszai Levente
  * Inicializalja az Element-et
  */
@@ -202,14 +201,26 @@ public abstract class Element implements RepairmanPlace, SaboteurPlace{
 
     }
 
+    /**
+     * Visszaadja az elemen álló karaktereket
+     * @return
+     */
     public List<Character> getStandingOn(){
         return standingOn;
     }
 
+    /**
+     * Hozzáad egy karaktert az elemen állók listájához.
+     * @param c - Hozzáadandó karakter
+     */
     public void addStandingOn(Character c){
         standingOn.add(c);
     }
-
+    /**
+     * Visszaadja az elemhez tartozó UI gombot.
+     * @param eb - A gombok listája
+     * @return
+     */
     public ElementButton getElementButton(ArrayList<ElementButton> eb){
         for(ElementButton ebiter : eb){
             if(ebiter.getElement().equals(this)){

@@ -1,8 +1,6 @@
 import java.util.List;
 /**
  * Vegtelen vizforras. Eltarolja a szomszedos csoveket es belejuk vizet pumpal. Veges szamu Jatekos ra tud lepni.
- * Last modified:
- * @author Gutasi Adam
  *
  */
 public class WaterSource extends NonPipe {
@@ -24,9 +22,7 @@ public class WaterSource extends NonPipe {
         return neighbors;
     }
 
-	
-	
-    /** 
+	/** 
      * Minden belecsatlakoztatott csovet megtolt vizzel.
      */
     @Override
