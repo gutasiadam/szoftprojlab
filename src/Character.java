@@ -16,6 +16,7 @@ public abstract class Character {
 		return remainingSteps;
 	}
 	public int decreaseRemainingSteps() {
+		Control.getInstance().appendToLog("Remaining steps: "+remainingSteps);
 		remainingSteps--;
 		return remainingSteps;
 	}

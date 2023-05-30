@@ -131,12 +131,9 @@ public class ElementButton extends JButton{
     private void showActionButtonWindow() {
 
         //Ha a karakternek nincs már több lépése, akkor ne jelenjen meg a gomb, és jelzünk a Controlnak is.
-        System.out.println("Remaining steps: " + Game.getInstance().getCurrentCharacter().getRemainingSteps());
         if(Game.getInstance().getCurrentCharacter().getRemainingSteps()==0){
             Control.getInstance().invokeOutOfActionWarning();
             return;
-        }else{
-            Game.getInstance().getCurrentCharacter().decreaseRemainingSteps();
         }
 
     	/** Letrehozunk egy JDialog objektumot es beallitjuk a tulajdonsagait.*/
@@ -351,7 +348,7 @@ public class ElementButton extends JButton{
             }
         }
 
-        // Ă�llapotok ha pumpa
+        // Állapotok ha pumpa
         if(element.getClass().getName().equals("Pump")){
             Pump e = (Pump)element;
             if(e.getBroken()){
@@ -374,14 +371,15 @@ public class ElementButton extends JButton{
                     add(b);
                 } catch (Exception ex) {System.out.println(ex);}
             }
-            // Max csĂ¶vek szĂˇma
+            // Max csövek száma
             JLabel b = new JLabel("Max: " + e.getCapacity());
             b.setBounds(45, 70, 50, 20);
             add(b);
-        }
+        } 
 
-        // Ă�llapotok ha csĹ‘
+        // Állapotok ha cső
         if(element.getClass().getName().equals("Pipe")){
+
             Pipe e = (Pipe)element;
             if(e.getHoleOnPipe()){
                 JLabel b = new JLabel();
@@ -450,6 +448,12 @@ public class ElementButton extends JButton{
                     } catch (Exception ex) {System.out.println(ex);}
                 }
             }
+            // Cső nevének megjelenítése
+            JLabel b = new JLabel(e.getName());
+            b.setBounds(15, 20, 40, 20);
+            b.setForeground(Color.LIGHT_GRAY);
+            this.add(b);
+
         }
     }
 

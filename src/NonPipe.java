@@ -48,10 +48,12 @@ public abstract class NonPipe extends Element {
             }
     	}catch(IndexOutOfBoundsException e) {
     		//ha ervenytelen az index
-    		System.out.println("Invalid object to pick up");
+            Control.getInstance().appendToLog("Invalid object to pick up");
+    		// System.out.println("Invalid object to pick up");
     		return null;
     	}
-        System.out.println("Invalid object to pick up");
+        Control.getInstance().appendToLog("Invalid object to pick up");
+        // System.out.println("Invalid object to pick up");
         return null;
     }
 

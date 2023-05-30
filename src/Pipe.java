@@ -50,7 +50,8 @@ public class Pipe extends Element implements SaboteurPointSource {
     public boolean accept(Character c) {
         boolean success;
         if (standingOn.size() == 1) {
-            System.out.println("Failed to move to " + this.getName());
+            Control.getInstance().appendToLog("Failed to move to " + this.getName());
+            // System.out.println("Failed to move to " + this.getName());
             return false;
         } else {
             if (slimey > 0) {
@@ -59,19 +60,23 @@ public class Pipe extends Element implements SaboteurPointSource {
                     Random random = new Random();
                     if (random.nextBoolean()) {
                         success = getNeighbors().get(0).accept(c);
-                        System.out.println("Slipped to " + getNeighbors().get(0).getName());
+                        Control.getInstance().appendToLog("Slipped to " + getNeighbors().get(0).getName());
+                        // System.out.println("Slipped to " + getNeighbors().get(0).getName());
                     } else {
                         success = getNeighbors().get(1).accept(c);
-                        System.out.println("Slipped to " + getNeighbors().get(1).getName());
+                        Control.getInstance().appendToLog("Slipped to " + getNeighbors().get(1).getName());
+                        // System.out.println("Slipped to " + getNeighbors().get(1).getName());
                     }
                 } else {
                     success = getNeighbors().get(0).accept(c);
-                    System.out.println("Slipped to " + getNeighbors().get(0).getName());
+                    Control.getInstance().appendToLog("Slipped to " + getNeighbors().get(0).getName());
+                    // System.out.println("Slipped to " + getNeighbors().get(0).getName());
                 }
                 return success;
             } else {
                 standingOn.add(c);
-                System.out.println("Successfully moved to " + this.getName());
+                Control.getInstance().appendToLog("Successfully moved to " + this.getName());
+                // System.out.println("Successfully moved to " + this.getName());
                 return true;
             }
         }
@@ -85,7 +90,8 @@ public class Pipe extends Element implements SaboteurPointSource {
      */
     public boolean remove(Character c) {
         if (sticky > 0) {
-            System.out.println("Sticked to " + this.getName() + "can't move until: " + sticky);
+            Control.getInstance().appendToLog("Sticked to " + this.getName() + "can't move until: " + sticky);
+            // System.out.println("Sticked to " + this.getName() + "can't move until: " + sticky);
             sticky--;
             return false;
         } else {
@@ -115,9 +121,11 @@ public class Pipe extends Element implements SaboteurPointSource {
         if (holeOnPipe) {
             holeOnPipe = false;
             this.breakable = (int) (Math.random() * 4) + 2;
-            System.out.println("Succesfully repaired " + this.getName());
+            Control.getInstance().appendToLog("Succesfully repaired " + this.getName());
+            // System.out.println("Succesfully repaired " + this.getName());
         } else {
-            System.out.println("Not broken");
+            Control.getInstance().appendToLog("Not broken");
+            // System.out.println("Not broken");
         }
     }
 
@@ -128,14 +136,17 @@ public class Pipe extends Element implements SaboteurPointSource {
     public void damage() {
         if (breakable == 0) {
             if (holeOnPipe) {
-                System.out.println("Failed to stab " + this.getName() + " already has a hole");
+                Control.getInstance().appendToLog("Failed to stab " + this.getName() + " already has a hole");
+                // System.out.println("Failed to stab " + this.getName() + " already has a hole");
             } else {
                 holeOnPipe = true;
                 step();
-                System.out.println("Successfully stabbed " + this.getName());
+                Control.getInstance().appendToLog("Successfully stabbed " + this.getName());
+                // System.out.println("Successfully stabbed " + this.getName());
             }
         } else {
-            System.out.println("Failed to stab " + this.getName() + " unbreakable until: " + breakable);
+            Control.getInstance().appendToLog("Failed to stab " + this.getName() + " unbreakable until: " + breakable);
+            // System.out.println("Failed to stab " + this.getName() + " unbreakable until: " + breakable);
         }
     }
 
@@ -149,7 +160,8 @@ public class Pipe extends Element implements SaboteurPointSource {
     public Pipe placePump(Pump holdingPump) {
         NonPipe n;
         if (holdingPump == null) {
-            System.out.println("No placable pump");
+            Control.getInstance().appendToLog("No placable pump");
+            // System.out.println("No placable pump");
         }
         n = (NonPipe) getNeighbors().get(0);
         if (n != null) {
@@ -164,10 +176,12 @@ public class Pipe extends Element implements SaboteurPointSource {
             p.addNeighbor(holdingPump);
             int rnd = (int) (Math.random() * 1000) + 100;
             p.setName("pi" + rnd);
-            System.out.println("Successfully placed " + holdingPump.getName() + ", new pipe: " + p.getName());
+            Control.getInstance().appendToLog("Successfully placed " + holdingPump.getName() + ", new pipe: " + p.getName());
+            // System.out.println("Successfully placed " + holdingPump.getName() + ", new pipe: " + p.getName());
             return p;
         } else {
-            System.out.println("Can't place " + holdingPump.getName() + " on " + this.getName());
+            Control.getInstance().appendToLog("Can't place " + holdingPump.getName() + " on " + this.getName());
+            // System.out.println("Can't place " + holdingPump.getName() + " on " + this.getName());
             return null;
         }
     }
@@ -186,10 +200,12 @@ public class Pipe extends Element implements SaboteurPointSource {
                 return this;
             }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid pipe to pick up.");
+            Control.getInstance().appendToLog("Invalid pipe to pick up.");
+            // System.out.println("Invalid pipe to pick up.");
             return null;
         }
-        System.out.println("Invalid pipe to pick up.");
+        Control.getInstance().appendToLog("Invalid pipe to pick up.");
+        // System.out.println("Invalid pipe to pick up.");
         return null;
 
     }
@@ -260,13 +276,15 @@ public class Pipe extends Element implements SaboteurPointSource {
     /** Ragadossa teszi az adott poziciot. */
     public void stick() {
         sticky = -Game.sticky;
-        System.out.println(this.getName() + " is now sticky");
+        Control.getInstance().appendToLog(this.getName() + " is now sticky");
+        // System.out.println(this.getName() + " is now sticky");
     };
 
     /** Csuszossa tesz egy csovet. */
     public void slime() {
         slimey = Game.slimey;
-        System.out.println(this.getName() + " is now slimey");
+        Control.getInstance().appendToLog(this.getName() + " is now slimey");
+        // System.out.println(this.getName() + " is now slimey");
     };
 
     /**

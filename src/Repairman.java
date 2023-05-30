@@ -64,7 +64,8 @@ public class Repairman extends Character {
 		List<? extends Element> neighbors = position.getNeighbors();
 		RepairmanPlace lastPosition=position;
 		if(dir<0||neighbors.size()<=dir){
-			System.out.println("Failed to move, invalid index.");
+			Control.getInstance().appendToLog("Failed to move, invalid index.");
+			// System.out.println("Failed to move, invalid index.");
 			return;
 		}
 		
@@ -109,7 +110,10 @@ public class Repairman extends Character {
 	public void LiftPipe(int dir) {
 		if (holdingPipe == null) {
 			holdingPipe = position.lift(dir);
-			if(holdingPipe!=null)System.out.println("Successfully picked up "+holdingPipe.getName());
+			if(holdingPipe!=null){
+				Control.getInstance().appendToLog("Successfully picked up "+holdingPipe.getName());
+				// System.out.println("Successfully picked up "+holdingPipe.getName());
+			}
 		}
 	}
 
@@ -132,10 +136,12 @@ public class Repairman extends Character {
 
 			if (position.placePipe(holdingPipe)){
 				holdingPipe = null;
-				System.out.println("Successfully placed "+hpn);
+				Control.getInstance().appendToLog("Successfully placed "+hpn);
+				// System.out.println("Successfully placed "+hpn);
 			}
 		}else {
-			System.out.println("No Pipe to place");
+			Control.getInstance().appendToLog("No Pipe to place");
+			// System.out.println("No Pipe to place");
 		}		
 	}
     /** 

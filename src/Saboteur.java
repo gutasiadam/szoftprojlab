@@ -40,7 +40,8 @@ public class Saboteur extends Character {
 		List<? extends Element> neighbors = position.getNeighbors();
 		SaboteurPlace lastPosition=position;
 		if(dir<0||neighbors.size()<=dir){
-			System.out.println("Failed to move, invalid index.");
+			Control.getInstance().appendToLog("Failed to move, invalid index.");
+			// System.out.println("Failed to move, invalid index.");
 			return;
 		}
 		//System.out.println(String.format("\t1.1 %s->%s.remove(%s)",this.getName(), position.getName(),this.getName()));

@@ -147,4 +147,8 @@ public class Control {
         Gui.getInstance().showOutOfActionWarning();
     }
 
+    public void appendToLog(String s){
+        Gui.getInstance().appendToLog(s);
+    }
+
 }

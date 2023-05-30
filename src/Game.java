@@ -111,11 +111,13 @@ public class Game {
 		timer.setRandomEnabled(random);
 		if(random==true)
 		{
-			System.out.println("Random events Enabled");
+			Control.getInstance().appendToLog("Random events Enabled");
+			//System.out.println("Random events Enabled");
 		}
 		else 
 		{
-			System.out.println("Random events Disabled");
+			Control.getInstance().appendToLog("Random events Disabled");
+			//System.out.println("Random events Disabled");
 		}
 	}
 

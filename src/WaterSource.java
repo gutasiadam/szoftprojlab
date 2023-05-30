@@ -52,7 +52,8 @@ public class WaterSource extends NonPipe {
             addNeighbor(holdingPipe);
             holdingPipe.addNeighbor(this);
             out =  true;
-            System.out.println("Successfully placed"+holdingPipe.getName());
+            Control.getInstance().appendToLog("Successfully placed"+holdingPipe.getName());
+            // System.out.println("Successfully placed"+holdingPipe.getName());
         }else{
             out =  false;
         }

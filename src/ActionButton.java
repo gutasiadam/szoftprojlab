@@ -28,6 +28,7 @@ public class ActionButton extends JButton{
         {
             @Override
             public void actionPerformed(ActionEvent e) {
+				Game.getInstance().getCurrentCharacter().decreaseRemainingSteps();
                 switch(e.getActionCommand()) {
                 case "Move": 
                 	/** Atadja a kivalasztott Elementet amire lepni szeretne.*/

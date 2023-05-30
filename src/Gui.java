@@ -31,6 +31,7 @@ public class Gui {
     private JLabel lWhosTurn; // Soronlevő játékost kiíró JLabel a GUI-n
     private JLabel lTurnPoints; // Hátralevő körk száma
     private JButton endturn;
+    private JSpinner sRoundSettings; //A beállított hátralevő krök száma
     private JTextArea log;
     private int repairmanNum = 1;
     private int saboteurNum = 1;
@@ -76,7 +77,7 @@ public class Gui {
        lPlayerCount.setFont(new Font("Arial", Font.PLAIN, 30)); // Creating an Arial Font Style with size 30
        menuPanel.add(lPlayerCount);
 
-       JSpinner sRoundSettings = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
+       sRoundSettings = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
        sRoundSettings.setBounds(700, 90, 50, 50);
        sRoundSettings.setFont(new Font("Arial", Font.PLAIN, 30));
        menuPanel.add(sRoundSettings);
@@ -140,8 +141,8 @@ public class Gui {
         endturn = new JButton("End turn");
         gamePanel.add(endturn);
 
-        //Initialize log textfield
-        log = new JTextArea("Log");
+        //Initialize log textarea
+        log = new JTextArea("");
         log.setEditable(false);
         log.setBounds(980, 50, 300, 500); // TODO: Pontos érték megadása ide
         JScrollPane scroll = new JScrollPane (log);
@@ -402,7 +403,7 @@ public class Gui {
             this.lWhosTurn.setForeground(Color.BLACK);
             setTurn(Game.getInstance().getCurrentCharacter().getName());
         } catch (Exception e) {
-            System.out.println("Couldn't display current player name!");
+            this.appendToLog("Couldn't display current player name!");
         }
         
         //Update Scoreboard
@@ -412,10 +413,10 @@ public class Gui {
         //Update saboteur Points
         lgSaboteurPoints.setText(String.valueOf(Game.getInstance().getSaboteurPoints()));
         try {
-            //TODO: Update turn label
-            lTurnPoints.setText(String.valueOf(Game.getInstance().getTurns()));
+            //Jelenlegi kör számának kiírása
+            lTurnPoints.setText(String.valueOf((int) sRoundSettings.getValue()-Game.getInstance().getTurns()+1));
         } catch (Exception e) {
-            System.out.println("Couldn't display current Turn #");
+            this.appendToLog("Couldn't display current Turn #");
         }
         
         
@@ -523,6 +524,10 @@ public class Gui {
 
     public void showOutOfActionWarning(){
         this.log.setText(this.log.getText()+System.lineSeparator()+this.turn+" is out of action!");
+    }
+
+    public void appendToLog(String s){
+        this.log.setText(this.log.getText()+System.lineSeparator()+s);
     }
 
     

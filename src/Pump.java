@@ -64,9 +64,11 @@ public class Pump extends NonPipe implements SaboteurPointSource {
     public void repair(){
         if(this.broken){
             this.broken=false;
-            System.out.println( "Successfully repaired " +this.getName());
+            Control.getInstance().appendToLog("Successfully repaired " +this.getName());
+            //System.out.println( "Successfully repaired " +this.getName());
         }else{
-            System.out.println(this.getName()+" not broken");
+            Control.getInstance().appendToLog(this.getName()+" not broken");
+            //System.out.println(this.getName()+" not broken");
         }
     }
 
@@ -105,9 +107,16 @@ public class Pump extends NonPipe implements SaboteurPointSource {
         if(src<neighbors.size() && dest<neighbors.size()){
             inputPipe = neighbors.get(src);
             outputPipe = neighbors.get(dest);
-            System.out.println("Input set "+neighbors.get(src).getName()+" Output set "+ neighbors.get(dest).getName());
+            try {
+                Control.getInstance().appendToLog("Input set " + neighbors.get(src).getName() + " Output set " + neighbors.get(dest).getName());
+            } catch (Exception e) {
+                //
+            }
+            
+            //System.out.println("Input set "+neighbors.get(src).getName()+" Output set "+ neighbors.get(dest).getName());
         }else{
-            System.out.println("Invalid parameters, nothing changed");
+            Control.getInstance().appendToLog("Invalid parameters, nothing changed");
+            //System.out.println("Invalid parameters, nothing changed");
         }
     }
 
