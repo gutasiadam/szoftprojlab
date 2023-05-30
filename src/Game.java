@@ -197,6 +197,7 @@ public class Game {
 		{
 			System.out.println("It's a Draw!");
 		}
+		Gui.getInstance().nextPanel();
 	}
 	
 	/**
@@ -222,7 +223,6 @@ public class Game {
 		}
 		this.repairmanPoints+=repairmanWater;
 		this.saboteurPoints+=saboteurWater;
-		this.remainingRounds--;
 		if(remainingRounds==0) {
 			endGame();
 		}

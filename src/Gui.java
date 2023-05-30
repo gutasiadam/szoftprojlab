@@ -26,12 +26,14 @@ public class Gui {
     private JLabel lResult;
     private JLabel lSaboteurPoints;
     private JLabel lRepairmenPoints;
+    private JLabel lgSaboteurPoints;
+    private JLabel lgRepairmenPoints;
     private JLabel lWhosTurn; // Soronlevő játékost kiíró JLabel a GUI-n
     private JLabel lTurnPoints; // Hátralevő körk száma
     private JButton endturn;
     private JTextField log;
-    private int repairmanNum = 0;
-    private int saboteurNum = 0;
+    private int repairmanNum = 1;
+    private int saboteurNum = 1;
     JSpinner sPlayerCount;
     ArrayList<ActionButton> actionButtons;
     ArrayList<ElementButton> elementButtons;
@@ -163,10 +165,10 @@ public class Gui {
         jPanelScoreBoard.add(lSaboteurs);
 
         //Saboteurs points label
-        lSaboteurPoints = new JLabel("0");
-        lSaboteurPoints.setFont(new Font("Arial", Font.PLAIN, 15));
-        lSaboteurPoints.setBounds(100, 25, 200, 20);
-        jPanelScoreBoard.add(lSaboteurPoints);
+        lgSaboteurPoints = new JLabel("0");
+        lgSaboteurPoints.setFont(new Font("Arial", Font.PLAIN, 15));
+        lgSaboteurPoints.setBounds(100, 25, 200, 20);
+        jPanelScoreBoard.add(lgSaboteurPoints);
 
         //Repairmen label
         JLabel lRepairmen = new JLabel("Repairmen");
@@ -176,20 +178,20 @@ public class Gui {
         
 
         //Repairmen points label
-        lRepairmenPoints = new JLabel("0");
-        lRepairmenPoints.setFont(new Font("Arial", Font.PLAIN, 15));
-        lRepairmenPoints.setBounds(100, 45, 200, 20);
-        jPanelScoreBoard.add(lRepairmenPoints);
+        lgRepairmenPoints = new JLabel("0");
+        lgRepairmenPoints.setFont(new Font("Arial", Font.PLAIN, 15));
+        lgRepairmenPoints.setBounds(100, 45, 200, 20);
+        jPanelScoreBoard.add(lgRepairmenPoints);
 
 
         //Turn label
-        JLabel lTurn = new JLabel("Turn");
+        JLabel lTurn = new JLabel("Turns: ");
         lTurn.setFont(new Font("Arial", Font.BOLD, 15));
         lTurn.setBounds(5, 65, 200, 20);
         jPanelScoreBoard.add(lTurn);
 
         //Turn points label
-        JLabel lTurnPoints = new JLabel("0");
+        lTurnPoints = new JLabel("0");
         lTurnPoints.setFont(new Font("Arial", Font.PLAIN, 15));
         lTurnPoints.setBounds(100, 65, 200, 20);
         jPanelScoreBoard.add(lTurnPoints);
@@ -403,9 +405,9 @@ public class Gui {
         //Update Scoreboard
         
         //Update repairmen Points
-        lRepairmenPoints.setText(String.valueOf(Game.getInstance().getRepairmanPoints()));
+        lgRepairmenPoints.setText(String.valueOf(Game.getInstance().getRepairmanPoints()));
         //Update saboteur Points
-        lSaboteurPoints.setText(String.valueOf(Game.getInstance().getSaboteurPoints()));
+        lgSaboteurPoints.setText(String.valueOf(Game.getInstance().getSaboteurPoints()));
         try {
             //TODO: Update turn label
             lTurnPoints.setText(String.valueOf(Game.getInstance().getTurns()));
@@ -432,9 +434,9 @@ public class Gui {
                     Repairman c;
                     Element e1 = Game.getInstance().getGameElements().get(0);
                     c = new Repairman(e1, null, null);
-                    c.setName("Repairman"+repairmanNum++);
                     if(i==0) c = new Repairman(e1, null, new Pump());
                     if(i==2) c = new Repairman(e1, pi6, null);
+                    c.setName("Repairman"+repairmanNum++);
                     e1.addStandingOn(c);
                     Game.getInstance().addRepairman((Repairman)c);
                 }else{

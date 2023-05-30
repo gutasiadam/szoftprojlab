@@ -5,13 +5,14 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -119,13 +120,22 @@ public class ElementButton extends JButton{
         JDialog dialog = new JDialog();
         dialog.setTitle("Valassz a muveletek kozul");
         dialog.setModal(true);/** Beallitjuk modalis ablaknak, amig bezarodik, a foablak nem erheto el*/ 
+        dialog.setLocation(400, 200);
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         
         /** Csak azokat a muveleteket jelenitjuk meg amit az adott karakterrel lehet vegezni.*/ 
         boolean isRepairman = Game.getInstance().getCurrentCharacter().getClass().getName().equals("Repairman");
 
         /** Letrehozunk egy JPanel objektumot az ActionButton-ok tarolasara*/
-        JPanel buttonPanel = new JPanel();
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Optional: Add padding
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(0, 0, 10, 0); // 10px gap between buttons
+
 
         ActionListener closeButtonListener = new ActionListener() {
             @Override
@@ -147,7 +157,8 @@ public class ElementButton extends JButton{
                 moveButton.setActionCommand("Move");
                 moveButton.setText("Move");
                 moveButton.addActionListener(closeButtonListener);
-                buttonPanel.add(moveButton);
+                buttonPanel.add(moveButton, gbc);
+                gbc.gridy++;
             }
         }
         
@@ -157,7 +168,8 @@ public class ElementButton extends JButton{
             stabButton.setActionCommand("Stab");
             stabButton.setText("Stab");
             stabButton.addActionListener(closeButtonListener);
-            buttonPanel.add(stabButton);
+            buttonPanel.add(stabButton, gbc);
+            gbc.gridy++;
         }
         
         if(isRepairman && element.canPerformAction("PlacePump")&&place==element) {
@@ -165,7 +177,8 @@ public class ElementButton extends JButton{
             placePumpButton.setActionCommand("PlacePump");
             placePumpButton.setText("PlacePump");
             placePumpButton.addActionListener(closeButtonListener);
-            buttonPanel.add(placePumpButton);
+            buttonPanel.add(placePumpButton, gbc);
+            gbc.gridy++;
         }
         
         if(element.canPerformAction("PlacePipe")&&place==element) {
@@ -173,7 +186,8 @@ public class ElementButton extends JButton{
             placePipeButton.setActionCommand("PlacePipe");
             placePipeButton.setText("PlacePipe");
             placePipeButton.addActionListener(closeButtonListener);
-            buttonPanel.add(placePipeButton);
+            buttonPanel.add(placePipeButton, gbc);
+            gbc.gridy++;
         }
         
         if(isRepairman && element.canPerformAction("PickupPump")&&place==element) {
@@ -181,7 +195,8 @@ public class ElementButton extends JButton{
             pickupPumpButton.setActionCommand("PickupPump");
             pickupPumpButton.setText("PickupPump");
             pickupPumpButton.addActionListener(closeButtonListener);
-            buttonPanel.add(pickupPumpButton);
+            buttonPanel.add(pickupPumpButton, gbc);
+            gbc.gridy++;
         }
         
         if(element.canPerformAction("PickUpPipe")&&place==element) {
@@ -189,7 +204,8 @@ public class ElementButton extends JButton{
             pickUpPipe.setActionCommand("PickUpPipe");
             pickUpPipe.setText("PickUpPipe");
             pickUpPipe.addActionListener(closeButtonListener);
-            buttonPanel.add(pickUpPipe);
+            buttonPanel.add(pickUpPipe, gbc);
+            gbc.gridy++;
         }
         
         if(isRepairman && element.canPerformAction("Repair")&&place==element) {
@@ -197,7 +213,8 @@ public class ElementButton extends JButton{
             repairButton.setActionCommand("Repair");
             repairButton.setText("Repair");
             repairButton.addActionListener(closeButtonListener);
-            buttonPanel.add(repairButton);
+            buttonPanel.add(repairButton, gbc);
+            gbc.gridy++;
         }
         
         if(element.canPerformAction("Stick")&&place==element) {
@@ -205,7 +222,8 @@ public class ElementButton extends JButton{
             stickButton.setActionCommand("Stick");
             stickButton.setText("Stick");
             stickButton.addActionListener(closeButtonListener);
-            buttonPanel.add(stickButton);
+            buttonPanel.add(stickButton, gbc);
+            gbc.gridy++;
         }
         
         if(!isRepairman && element.canPerformAction("Slime")&&place==element) {
@@ -213,7 +231,8 @@ public class ElementButton extends JButton{
             slimeButton.setActionCommand("Slime");
             slimeButton.setText("Slime");
             slimeButton.addActionListener(closeButtonListener);
-            buttonPanel.add(slimeButton);
+            buttonPanel.add(slimeButton, gbc);
+            gbc.gridy++;
         }
         
         if(element.canPerformAction("Adjust")&&place==element) {
@@ -227,7 +246,8 @@ public class ElementButton extends JButton{
                 adjustButton1.setActionCommand("Adjust");
                 adjustButton1.setText("Adjust Input to "+e.getName());
                 adjustButton1.addActionListener(closeButtonListener);
-                buttonPanel.add(adjustButton1);
+                buttonPanel.add(adjustButton1, gbc);
+                gbc.gridy++;
 
                 params.clear();
                 params.add(getElementIndexInNeighbors(p.getSrc()));
@@ -236,7 +256,8 @@ public class ElementButton extends JButton{
                 adjustButton2.setActionCommand("Adjust");
                 adjustButton2.setText("Adjust Output to "+e.getName());
                 adjustButton2.addActionListener(closeButtonListener);
-                buttonPanel.add(adjustButton2);
+                buttonPanel.add(adjustButton2, gbc);
+                gbc.gridy++;
             }
         }
         
@@ -244,7 +265,7 @@ public class ElementButton extends JButton{
         endMoveButton.setActionCommand("EndMove");
         endMoveButton.setText("EndMove");
         endMoveButton.addActionListener(closeButtonListener);
-        buttonPanel.add(endMoveButton);  
+        buttonPanel.add(endMoveButton, gbc);  
         
         
         /**Panel hozzaadasa a dialogushoz */
@@ -366,7 +387,7 @@ public class ElementButton extends JButton{
                     add(n);
                 } catch (Exception ex) {System.out.println(ex);}
             }
-            if(e.getSticky() > 0){
+            if(e.getSticky() != 0){
                 JLabel b = new JLabel();
                 try {
                     Image img = ImageIO.read(getClass().getResource("img/sticky.png"));
@@ -374,7 +395,7 @@ public class ElementButton extends JButton{
                     b.setIcon(new ImageIcon(newimg));
                     b.setBounds(0, 40, 20, 20);
                     add(b);
-                    JLabel n = new JLabel(String.valueOf(e.getSticky()));
+                    JLabel n = new JLabel(String.valueOf(Math.abs(e.getSticky())));
                     n.setBounds(20, 40, 20, 20);
                     add(n);
                 } catch (Exception ex) {System.out.println(ex);}

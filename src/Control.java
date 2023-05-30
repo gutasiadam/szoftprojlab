@@ -119,6 +119,7 @@ public class Control {
      * Felébreszti a Game-et futtató szálat.
      */
     public void EndMove(){
+        updateFrame();
         Game.getInstance().getCurrentCharacter().WakeUp();
     }
 
