@@ -42,8 +42,12 @@ public class ActionButton extends JButton{
                 	instance.PlacePump();
                 	break;
                 	/** Valasztott Elementen cso elhelyezes.*/
-                case "PickupPipe": 
+                case "PlacePipe": 
                 	instance.PlacePipe();
+                	break;
+					/** Valasztott cso vegenek felvetele.*/
+				case "PickupPump": 
+                	instance.PickupPump();
                 	break;
                 	/** Valasztott cso vegenek felvetele.*/
                 case "PickUpPipe": 

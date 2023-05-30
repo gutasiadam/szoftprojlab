@@ -1,7 +1,7 @@
 /** @author Bodnar Mark*/
 public abstract class Character {
     private String Name;
-	private int remainingSteps;
+	private int remainingSteps = 3;
     String getName() {return Name;}
     void setName(String name) {this.Name=name;}
 	public void move(int dir) {}/** Csorendszeren mozgas.*/
@@ -20,6 +20,7 @@ public abstract class Character {
 		return remainingSteps;
 	}
 	public synchronized void step() {
+		resetRemainingSteps();
 		try{
 			wait();
 		}catch(Exception e)

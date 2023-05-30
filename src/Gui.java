@@ -143,7 +143,7 @@ public class Gui {
         //Initialize log textfield
         log = new JTextArea("Log");
         log.setEditable(false);
-        log.setBounds(980, 100, 300, 500); // TODO: Pontos érték megadása ide
+        log.setBounds(980, 50, 300, 500); // TODO: Pontos érték megadása ide
         JScrollPane scroll = new JScrollPane (log);
         gamePanel.add(log);
         gamePanel.add(scroll);
@@ -210,7 +210,7 @@ public class Gui {
 
         //End Move button
         JButton bEndMove = new JButton("End Move");
-        bEndMove.setBounds(980, 600, 300, 50);
+        bEndMove.setBounds(980, 550, 300, 50);
         bEndMove.setFont(new Font("Arial", Font.PLAIN, 30));
         bEndMove.setBackground(Color.WHITE);
         bEndMove.setForeground(Color.BLACK);
@@ -341,7 +341,7 @@ public class Gui {
         p2.adjust(0, 1);
 
         JButton bEnd = new JButton("End Game");
-        bEnd.setBounds(980, 630, 300, 50);
+        bEnd.setBounds(980, 600, 300, 50);
         bEnd.addActionListener(e -> nextPanel());
         gamePanel.add(bEnd);
 
@@ -435,7 +435,7 @@ public class Gui {
             for(int i = 0; i < playerc; i++){
                 if(i%2==0){
                     Repairman c;
-                    Element e1 = Game.getInstance().getGameElements().get(0);
+                    Element e1 = Game.getInstance().getGameElements().get(3);
                     c = new Repairman(e1, null, null);
                     if(i==0) c = new Repairman(e1, null, new Pump());
                     if(i==2) c = new Repairman(e1, pi6, null);
@@ -444,7 +444,7 @@ public class Gui {
                     Game.getInstance().addRepairman((Repairman)c);
                 }else{
                     Saboteur c;
-                    Element e2 = Game.getInstance().getGameElements().get(2);
+                    Element e2 = Game.getInstance().getGameElements().get(4);
                     c = new Saboteur(e2);
                     c.setName("Saboteur"+saboteurNum++);
                     e2.addStandingOn(c);

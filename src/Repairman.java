@@ -118,7 +118,7 @@ public class Repairman extends Character {
      * Csak ciszternanal teheto meg.
      */
 	public void LiftPump() {
-		if (holdingPump == null) {
+		if (holdingPump == null && holdingPipe == null) {
 			holdingPump = position.givePump();
 		}
 	}
