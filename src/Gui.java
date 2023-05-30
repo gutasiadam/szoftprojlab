@@ -138,8 +138,10 @@ public class Gui {
         // turn.setBounds(40, 10, 0, 0);
         // gamePanel.add(turn);
 
-        endturn = new JButton("End turn");
-        gamePanel.add(endturn);
+        // endturn = new JButton("End turn");
+        // gamePanel.add(endturn);
+
+
 
         //Initialize log textarea
         log = new JTextArea("");
@@ -156,7 +158,7 @@ public class Gui {
         jPanelScoreBoard.setBorder(BorderFactory.createLineBorder(Color.black));
 
         //Scoreboard label
-        JLabel lScoreBoard = new JLabel("ScoreBoard");
+        JLabel lScoreBoard = new JLabel("Scoreboard");
         lScoreBoard.setFont(new Font("Arial", Font.BOLD, 20));
         lScoreBoard.setBounds(5, 0, 200, 20);
         jPanelScoreBoard.add(lScoreBoard);
@@ -212,11 +214,17 @@ public class Gui {
         //End Move button
         JButton bEndMove = new JButton("End Move");
         bEndMove.setBounds(980, 550, 300, 50);
-        bEndMove.setFont(new Font("Arial", Font.PLAIN, 30));
+        bEndMove.setFont(new Font("Arial", Font.PLAIN, 20));
         bEndMove.setBackground(Color.WHITE);
         bEndMove.setForeground(Color.BLACK);
         bEndMove.addActionListener(e -> Control.getInstance().EndMove());
         gamePanel.add(bEndMove);
+
+        JButton bEnd = new JButton("End Game");
+        bEnd.setFont(new Font("Arial", Font.PLAIN, 20));
+        bEnd.setBounds(980, 600, 300, 50);
+        bEnd.addActionListener(e -> nextPanel());
+        gamePanel.add(bEnd);
         // Első hat pályaelem
         Cistern c1 = new Cistern(0);
         c1.setName("Cistern1");
@@ -341,10 +349,7 @@ public class Gui {
         p1.adjust(0, 1);
         p2.adjust(0, 1);
 
-        JButton bEnd = new JButton("End Game");
-        bEnd.setBounds(980, 600, 300, 50);
-        bEnd.addActionListener(e -> nextPanel());
-        gamePanel.add(bEnd);
+
 
         // ---------------END GAME FRAME-----------------
         endGamePanel = new JPanel();
@@ -372,6 +377,11 @@ public class Gui {
         activePanel = menuPanel;
         frame.getContentPane().add(activePanel);
         frame.setVisible(true);
+
+        //Minden frame-re töröljük az alap java gomb stílust
+        for (Component c : gamePanel.getComponents()) {
+            c.setBackground(Color.WHITE);
+        }
     }
 
     public void addToView(JButton b){
