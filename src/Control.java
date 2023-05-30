@@ -140,4 +140,11 @@ public class Control {
         });
     }
 
+    /**
+     * Jelez a GUInak, hogy a jelenlegi karakternek elfogyott a lépése az adott körben.
+     */
+    public void invokeOutOfActionWarning(){
+        Gui.getInstance().showOutOfActionWarning();
+    }
+
 }

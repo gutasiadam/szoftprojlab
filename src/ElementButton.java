@@ -129,6 +129,16 @@ public class ElementButton extends JButton{
     }
     
     private void showActionButtonWindow() {
+
+        //Ha a karakternek nincs már több lépése, akkor ne jelenjen meg a gomb, és jelzünk a Controlnak is.
+        System.out.println("Remaining steps: " + Game.getInstance().getCurrentCharacter().getRemainingSteps());
+        if(Game.getInstance().getCurrentCharacter().getRemainingSteps()==0){
+            Control.getInstance().invokeOutOfActionWarning();
+            return;
+        }else{
+            Game.getInstance().getCurrentCharacter().decreaseRemainingSteps();
+        }
+
     	/** Letrehozunk egy JDialog objektumot es beallitjuk a tulajdonsagait.*/
     	/** */
         JDialog dialog = new JDialog();

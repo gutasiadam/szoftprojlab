@@ -165,6 +165,7 @@ public class Game {
 			for(int i = 0;i<saboteurGroup.size();i++)
 			{
 				currentCharacter=saboteurGroup.get(i);
+				currentCharacter.resetRemainingSteps();
 				saboteurGroup.get(i).step();
 				endTurn();
 				//System.out.println(currentCharacter.getName());

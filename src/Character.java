@@ -1,12 +1,24 @@
 /** @author Bodnar Mark*/
 public abstract class Character {
     private String Name;
-
+	private int remainingSteps;
     String getName() {return Name;}
     void setName(String name) {this.Name=name;}
 	public void move(int dir) {}/** Csorendszeren mozgas.*/
 	public void adjustPump(int src, int dest) {}/** Pumpak ki- es bemenetenek valtoztatasa*/
 	void dealDamage() {}/** Lyukasztas*/
+
+	public int resetRemainingSteps() {
+		remainingSteps=3;
+		return remainingSteps;
+	}
+	public int getRemainingSteps() {
+		return remainingSteps;
+	}
+	public int decreaseRemainingSteps() {
+		remainingSteps--;
+		return remainingSteps;
+	}
 	public synchronized void step() {
 		try{
 			wait();

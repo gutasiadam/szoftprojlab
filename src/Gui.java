@@ -31,7 +31,7 @@ public class Gui {
     private JLabel lWhosTurn; // Soronlevő játékost kiíró JLabel a GUI-n
     private JLabel lTurnPoints; // Hátralevő körk száma
     private JButton endturn;
-    private JTextField log;
+    private JTextArea log;
     private int repairmanNum = 1;
     private int saboteurNum = 1;
     JSpinner sPlayerCount;
@@ -141,10 +141,12 @@ public class Gui {
         gamePanel.add(endturn);
 
         //Initialize log textfield
-        log = new JTextField("Log");
+        log = new JTextArea("Log");
         log.setEditable(false);
         log.setBounds(980, 100, 300, 500); // TODO: Pontos érték megadása ide
+        JScrollPane scroll = new JScrollPane (log);
         gamePanel.add(log);
+        gamePanel.add(scroll);
 
         //Main Game Panel - ScoreBoard
         JPanel jPanelScoreBoard = new JPanel();
@@ -397,6 +399,7 @@ public class Gui {
         }
         /** Kiírjuk a GUI-ra, hogy melyik játékos van soorn (...-s next) */
         try {
+            this.lWhosTurn.setForeground(Color.BLACK);
             setTurn(Game.getInstance().getCurrentCharacter().getName());
         } catch (Exception e) {
             System.out.println("Couldn't display current player name!");
@@ -516,6 +519,10 @@ public class Gui {
         }else{
             g2.drawLine(b1.getBounds().x + b1.getWidth()/2, b1.getBounds().y + b1.getHeight()/2, b2.getBounds().x + b2.getWidth()/2, b2.getBounds().y + b2.getHeight()/2);
         }
+    }
+
+    public void showOutOfActionWarning(){
+        this.log.setText(this.log.getText()+System.lineSeparator()+this.turn+" is out of action!");
     }
 
     
