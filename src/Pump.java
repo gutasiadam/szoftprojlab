@@ -136,6 +136,12 @@ public class Pump extends NonPipe implements SaboteurPointSource {
                 containingWater=true;
             }
         }
+        for(Element neighbor : inputPipe.getNeighbors())
+        {
+            if(this!=neighbor)
+                neighbor.step();
+        }
+        
     }
 
     /** 

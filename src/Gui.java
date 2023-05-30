@@ -258,7 +258,7 @@ public class Gui {
         Game.getInstance().addElement(w2);
         gamePanel.add(ws2);
 
-        Pump p2 = new Pump(true, true, 0);
+        Pump p2 = new Pump(false, true, 0);
         p2.setName("Pump2");
         ElementButton pump2 = new ElementButton(p2);
         pump2.setBounds(600, 300, 90, 90);
@@ -339,7 +339,7 @@ public class Gui {
         gamePanel.add(pie6);
 
         p1.adjust(0, 1);
-        p2.adjust(0, 1);
+        p2.adjust(1, 0);
 
 
 
