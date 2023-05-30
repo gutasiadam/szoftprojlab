@@ -91,8 +91,9 @@ public class Control {
      * Ezen a függvényen keresztül tudjuk ragadóssá tenni az Element-et áll az aktuális játékos
      */
     public void Stick(){
-        s=(Saboteur)Game.getInstance().getCurrentCharacter();
-        s.makeSticky();
+        Character c;
+        c=Game.getInstance().getCurrentCharacter();
+        c.makeSticky();
         updateFrame();
     }
 
