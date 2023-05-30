@@ -131,6 +131,7 @@ public class Pipe extends Element implements SaboteurPointSource {
                 System.out.println("Failed to stab " + this.getName() + " already has a hole");
             } else {
                 holeOnPipe = true;
+                step();
                 System.out.println("Successfully stabbed " + this.getName());
             }
         } else {
