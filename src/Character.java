@@ -16,6 +16,7 @@ public abstract class Character {
 		}
 	}
 	public void makeSticky(){}/** Ragadossa teszi az adott csovet amin all*/
+	
 	public synchronized void WakeUp() {
 		this.notify();
 	}

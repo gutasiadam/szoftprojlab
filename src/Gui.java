@@ -22,10 +22,12 @@ public class Gui {
     private JPanel endGamePanel; // End Game Frame
     private JPanel gamePanel; // End Game Frame
     private JPanel activePanel; // A jelenelg aktív keret. Ez lehet a menü, a játék vagy a vége.
-    private JLabel turn; //Soronlevő játékos neve
+    private String turn; //Soronlevő játékos neve
     private JLabel lResult;
     private JLabel lSaboteurPoints;
     private JLabel lRepairmenPoints;
+    private JLabel lWhosTurn; // Soronlevő játékost kiíró JLabel a GUI-n
+    private JLabel lTurnPoints; // Hátralevő körk száma
     private JButton endturn;
     private JTextField log;
     private int repairmanNum = 0;
@@ -99,11 +101,8 @@ public class Gui {
        bStart.setForeground(Color.BLACK);
        bStart.addActionListener(e -> nextPanel());
        menuPanel.add(bStart);
-
-        //TODO: Scoreboard hozzáadása
         
         
-
         //---------------MAIN GAME PANEL-----------------
         gamePanel = new JPanel(){
             @Override
@@ -132,9 +131,9 @@ public class Gui {
         gamePanel.setSize(1280, 720);
         elementButtons = new ArrayList<ElementButton>();
         //Soronlevő játékos neve
-        turn = new JLabel("NULL");
-        turn.setBounds(40, 10, 0, 0);
-        gamePanel.add(turn);
+        // turn = new JLabel("NULL");
+        // turn.setBounds(40, 10, 0, 0);
+        // gamePanel.add(turn);
 
         endturn = new JButton("End turn");
         gamePanel.add(endturn);
@@ -200,9 +199,9 @@ public class Gui {
 
 
         //Who`s turn label
-        JLabel lWhosTurn = new JLabel("...-s turn");
-        lWhosTurn.setFont(new Font("Arial", Font.BOLD, 30));
-        lWhosTurn.setBounds(980, 20, 200, 20);
+        lWhosTurn = new JLabel("...-s turn");
+        lWhosTurn.setFont(new Font("Arial", Font.BOLD, 25));
+        lWhosTurn.setBounds(980, 20, 300, 20);
         gamePanel.add(lWhosTurn);
 
         //End Move button
@@ -215,6 +214,7 @@ public class Gui {
         gamePanel.add(bEndMove);
         // Első hat pályaelem
         Cistern c1 = new Cistern(0);
+        c1.setName("Cistern1");
         ElementButton cistern1 = new ElementButton(c1);
         cistern1.setBounds(200, 500, 90, 90);
         elementButtons.add(cistern1);
@@ -222,6 +222,7 @@ public class Gui {
         gamePanel.add(cistern1);
 
         WaterSource w1 = new WaterSource();
+        w1.setName("WaterSource1");
         ElementButton ws1 = new ElementButton(w1);
         ws1.setBounds(200, 100, 90, 90);
         elementButtons.add(ws1);
@@ -229,6 +230,7 @@ public class Gui {
         gamePanel.add(ws1);
 
         Pump p1 = new Pump();
+        p1.setName("Pump1");
         ElementButton pump1 = new ElementButton(p1);
         pump1.setBounds(200, 300, 90, 90);
         elementButtons.add(pump1);
@@ -236,6 +238,7 @@ public class Gui {
         gamePanel.add(pump1);
 
         Cistern c2 = new Cistern(0);
+        c2.setName("Cistern2");
         ElementButton cistern2 = new ElementButton(c2);
         cistern2.setBounds(600, 500, 90, 90);
         elementButtons.add(cistern2);
@@ -243,6 +246,7 @@ public class Gui {
         gamePanel.add(cistern2);
 
         WaterSource w2 = new WaterSource();
+        w2.setName("WaterSource2");
         ElementButton ws2 = new ElementButton(w2);
         ws2.setBounds(600, 100, 90, 90);
         elementButtons.add(ws2);
@@ -250,6 +254,7 @@ public class Gui {
         gamePanel.add(ws2);
 
         Pump p2 = new Pump(true, true, 0);
+        p2.setName("Pump2");
         ElementButton pump2 = new ElementButton(p2);
         pump2.setBounds(600, 300, 90, 90);
         elementButtons.add(pump2);
@@ -258,6 +263,7 @@ public class Gui {
 
         //----------------PIPES--------------------------
         Pipe pi1 = new Pipe(false, false, 0, 0, 0);
+        pi1.setName("Pipe1");
         pi1.addNeighbor(w1);
         w1.addNeighbor(pi1);
         pi1.addNeighbor(p1);
@@ -269,6 +275,7 @@ public class Gui {
         gamePanel.add(pie1);
 
         Pipe pi2 = new Pipe(true, true, 0, 5, 5);
+        pi2.setName("Pipe2");
         pi2.addNeighbor(c1);
         c1.addNeighbor(pi2);
         pi2.addNeighbor(p1);
@@ -280,6 +287,7 @@ public class Gui {
         gamePanel.add(pie2);
 
         Pipe pi3 = new Pipe(false, false, 0, 0, 0);
+        pi3.setName("Pipe3");
         pi3.addNeighbor(c2);
         c2.addNeighbor(pi3);
         pi3.addNeighbor(p2);
@@ -291,6 +299,7 @@ public class Gui {
         gamePanel.add(pie3);
 
         Pipe pi4 = new Pipe(false, false, 0, 0, 0);
+        pi4.setName("Pipe4");
         pi4.addNeighbor(w2);
         w2.addNeighbor(pi4);
         pi4.addNeighbor(p2);
@@ -302,6 +311,7 @@ public class Gui {
         gamePanel.add(pie4);
 
         Pipe pi5 = new Pipe(false, false, 0, 0, 0);
+        pi5.setName("Pipe5");
         pi5.addNeighbor(p1);
         p1.addNeighbor(pi5);
         pi5.addNeighbor(p2);
@@ -313,6 +323,7 @@ public class Gui {
         gamePanel.add(pie5);
 
         pi6 = new Pipe(false, false, 0, 0, 0);
+        pi6.setName("Pipe6");
         pi6.addNeighbor(p2);
         p2.addNeighbor(pi6);
         ElementButton pie6 = new ElementButton(pi6);
@@ -380,8 +391,29 @@ public class Gui {
             }
         }
         for(ElementButton e : elementButtons){
-            e.update();
+           e.update();
         }
+        /** Kiírjuk a GUI-ra, hogy melyik játékos van soorn (...-s next) */
+        try {
+            setTurn(Game.getInstance().getCurrentCharacter().getName());
+        } catch (Exception e) {
+            System.out.println("Couldn't display current player name!");
+        }
+        
+        //Update Scoreboard
+        
+        //Update repairmen Points
+        lRepairmenPoints.setText(String.valueOf(Game.getInstance().getRepairmanPoints()));
+        //Update saboteur Points
+        lSaboteurPoints.setText(String.valueOf(Game.getInstance().getSaboteurPoints()));
+        try {
+            //TODO: Update turn label
+            lTurnPoints.setText(String.valueOf(Game.getInstance().getTurns()));
+        } catch (Exception e) {
+            System.out.println("Couldn't display current Turn #");
+        }
+        
+        
     }
 
     /**
@@ -414,6 +446,8 @@ public class Gui {
                     Game.getInstance().addSaboteur((Saboteur)c);
                 }
             }
+            Game.getInstance().setCurrentCharacter(Game.getInstance().getSaboteurGroup().get(0));
+            //CurrentCharacter inicializálása, hogy helyesen jelenjen meg kezdéskor
             updateFrame();
             Thread gameThread = new Thread()
             {
@@ -424,6 +458,7 @@ public class Gui {
                 }
             };
             gameThread.start();
+            
         }
         else{
             //* Determine the points and the result */
@@ -464,7 +499,8 @@ public class Gui {
 
     //Soronlevő játékos nevének beállítása
     public void setTurn(String name){
-        turn.setText(name);
+        turn=name;
+        this.lWhosTurn.setText(turn+"-s Turn");
     }
 
     //Vonal rajzolása két gomb között, a megadott színnel

@@ -151,7 +151,7 @@ public class Game {
 	 */
 	public void initialize()
 	{
-		//Create Map
+		
 	}
 	
 	/**
@@ -367,10 +367,21 @@ public class Game {
 		return currentCharacter;
 	}
 
+	public void setCurrentCharacter(Character c){
+		this.currentCharacter=c;
+	}
+
+	/** Hátralevő körök beállítása */
 	public void setTurns(int turns)
 	{
 		this.remainingRounds = turns;
 		//System.out.println("Turn set: "+turns);
+	}
+
+	/** Hátralevő körök beállítása */
+	public int getTurns()
+	{
+		return this.remainingRounds;
 	}
 
 	public int getSaboteurPoints(){
