@@ -146,7 +146,7 @@ public class ElementButton extends JButton{
         
         /** Csak azokat a muveleteket jelenitjuk meg amit az adott karakterrel lehet vegezni.*/ 
         boolean isRepairman = Game.getInstance().getCurrentCharacter().getClass().getName().equals("Repairman");
-
+        boolean hasNothing = isRepairman&&((Repairman)Game.getInstance().getCurrentCharacter()).getHoldingPipe()==null&& !((Repairman)Game.getInstance().getCurrentCharacter()).hasHoldingPump();
         /** Letrehozunk egy JPanel objektumot az ActionButton-ok tarolasara*/
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Optional: Add padding
@@ -193,7 +193,7 @@ public class ElementButton extends JButton{
             gbc.gridy++;
         }
         
-        if(isRepairman && element.canPerformAction("PlacePump")&&place==element) {
+        if(isRepairman && element.canPerformAction("PlacePump")&&place==element && ((Repairman)Game.getInstance().getCurrentCharacter()).hasHoldingPump()) {
             ActionButton placePumpButton = new ActionButton(null);
             placePumpButton.setActionCommand("PlacePump");
             placePumpButton.setText("PlacePump");
@@ -202,7 +202,7 @@ public class ElementButton extends JButton{
             gbc.gridy++;
         }
         
-        if(isRepairman && element.canPerformAction("PlacePipe")&&place==element) {
+        if(isRepairman && element.canPerformAction("PlacePipe")&&place==element && ((Repairman)Game.getInstance().getCurrentCharacter()).getHoldingPipe()!=null) {
             ActionButton placePipeButton = new ActionButton(null);
             placePipeButton.setActionCommand("PlacePipe");
             placePipeButton.setText("PlacePipe");
@@ -211,7 +211,7 @@ public class ElementButton extends JButton{
             gbc.gridy++;
         }
         
-        if(isRepairman && element.canPerformAction("PickupPump")&&place==element) {
+        if(isRepairman && element.canPerformAction("PickupPump")&&place==element&&hasNothing) {
             ActionButton pickupPumpButton = new ActionButton(null);
             pickupPumpButton.setActionCommand("PickupPump");
             pickupPumpButton.setText("PickupPump");
@@ -220,7 +220,7 @@ public class ElementButton extends JButton{
             gbc.gridy++;
         }
         
-        if(isRepairman && element.canPerformAction("PickUpPipe")&&place==element) {
+        if(isRepairman && element.canPerformAction("PickUpPipe")&&place==element&&hasNothing) {
             for(Element e : element.getNeighbors())
             {
                 ArrayList<Integer> params = new ArrayList<Integer>();
@@ -234,7 +234,7 @@ public class ElementButton extends JButton{
             }
         }
         
-        if(isRepairman && element.canPerformAction("Repair")&&place==element && element.getClass().getName().equals("Pump") && ((Pump)element).getBroken()) {
+        if(isRepairman && element.canPerformAction("Repair")&&place==element && (element.getClass().getName().equals("Pump") && ((Pump)element).getBroken() || element.getClass().getName().equals("Pipe") && ((Pipe)element).getHoleOnPipe())) {
             ActionButton repairButton = new ActionButton(null);
             repairButton.setActionCommand("Repair");
             repairButton.setText("Repair");
