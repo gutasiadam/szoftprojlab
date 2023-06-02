@@ -14,8 +14,6 @@ Mivel a sivatag veszélyes hely, a szerelők és a szabotőrök csak a csőhál�
 A játékot a két csapat legalább 2-2 játékossal játssza. A szabotőrök dolga, hogy minél több víz folyjon el a lyukakon, a szerelők pedig azon dolgoznak, hogy minél több víz jusson a ciszternákba. Az a csapat nyer, amelyik a játék végére több vizet szerez.
 
 ### Módosítás
-Módosítás
-
 - Szerelő is tud lyukasztani.
 
 - Foltozott cső véletlen hosszúságú ideig nem lyukadhat lyukasztható ki.
@@ -25,3 +23,8 @@ Módosítás
 - A szabotőr azt a csövet, amin áll, rövid időre csúszóssá tudja tenni. Ilyenkor aki rálép, véletlenszerűen a cső valamelyik végéhez kapcsolódó elemre kerül.
 
 - Mind a szabotőrök, mind a szerelők azt a csövet, amin állnak, rövid időre ragadóssá tudják tenni. Aki legközelebb rálép, egy ideig nem tud továbblépni.
+
+### Fordítás és telepítés
+A forrásfájlok fordításához a forrásfájlokat tartalmazó mappában, a `javac App.java -Xlint:unchecked` parancsot kell kiadni. Ehhez szükséges, hogy a fordító gépen telepítve legyen Java 8-hoz tartozó fejlesztői csomag (JDK).
+
+A program futtatásához a lefordított `.class` fájlokat tartalmazó mappában, használjuk a `java App` parancsot. Ennek hatására a program elindul. A felhasznált képfájlok helyezkedjenek el a fordított `.class` fájlokat tartalmazó mappán belül az **img** mappában
